@@ -46,7 +46,8 @@
     "interactionIdea": "拖动方名到罗盘区，显示它偏升、偏降、偏开、偏收的主轴。",
     "visualPriority": "high",
     "productionFormat": "svg-motion",
-    "sourceImageCandidates": []
+    "sourceImageCandidates": [],
+    "prototypeHref": "/prototypes/formula-direction-compass"
   },
   {
     "id": "six-meridian-map",
@@ -94,7 +95,8 @@
     "interactionIdea": "模拟不同脉象组合，自动提示对应的整体主轴与风险。",
     "visualPriority": "high",
     "productionFormat": "case-board",
-    "sourceImageCandidates": ["hs89-089.png"]
+    "sourceImageCandidates": ["hs89-089.png"],
+    "prototypeHref": "/prototypes/pulse-dashboard"
   },
   {
     "id": "tongue-terrain-map",
@@ -182,6 +184,7 @@
     "interactionIdea": "点击不同阶段，展开当时脉象、判断、方义和为何不选其他方案。",
     "visualPriority": "high",
     "productionFormat": "case-board",
-    "sourceImageCandidates": []
+    "sourceImageCandidates": [],
+    "prototypeHref": "/prototypes/case-stage-timeline"
   }
 ]

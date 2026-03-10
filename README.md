@@ -22,6 +22,7 @@ content/cases/             病例推演数据
 content/concepts/          核心知识点
 content/diagrams/          图表重绘清单
 content/modules/           学习模块
+content/paths/             学习路线
 content/practices/         练习题库
 content/storyboards/       第一轮图表分镜数据
 content/roadmap/           开发路线图
@@ -78,6 +79,10 @@ npm run content:check
   图表目录页
 - `/progress`
   学习进度页
+- `/paths`
+  学习路线目录
+- `/paths/pulse-formula-case-loop`
+  脉 -> 方 -> 案 首条学习闭环
 - `/cases`
   病例推演目录
 - `/cases/fu-yang-three-step-case`
@@ -112,6 +117,12 @@ npm run content:check
   茯神法右降路径图交互原型
 - `/prototypes/fu-yang-action-triad`
   扶阳三动作总览页
+- `/prototypes/formula-direction-compass`
+  方剂方向罗盘交互原型
+- `/prototypes/pulse-dashboard`
+  脉诊总开关面板交互原型
+- `/prototypes/case-stage-timeline`
+  医案分阶段时间线交互原型
 - `/prototypes/fu-yang-triage-practice`
   旧的扶阳练习别名页，会跳转到动态练习路由
 - `/storyboards`
@@ -125,6 +136,8 @@ npm run content:check
 2. 圆运动基础模块
 3. 圆运动总图动态图
 4. 坎离水火交通图演示
-5. 方剂方向罗盘练习
+5. 方剂方向罗盘与脉诊面板
+6. 医案分阶段时间线与病例推演
+7. 脉 -> 方 -> 案 首条完整学习路线
 
 等内容和图表结构稳定后，再加入病例推演和选择性的 3D 场景。

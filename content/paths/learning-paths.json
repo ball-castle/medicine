@@ -1,0 +1,151 @@
+[
+  {
+    "id": "pulse-formula-case-loop",
+    "title": "脉 -> 方 -> 案 首条学习闭环",
+    "subtitle": "先抓主轴，再看方义方向，最后回到病例节奏。",
+    "summary": "这是当前项目第一条真正可走完的学习路线。它把诊断顺序、方药方向和病例时间线压成一条连续路径，让用户不再只是逛页面，而是能完整走完一轮学习闭环。",
+    "targetOutcome": "学完后，用户至少能说清三件事：先脉后舌再压标签；方剂先看方向不先背功效；同一个病例到下一阶段时，主轴和先后手都可能跟着变。",
+    "estimatedTime": "24-30 分钟",
+    "stepIds": [
+      "diagnostic-module",
+      "pulse-dashboard-prototype",
+      "diagnostic-practice",
+      "formula-module",
+      "formula-compass-prototype",
+      "formula-practice",
+      "cases-module",
+      "case-timeline-prototype",
+      "cases-practice",
+      "pulse-axis-case"
+    ],
+    "steps": [
+      {
+        "id": "diagnostic-module",
+        "kind": "module",
+        "moduleId": "diagnostic-judgment",
+        "title": "先把判断顺序排对",
+        "summary": "先进入诊断模块，理解为什么脉象要先抓总开关，舌象只是辅助窗口，病名必须排在后面。",
+        "goal": "建立“先脉后舌再压标签”的最小判断框架。",
+        "estimatedTime": "4-5 分钟",
+        "href": "/modules/diagnostic-judgment",
+        "buttonLabel": "打开诊断模块",
+        "completionHint": "能说出为什么病名不该排在第一位。"
+      },
+      {
+        "id": "pulse-dashboard-prototype",
+        "kind": "prototype",
+        "moduleId": "diagnostic-judgment",
+        "title": "用脉诊总开关面板练一次顺序",
+        "summary": "切脉象、叠舌象、拉高标签噪音，直接感受顺序一乱会怎样把判断带偏。",
+        "goal": "把“主轴、窗口、标签”三个层次真正分开。",
+        "estimatedTime": "3-4 分钟",
+        "href": "/prototypes/pulse-dashboard",
+        "buttonLabel": "打开脉诊面板",
+        "completionHint": "能看出“浮散无承”和“里实热盛”不是一回事。"
+      },
+      {
+        "id": "diagnostic-practice",
+        "kind": "practice",
+        "moduleId": "diagnostic-judgment",
+        "title": "做一轮诊断顺序小练习",
+        "summary": "用短题把主轴判断、舌象辅助和标签后置这三个顺序做成可反复练的动作。",
+        "goal": "把顺序从“知道”变成“会选”。",
+        "estimatedTime": "3-4 分钟",
+        "href": "/practice/diagnostic-axis-basic",
+        "buttonLabel": "开始诊断练习",
+        "completionHint": "至少做完一轮题，知道自己最容易被哪种标签带偏。"
+      },
+      {
+        "id": "formula-module",
+        "kind": "module",
+        "moduleId": "formula-logic",
+        "title": "再把方药看成方向系统",
+        "summary": "进入方药模块，把桂枝、麻黄、承气、四逆这类经典方先理解成方向动作，而不是一串功效词。",
+        "goal": "建立“方义是动作模型”的最小理解。",
+        "estimatedTime": "4-5 分钟",
+        "href": "/modules/formula-logic",
+        "buttonLabel": "打开方药模块",
+        "completionHint": "能说出为什么同样叫治病，开、和、下、守根完全不是一类动作。"
+      },
+      {
+        "id": "formula-compass-prototype",
+        "kind": "prototype",
+        "moduleId": "formula-logic",
+        "title": "用方剂罗盘看动作边界",
+        "summary": "切方、切镜头、拖力度，看方剂到底是在开门、和解、通降还是守根。",
+        "goal": "把动作差异和误用边界一起看懂。",
+        "estimatedTime": "3-4 分钟",
+        "href": "/prototypes/formula-direction-compass",
+        "buttonLabel": "打开方剂罗盘",
+        "completionHint": "至少能区分桂枝、承气、四逆这三类方向。"
+      },
+      {
+        "id": "formula-practice",
+        "kind": "practice",
+        "moduleId": "formula-logic",
+        "title": "做一轮方义方向练习",
+        "summary": "把“先看方向，再看标签”的方药理解落到小题上，避免一回到题目就重新背功效词。",
+        "goal": "把方药方向和诊断主轴接起来。",
+        "estimatedTime": "3-4 分钟",
+        "href": "/practice/formula-direction-basic",
+        "buttonLabel": "开始方药练习",
+        "completionHint": "至少做完一轮题，知道自己最容易混淆哪类动作。"
+      },
+      {
+        "id": "cases-module",
+        "kind": "module",
+        "moduleId": "cases-and-application",
+        "title": "把前两步放回病例时间里",
+        "summary": "进入医案模块，看为什么临床不是一张方走到底，而是每一段都要重新判断主轴和先后手。",
+        "goal": "理解“分阶段推进”本身就是医学判断。",
+        "estimatedTime": "3-4 分钟",
+        "href": "/modules/cases-and-application",
+        "buttonLabel": "打开医案模块",
+        "completionHint": "能说出为什么同一个病例到下一阶段时，策略会变。"
+      },
+      {
+        "id": "case-timeline-prototype",
+        "kind": "prototype",
+        "moduleId": "cases-and-application",
+        "title": "用时间线图看主轴切换",
+        "summary": "切病例、切阶段、切观察镜头，直接看每一段为什么换手，为什么不是别的路。",
+        "goal": "把“阶段变了就要重判主轴”看成一条清晰时间线。",
+        "estimatedTime": "3-4 分钟",
+        "href": "/prototypes/case-stage-timeline",
+        "buttonLabel": "打开医案时间线",
+        "completionHint": "至少切换 2 个不同病例，比较它们的节奏差异。"
+      },
+      {
+        "id": "cases-practice",
+        "kind": "practice",
+        "moduleId": "cases-and-application",
+        "title": "做一轮医案先后手练习",
+        "summary": "让用户在短题里直接判断“这一步该先开、先守还是先稳”，把时间线思维转成决策动作。",
+        "goal": "把阶段节奏从“看懂”推进到“会选”。",
+        "estimatedTime": "3-4 分钟",
+        "href": "/practice/cases-stage-rhythm-basic",
+        "buttonLabel": "开始医案练习",
+        "completionHint": "至少做完一轮题，知道自己在哪一步最容易抢跑或走慢。"
+      },
+      {
+        "id": "pulse-axis-case",
+        "kind": "case",
+        "moduleId": "diagnostic-judgment",
+        "title": "最后走一遍完整病例",
+        "summary": "用“脉象主轴优先病例推演”收尾，把前面学的顺序、方义和节奏放回一个完整案例里。",
+        "goal": "完成从‘主轴判断’到‘阶段推进’的第一轮闭环。",
+        "estimatedTime": "4-5 分钟",
+        "href": "/cases/pulse-axis-priority-case",
+        "buttonLabel": "打开完整病例",
+        "completionHint": "走完整个病例后，能说出你最想回看的是哪一张图。"
+      }
+    ],
+    "reviewChecklist": [
+      "我能解释为什么病名不能排在判断第一位。",
+      "我能区分方药的主方向，而不是只背功效词。",
+      "我能看懂同一个病例进入下一阶段后，为什么需要换主轴和换手。",
+      "我知道自己当前最容易混淆的是哪一类动作或哪一种判断顺序。"
+    ],
+    "completionMessage": "走完这条路线后，你已经不只是看过几个页面，而是完成了项目里的第一条真实学习闭环。下一步最适合回到进度页，看系统建议你优先复盘哪一张图。"
+  }
+]

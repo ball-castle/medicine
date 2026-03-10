@@ -187,3 +187,31 @@ export interface CaseStudyRecord {
   focusDiagramIds: string[];
   stages: CaseStudyStageRecord[];
 }
+
+export type LearningPathStepKind = "module" | "prototype" | "practice" | "case";
+
+export interface LearningPathStepRecord {
+  id: string;
+  kind: LearningPathStepKind;
+  moduleId: string;
+  title: string;
+  summary: string;
+  goal: string;
+  estimatedTime: string;
+  href: string;
+  buttonLabel: string;
+  completionHint: string;
+}
+
+export interface LearningPathRecord {
+  id: string;
+  title: string;
+  subtitle: string;
+  summary: string;
+  targetOutcome: string;
+  estimatedTime: string;
+  stepIds: string[];
+  steps: LearningPathStepRecord[];
+  reviewChecklist: string[];
+  completionMessage: string;
+}

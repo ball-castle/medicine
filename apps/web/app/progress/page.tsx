@@ -3,10 +3,11 @@ import Link from "next/link";
 import { ProgressDashboard } from "@/components/progress-dashboard";
 import { getCaseStudyHref } from "@/lib/cases";
 import { getSiteContent } from "@/lib/content";
+import { getLearningPathHref } from "@/lib/learning-paths";
 import { getPracticeHref } from "@/lib/practice";
 
 export default async function ProgressPage() {
-  const { modules, moduleDetails, practiceSets, caseStudies } = await getSiteContent();
+  const { modules, moduleDetails, practiceSets, caseStudies, learningPaths } = await getSiteContent();
 
   return (
     <main className="page-shell page-shell--prototype">
@@ -24,6 +25,9 @@ export default async function ProgressPage() {
             </Link>
             <Link className="button button--ghost" href="/diagrams">
               查看图表目录
+            </Link>
+            <Link className="button button--ghost" href={getLearningPathHref(learningPaths[0]?.id ?? "pulse-formula-case-loop")}>
+              打开首条路线
             </Link>
             <Link className="button button--ghost" href={getPracticeHref("fu-yang-triage-basic")}>
               继续扶阳练习
@@ -47,14 +51,15 @@ export default async function ProgressPage() {
             <span>病例组</span>
           </div>
           <div className="hero-metric">
-            <strong>Local</strong>
-            <span>当前记录方式</span>
+            <strong>{learningPaths.length}</strong>
+            <span>学习路线</span>
           </div>
         </div>
       </section>
 
       <ProgressDashboard
         caseStudies={caseStudies}
+        learningPaths={learningPaths}
         moduleDetails={moduleDetails}
         modules={modules}
         practiceSets={practiceSets}

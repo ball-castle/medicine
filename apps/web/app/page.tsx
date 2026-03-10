@@ -1,8 +1,9 @@
 import Link from "next/link";
-import type { ConceptRecord, DiagramRecord, ModuleRecord } from "@medicine/content-schema";
+import type { ConceptRecord, DiagramRecord, LearningPathRecord, ModuleRecord } from "@medicine/content-schema";
 
 import { getCaseStudyHref } from "@/lib/cases";
 import { getSiteContent } from "@/lib/content";
+import { getLearningPathHref } from "@/lib/learning-paths";
 
 function SectionTitle(props: { eyebrow: string; title: string; description: string }) {
   return (
@@ -53,6 +54,40 @@ function DiagramCard(props: { diagram: DiagramRecord }) {
   );
 }
 
+function LearningPathCard(props: { path: LearningPathRecord }) {
+  return (
+    <article className="atlas-card">
+      <div className="atlas-card__top">
+        <div>
+          <p className="eyebrow">Learning Path</p>
+          <h2>{props.path.title}</h2>
+        </div>
+        <div className="atlas-card__meta">
+          <span>{props.path.steps.length} 步</span>
+          <span>{props.path.estimatedTime}</span>
+        </div>
+      </div>
+      <p>{props.path.subtitle}</p>
+      <p className="atlas-card__idea">{props.path.summary}</p>
+      <div className="token-row">
+        {props.path.steps.slice(0, 4).map((step) => (
+          <span className="token token--light" key={step.id}>
+            {step.title}
+          </span>
+        ))}
+      </div>
+      <div className="atlas-card__actions">
+        <Link className="button button--ghost" href={getLearningPathHref(props.path.id)}>
+          打开这条路线
+        </Link>
+        <Link className="button button--ghost" href="/progress">
+          查看路线进度
+        </Link>
+      </div>
+    </article>
+  );
+}
+
 function CaseStudyCard(props: {
   caseStudy: {
     id: string;
@@ -98,7 +133,7 @@ function CaseStudyCard(props: {
 }
 
 export default async function HomePage() {
-  const { books, concepts, diagrams, modules, phases, storyboards, caseStudies } = await getSiteContent();
+  const { books, concepts, diagrams, modules, phases, storyboards, caseStudies, learningPaths } = await getSiteContent();
 
   const conceptMap = new Map(concepts.map((concept) => [concept.id, concept]));
   const diagramMap = new Map(diagrams.map((diagram) => [diagram.id, diagram]));
@@ -129,6 +164,9 @@ export default async function HomePage() {
             <a className="button button--primary" href="#modules">
               看模块结构
             </a>
+            <Link className="button button--ghost" href={getLearningPathHref(learningPaths[0]?.id ?? "pulse-formula-case-loop")}>
+              走首条学习路线
+            </Link>
             <Link className="button button--ghost" href="/diagrams">
               看图表目录
             </Link>
@@ -200,6 +238,19 @@ export default async function HomePage() {
           现在最大的瓶颈不是技术，而是如何把抽象、流派化、术语密集的内容拆成大众能吸收的学习路径。
           所以第一版的架构应该优先保证内容可维护、图表可重绘、模块可复用。
         </p>
+      </section>
+
+      <section className="section">
+        <SectionTitle
+          eyebrow="Learning Path"
+          title="第一条完整学习闭环已经成形"
+          description="这一步比继续堆新页面更值钱。它把诊断、方药、医案串成一条能走完、能复盘、能直接给别人试学的路径。"
+        />
+        <div className="atlas-grid">
+          {learningPaths.slice(0, 1).map((path) => (
+            <LearningPathCard key={path.id} path={path} />
+          ))}
+        </div>
       </section>
 
       <section className="section" id="modules">

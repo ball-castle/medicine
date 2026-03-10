@@ -10,13 +10,16 @@ import type {
 } from "@medicine/content-schema";
 
 import { CaseStudyPlayer } from "@/components/case-study-player";
+import { CaseStageTimelinePrototype } from "@/components/case-stage-timeline-prototype";
 import { CircleFlowPrototype } from "@/components/circle-flow-prototype";
+import { FormulaDirectionPrototype } from "@/components/formula-direction-prototype";
 import { FuYangActionTriad } from "@/components/fu-yang-action-triad";
 import { FushenRightDescendPrototype } from "@/components/fushen-right-descend-prototype";
 import { FuziRootPrototype } from "@/components/fuzi-root-prototype";
 import { GuizhiFuziCompare } from "@/components/guizhi-fuzi-compare";
 import { GuizhiGatePrototype } from "@/components/guizhi-gate-prototype";
 import { KanLiPrototype } from "@/components/kan-li-prototype";
+import { PulseDashboardPrototype } from "@/components/pulse-dashboard-prototype";
 import { PracticeSetPlayer } from "@/components/fu-yang-triage-practice";
 import { getCaseStudyHref } from "@/lib/cases";
 import { getSiteContent } from "@/lib/content";
@@ -79,6 +82,7 @@ export default async function ModulePage(props: {
     practiceSets.find((item) => item.moduleId === module.id) ?? null;
   const moduleCaseStudies = caseStudies.filter((item) => item.moduleId === module.id);
   const featuredCaseStudy = moduleCaseStudies[0] ?? null;
+  const timelineCaseStudies = moduleCaseStudies.length ? moduleCaseStudies : caseStudies;
 
   return (
     <main className="page-shell page-shell--module">
@@ -157,6 +161,44 @@ export default async function ModulePage(props: {
           <div className="section-linkout">
             <Link className="button button--ghost" href="/prototypes/circle-flow-map">
               打开独立原型页
+            </Link>
+          </div>
+        </section>
+      )}
+
+      {module.id === "formula-logic" && (
+        <section className="section">
+          <div className="section-heading">
+            <p className="eyebrow">Interactive Prototype</p>
+            <h2>方药模块的主图已经能直接体验</h2>
+            <p>
+              这张罗盘图不先讲功效，而是先把方剂放回“方向动作”里。这样用户会先分清是开、和、下，
+              还是守根，再去理解为什么同样叫治病，动作却完全不同。
+            </p>
+          </div>
+          <FormulaDirectionPrototype />
+          <div className="section-linkout">
+            <Link className="button button--ghost" href="/prototypes/formula-direction-compass">
+              打开方剂罗盘独立页
+            </Link>
+          </div>
+        </section>
+      )}
+
+      {module.id === "diagnostic-judgment" && (
+        <section className="section">
+          <div className="section-heading">
+            <p className="eyebrow">Interactive Prototype</p>
+            <h2>脉法模块的判断面板已经能直接体验</h2>
+            <p>
+              这张面板专门训练“先脉后舌，再压标签”的顺序。它的价值不在于多一个酷炫页面，而在于把
+              诊断最容易乱掉的第一步，做成一个能反复练的总开关。
+            </p>
+          </div>
+          <PulseDashboardPrototype />
+          <div className="section-linkout">
+            <Link className="button button--ghost" href="/prototypes/pulse-dashboard">
+              打开脉诊面板独立页
             </Link>
           </div>
         </section>
@@ -267,6 +309,25 @@ export default async function ModulePage(props: {
           </section>
 
         </>
+      )}
+
+      {module.id === "cases-and-application" && (
+        <section className="section">
+          <div className="section-heading">
+            <p className="eyebrow">Interactive Prototype</p>
+            <h2>医案模块的时间线主图已经能直接体验</h2>
+            <p>
+              这张时间线不是重复病例播放器，而是把“主轴为什么变了、为什么该换手、为什么不是别的路”
+              压缩进同一张教学图里，帮助用户真正学会分阶段判断。
+            </p>
+          </div>
+          <CaseStageTimelinePrototype caseStudies={timelineCaseStudies} />
+          <div className="section-linkout">
+            <Link className="button button--ghost" href="/prototypes/case-stage-timeline">
+              打开医案时间线独立页
+            </Link>
+          </div>
+        </section>
       )}
 
       {modulePracticeSet && (

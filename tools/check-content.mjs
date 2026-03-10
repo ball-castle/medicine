@@ -26,6 +26,7 @@ async function main() {
   const storyboards = await load(path.join("storyboards", "storyboards.json"));
   const practiceSets = await load(path.join("practices", "practice-sets.json"));
   const caseStudies = await load(path.join("cases", "case-studies.json"));
+  const learningPaths = await load(path.join("paths", "learning-paths.json"));
 
   const bookIds = new Set(books.map((book) => book.id));
   const conceptIds = new Set(concepts.map((concept) => concept.id));
@@ -41,6 +42,7 @@ async function main() {
   assert(storyboards.length >= 3, "Expected at least 3 storyboards.");
   assert(practiceSets.length >= 1, "Expected at least 1 practice set.");
   assert(caseStudies.length >= 1, "Expected at least 1 case study.");
+  assert(learningPaths.length >= 1, "Expected at least 1 learning path.");
 
   for (const concept of concepts) {
     assert(moduleIds.has(concept.moduleId), `Unknown module on concept ${concept.id}`);
@@ -170,8 +172,34 @@ async function main() {
     }
   }
 
+  for (const learningPath of learningPaths) {
+    assert(learningPath.steps.length >= 5, `Learning path ${learningPath.id} must have at least 5 steps.`);
+    assert(learningPath.reviewChecklist.length >= 3, `Learning path ${learningPath.id} must have at least 3 review checkpoints.`);
+    assert(
+      learningPath.stepIds.length === learningPath.steps.length,
+      `Learning path ${learningPath.id} stepIds must align with steps length.`,
+    );
+
+    const stepIds = new Set();
+
+    for (const step of learningPath.steps) {
+      assert(!stepIds.has(step.id), `Duplicate step ${step.id} in learning path ${learningPath.id}`);
+      stepIds.add(step.id);
+      assert(moduleIds.has(step.moduleId), `Unknown module ${step.moduleId} in learning path ${learningPath.id}`);
+      assert(step.href.startsWith("/"), `Learning path step ${step.id} in ${learningPath.id} must use an app route.`);
+      assert(
+        ["module", "prototype", "practice", "case"].includes(step.kind),
+        `Learning path step ${step.id} in ${learningPath.id} must use a valid kind.`,
+      );
+    }
+
+    for (const stepId of learningPath.stepIds) {
+      assert(stepIds.has(stepId), `Unknown stepId ${stepId} in learning path ${learningPath.id}`);
+    }
+  }
+
   console.log(
-    `content ok: books=${books.length}, concepts=${concepts.length}, diagrams=${diagrams.length}, modules=${modules.length}, moduleDetails=${moduleDetails.length}, phases=${phases.length}, storyboards=${storyboards.length}, practiceSets=${practiceSets.length}, caseStudies=${caseStudies.length}`,
+    `content ok: books=${books.length}, concepts=${concepts.length}, diagrams=${diagrams.length}, modules=${modules.length}, moduleDetails=${moduleDetails.length}, phases=${phases.length}, storyboards=${storyboards.length}, practiceSets=${practiceSets.length}, caseStudies=${caseStudies.length}, learningPaths=${learningPaths.length}`,
   );
 }
 

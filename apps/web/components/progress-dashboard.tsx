@@ -2,6 +2,7 @@
 
 import type {
   CaseStudyRecord,
+  LearningPathRecord,
   ModuleDetailRecord,
   ModuleRecord,
   PracticeSetRecord,
@@ -10,6 +11,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
 import { getCaseStudyHref } from "@/lib/cases";
+import { getLearningPathHref } from "@/lib/learning-paths";
 import { clearLearningProgress, readLearningProgress } from "@/lib/learning-progress";
 import type { LearningProgressStore } from "@/lib/learning-progress";
 import { getPracticeHref } from "@/lib/practice";
@@ -19,6 +21,7 @@ type ProgressDashboardProps = {
   moduleDetails: ModuleDetailRecord[];
   practiceSets: PracticeSetRecord[];
   caseStudies: CaseStudyRecord[];
+  learningPaths: LearningPathRecord[];
 };
 
 type ModuleStatus = "not-started" | "in-progress" | "completed" | "content-only";
@@ -55,10 +58,12 @@ export function ProgressDashboard({
   moduleDetails,
   practiceSets,
   caseStudies,
+  learningPaths,
 }: ProgressDashboardProps) {
   const [progressStore, setProgressStore] = useState<LearningProgressStore>({
     practiceSets: {},
     caseStudies: {},
+    learningPaths: {},
   });
 
   useEffect(() => {
@@ -68,6 +73,7 @@ export function ProgressDashboard({
   const summaries = useMemo(() => {
     const practiceProgress = Object.values(progressStore.practiceSets);
     const caseProgress = Object.values(progressStore.caseStudies);
+    const pathProgress = Object.values(progressStore.learningPaths);
     const totalCases = practiceProgress.reduce((sum, item) => sum + item.totalCases, 0);
     const completedCases = practiceProgress.reduce((sum, item) => sum + item.revealedCaseIds.length, 0);
     const correctCases = practiceProgress.reduce((sum, item) => sum + item.correctCaseIds.length, 0);
@@ -81,13 +87,32 @@ export function ProgressDashboard({
     return {
       practiceStarted: practiceProgress.length,
       caseStarted: caseProgress.length,
+      pathStarted: pathProgress.filter((item) => item.completedStepIds.length > 0).length,
       totalCases,
       completedCases,
       totalStages,
       completedStages,
+      pathCompleted: pathProgress.filter((item) => item.completedStepIds.length >= item.totalSteps).length,
       accuracy,
     };
-  }, [progressStore.caseStudies, progressStore.practiceSets]);
+  }, [progressStore.caseStudies, progressStore.learningPaths, progressStore.practiceSets]);
+
+  const learningPathProgress = useMemo(() => {
+    return learningPaths.map((path) => {
+      const saved = progressStore.learningPaths[path.id] ?? null;
+      const completedSteps = saved?.completedStepIds.length ?? 0;
+      const progressPercent = path.steps.length ? Math.round((completedSteps / path.steps.length) * 100) : 0;
+      const nextStep = path.steps.find((step) => !saved?.completedStepIds.includes(step.id)) ?? path.steps[path.steps.length - 1] ?? null;
+
+      return {
+        path,
+        saved,
+        completedSteps,
+        progressPercent,
+        nextStep,
+      };
+    });
+  }, [learningPaths, progressStore.learningPaths]);
 
   const reviewItems = useMemo(() => {
     return practiceSets
@@ -286,6 +311,25 @@ export function ProgressDashboard({
 
   const learningRecommendations = useMemo(() => {
     const activeItems = [
+      ...learningPaths
+        .map((path) => {
+          const saved = progressStore.learningPaths[path.id];
+          if (!saved || saved.completedStepIds.length >= path.steps.length) {
+            return null;
+          }
+
+          const nextStep = path.steps.find((step) => !saved.completedStepIds.includes(step.id)) ?? path.steps[0];
+          return {
+            id: `path:${path.id}`,
+            title: path.title,
+            summary: `你已经完成 ${saved.completedStepIds.length}/${path.steps.length} 步，下一步建议先去 ${nextStep.title}。`,
+            href: getLearningPathHref(path.id),
+            label: "继续这条路线",
+            moduleTitle: path.subtitle,
+            lastUpdatedAt: saved.lastUpdatedAt,
+          };
+        })
+        .filter((item): item is NonNullable<typeof item> => Boolean(item)),
       ...practiceSets
         .map((practiceSet) => {
           const saved = progressStore.practiceSets[practiceSet.id];
@@ -399,11 +443,11 @@ export function ProgressDashboard({
           }
         : null,
     };
-  }, [caseReviewItems, caseStudies, moduleProgress, modules, practiceSets, progressStore.caseStudies, progressStore.practiceSets, reviewItems, weakActions]);
+  }, [caseReviewItems, caseStudies, learningPaths, moduleProgress, modules, practiceSets, progressStore.caseStudies, progressStore.learningPaths, progressStore.practiceSets, reviewItems, weakActions]);
 
   function handleClear() {
     clearLearningProgress();
-    setProgressStore({ practiceSets: {}, caseStudies: {} });
+    setProgressStore({ practiceSets: {}, caseStudies: {}, learningPaths: {} });
   }
 
   return (
@@ -411,8 +455,8 @@ export function ProgressDashboard({
       <div className="progress-dashboard__summary">
         <article className="progress-dashboard__metric">
           <p className="progress-dashboard__label">已启动学习链</p>
-          <strong>{summaries.practiceStarted + summaries.caseStarted}</strong>
-          <span>练习题库和病例推演都会计入。</span>
+          <strong>{summaries.practiceStarted + summaries.caseStarted + summaries.pathStarted}</strong>
+          <span>路线、练习题库和病例推演都会计入。</span>
         </article>
         <article className="progress-dashboard__metric">
           <p className="progress-dashboard__label">已完成判断</p>
@@ -430,16 +474,18 @@ export function ProgressDashboard({
           <span>用来帮助你判断当前更适合继续学还是先回看。</span>
         </article>
         <article className="progress-dashboard__metric">
-          <p className="progress-dashboard__label">病例进度</p>
+          <p className="progress-dashboard__label">路线完成</p>
           <strong>
-            {summaries.completedStages}/
-            {summaries.totalStages || caseStudies.reduce((sum, item) => sum + item.stages.length, 0)}
+            {summaries.pathCompleted}/{learningPaths.length}
           </strong>
-          <span>现在病例推演也已经进入可续学、可复盘的状态。</span>
+          <span>整条学习闭环现在也已经能开始累计完成状态。</span>
         </article>
       </div>
 
       <div className="progress-dashboard__toolbar">
+        <Link className="button button--ghost" href={getLearningPathHref(learningPaths[0]?.id ?? "pulse-formula-case-loop")}>
+          去走首条路线
+        </Link>
         <Link className="button button--ghost" href="/diagrams">
           去看图表目录
         </Link>
@@ -502,6 +548,42 @@ export function ProgressDashboard({
             </div>
           </article>
         )}
+      </div>
+
+      <div className="section-heading">
+        <p className="eyebrow">Learning Routes</p>
+        <h2>路线进度</h2>
+        <p>先看整条学习闭环走到了哪里，再决定是继续推进、回看错题，还是打开下一模块。</p>
+      </div>
+      <div className="progress-dashboard__cards">
+        {learningPathProgress.map((item) => (
+          <article className="progress-dashboard__card" key={item.path.id}>
+            <p className="progress-dashboard__label">Learning Path</p>
+            <h3>{item.path.title}</h3>
+            <p>{item.path.targetOutcome}</p>
+            <div className="progress-dashboard__meta">
+              <span>{item.completedSteps}/{item.path.steps.length} 步已完成</span>
+              <span>{item.path.estimatedTime}</span>
+              <span>{item.nextStep?.title ?? "已完成"}</span>
+            </div>
+            <div className="progress-dashboard__bar">
+              <span style={{ width: `${item.progressPercent}%` }} />
+            </div>
+            <p className="progress-dashboard__bar-caption">
+              {item.saved
+                ? `当前路线完成度 ${item.progressPercent}%`
+                : "这条路线还没开始，适合拿来做第一次完整试学。"}
+            </p>
+            <div className="progress-dashboard__actions">
+              <Link className="button button--ghost" href={getLearningPathHref(item.path.id)}>
+                {item.saved ? "继续这条路线" : "开始这条路线"}
+              </Link>
+              <Link className="button button--ghost" href="/paths">
+                查看路线目录
+              </Link>
+            </div>
+          </article>
+        ))}
       </div>
 
       <div className="section-heading">

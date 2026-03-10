@@ -47,6 +47,10 @@ export function CaseStageTimelinePrototype(props: { caseStudies: CaseStudyRecord
 
     const correctOption =
       currentStage.options.find((option) => option.id === currentStage.correctOptionId) ?? currentStage.options[0];
+    if (!correctOption) {
+      return null;
+    }
+
     const lensSummary =
       lens === "axis"
         ? currentStage.rationale

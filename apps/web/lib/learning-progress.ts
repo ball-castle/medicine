@@ -27,12 +27,23 @@ export type StoredCaseStudyProgress = {
 export type LearningProgressStore = {
   practiceSets: Record<string, StoredPracticeSetProgress>;
   caseStudies: Record<string, StoredCaseStudyProgress>;
+  learningPaths: Record<string, StoredLearningPathProgress>;
+};
+
+export type StoredLearningPathProgress = {
+  pathId: string;
+  title: string;
+  totalSteps: number;
+  completedStepIds: string[];
+  currentStepId: string;
+  continueHref: string;
+  lastUpdatedAt: string;
 };
 
 const STORAGE_KEY = "medicine-learning-progress-v1";
 
 function emptyStore(): LearningProgressStore {
-  return { practiceSets: {}, caseStudies: {} };
+  return { practiceSets: {}, caseStudies: {}, learningPaths: {} };
 }
 
 export function readLearningProgress(): LearningProgressStore {
@@ -71,7 +82,21 @@ export function readLearningProgress(): LearningProgressStore {
       ]),
     );
 
-    return { practiceSets: normalizedPracticeSets, caseStudies: normalizedCaseStudies };
+    const normalizedLearningPaths = Object.fromEntries(
+      Object.entries(parsed.learningPaths ?? {}).map(([pathId, item]) => [
+        pathId,
+        {
+          ...item,
+          completedStepIds: item.completedStepIds ?? [],
+        },
+      ]),
+    );
+
+    return {
+      practiceSets: normalizedPracticeSets,
+      caseStudies: normalizedCaseStudies,
+      learningPaths: normalizedLearningPaths,
+    };
   } catch {
     return emptyStore();
   }
@@ -94,6 +119,12 @@ export function savePracticeSetProgress(progress: StoredPracticeSetProgress) {
 export function saveCaseStudyProgress(progress: StoredCaseStudyProgress) {
   const store = readLearningProgress();
   store.caseStudies[progress.caseStudyId] = progress;
+  writeLearningProgress(store);
+}
+
+export function saveLearningPathProgress(progress: StoredLearningPathProgress) {
+  const store = readLearningProgress();
+  store.learningPaths[progress.pathId] = progress;
   writeLearningProgress(store);
 }
 

@@ -11,6 +11,7 @@ import type {
   ModuleRecord,
   PracticeSetRecord,
   RoadmapPhaseRecord,
+  LearningPathRecord,
   StoryboardRecord,
 } from "@medicine/content-schema";
 
@@ -23,7 +24,7 @@ async function loadJson<T>(...segments: string[]): Promise<T> {
 }
 
 export const getSiteContent = cache(async () => {
-  const [books, concepts, diagrams, modules, moduleDetails, phases, storyboards, practiceSets, caseStudies] = await Promise.all([
+  const [books, concepts, diagrams, modules, moduleDetails, phases, storyboards, practiceSets, caseStudies, learningPaths] = await Promise.all([
     loadJson<BookRecord[]>("books", "books.json"),
     loadJson<ConceptRecord[]>("concepts", "concepts.json"),
     loadJson<DiagramRecord[]>("diagrams", "diagrams.json"),
@@ -33,7 +34,8 @@ export const getSiteContent = cache(async () => {
     loadJson<StoryboardRecord[]>("storyboards", "storyboards.json"),
     loadJson<PracticeSetRecord[]>("practices", "practice-sets.json"),
     loadJson<CaseStudyRecord[]>("cases", "case-studies.json"),
+    loadJson<LearningPathRecord[]>("paths", "learning-paths.json"),
   ]);
 
-  return { books, concepts, diagrams, modules, moduleDetails, phases, storyboards, practiceSets, caseStudies };
+  return { books, concepts, diagrams, modules, moduleDetails, phases, storyboards, practiceSets, caseStudies, learningPaths };
 });
