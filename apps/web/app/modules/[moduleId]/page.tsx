@@ -9,7 +9,11 @@ import type {
 } from "@medicine/content-schema";
 
 import { CircleFlowPrototype } from "@/components/circle-flow-prototype";
+import { FuYangActionTriad } from "@/components/fu-yang-action-triad";
+import { FuYangTriagePractice } from "@/components/fu-yang-triage-practice";
+import { FushenRightDescendPrototype } from "@/components/fushen-right-descend-prototype";
 import { FuziRootPrototype } from "@/components/fuzi-root-prototype";
+import { GuizhiFuziCompare } from "@/components/guizhi-fuzi-compare";
 import { GuizhiGatePrototype } from "@/components/guizhi-gate-prototype";
 import { KanLiPrototype } from "@/components/kan-li-prototype";
 import { getSiteContent } from "@/lib/content";
@@ -199,6 +203,74 @@ export default async function ModulePage(props: {
             <div className="section-linkout">
               <Link className="button button--ghost" href="/prototypes/fuzi-root-return">
                 打开附子独立原型页
+              </Link>
+            </div>
+          </section>
+
+          <section className="section">
+            <div className="section-heading">
+              <p className="eyebrow">Comparison Prototype</p>
+              <h2>现在可以把桂枝和附子放在同一页面直接比较</h2>
+              <p>
+                这一页不增加新的理论，而是把“开门”和“归根”并排压到同一个坐标系里，让用户在最短时间内
+                建立动作边界：一个解决没路，一个解决没根。
+              </p>
+            </div>
+            <GuizhiFuziCompare />
+            <div className="section-linkout">
+              <Link className="button button--ghost" href="/prototypes/guizhi-vs-fuzi">
+                打开双图对照页
+              </Link>
+            </div>
+          </section>
+
+          <section className="section">
+            <div className="section-heading">
+              <p className="eyebrow">Transition Prototype</p>
+              <h2>茯神法的“右降缓转”也已经能直接体验</h2>
+              <p>
+                这一张图专门负责把“先稳局面、再决定后续”的逻辑讲清楚。它让扶阳模块不再只有“开”和“归”，
+                还多出一层很关键的缓冲动作。
+              </p>
+            </div>
+            <FushenRightDescendPrototype />
+            <div className="section-linkout">
+              <Link className="button button--ghost" href="/prototypes/fushen-right-descend">
+                打开茯神独立原型页
+              </Link>
+            </div>
+          </section>
+
+          <section className="section">
+            <div className="section-heading">
+              <p className="eyebrow">Triad Prototype</p>
+              <h2>扶阳模块现在可以在一页里比较“开、归、缓转”</h2>
+              <p>
+                这张总览页把桂枝、附子、茯神三种动作压到同一坐标系里。它的价值不是增加新图，
+                而是让用户第一次真正完成动作分流。
+              </p>
+            </div>
+            <FuYangActionTriad />
+            <div className="section-linkout">
+              <Link className="button button--ghost" href="/prototypes/fu-yang-action-triad">
+                打开三动作总览页
+              </Link>
+            </div>
+          </section>
+
+          <section className="section">
+            <div className="section-heading">
+              <p className="eyebrow">Practice Prototype</p>
+              <h2>扶阳模块已经开始进入“能做判断”的练习形态</h2>
+              <p>
+                这一页不再只是看图，而是用 3 个简化病例训练用户先做动作分流。
+                这意味着项目正式从展示型原型，开始向学习型产品推进。
+              </p>
+            </div>
+            <FuYangTriagePractice />
+            <div className="section-linkout">
+              <Link className="button button--ghost" href="/prototypes/fu-yang-triage-practice">
+                打开病例分流练习页
               </Link>
             </div>
           </section>

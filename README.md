@@ -76,6 +76,14 @@ npm run content:check
   桂枝法开门动画交互原型
 - `/prototypes/fuzi-root-return`
   附子法归根动画交互原型
+- `/prototypes/guizhi-vs-fuzi`
+  桂枝法与附子法双图对照页
+- `/prototypes/fushen-right-descend`
+  茯神法右降路径图交互原型
+- `/prototypes/fu-yang-action-triad`
+  扶阳三动作总览页
+- `/prototypes/fu-yang-triage-practice`
+  扶阳病例分流练习页
 - `/storyboards`
   第一轮重点图表分镜页
 

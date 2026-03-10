@@ -24,6 +24,12 @@ export default function GuizhiGateAnimationPrototypePage() {
             <Link className="button button--ghost" href="/prototypes/fuzi-root-return">
               去看附子归根
             </Link>
+            <Link className="button button--ghost" href="/prototypes/guizhi-vs-fuzi">
+              打开双图对照
+            </Link>
+            <Link className="button button--ghost" href="/prototypes/fu-yang-action-triad">
+              打开三动作总览
+            </Link>
           </div>
         </div>
         <div className="detail-hero__stats">
@@ -71,17 +77,17 @@ export default function GuizhiGateAnimationPrototypePage() {
           <div className="section-heading">
             <p className="eyebrow">Next Build</p>
             <h2>如果方向成立，下一步怎么继续</h2>
-            <p>这一张图最适合继续收紧成更有力的动画节奏，再和附子法形成双图组合。</p>
+            <p>单图和对照图已经成型，接下来该把它们挂进更真实的学习任务里。</p>
           </div>
           <div className="phase-list">
             <article className="phase-card">
               <p>把门轴阻力和阈值反馈做得更明显，强化“拨开”的力学感。</p>
             </article>
             <article className="phase-card">
-              <p>把附子法归根动画和这张图排成双图对照，让用户一眼看到“开门”和“归根”的区别。</p>
+              <p>把桂枝动作接进三动作总览页后的病例练习，让用户先判断它是否真的是“开门题”。</p>
             </article>
             <article className="phase-card">
-              <p>把两张图嵌回坎离主图中，形成“先看结构，再看动作”的完整学习链路。</p>
+              <p>把这张图重新挂回坎离主图和模块页，形成“先看结构，再做动作分流”的学习链路。</p>
             </article>
           </div>
         </div>

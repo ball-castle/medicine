@@ -1,28 +1,25 @@
 import Link from "next/link";
 
-import { FuziRootPrototype } from "@/components/fuzi-root-prototype";
+import { FushenRightDescendPrototype } from "@/components/fushen-right-descend-prototype";
 
-export default function FuziRootReturnPrototypePage() {
+export default function FushenRightDescendPage() {
   return (
     <main className="page-shell page-shell--prototype">
       <section className="detail-hero">
         <div className="detail-hero__content">
           <p className="eyebrow">Prototype</p>
-          <h1>附子法归根动画原型</h1>
-          <p className="detail-hero__subtitle">第四张关键原型，负责把“归根回阳”讲成和桂枝法完全不同的动作。</p>
+          <h1>茯神法右降路径图原型</h1>
+          <p className="detail-hero__subtitle">第五张关键原型，负责把“缓转过渡”补进扶阳动作链。</p>
           <p className="detail-hero__intro">
-            这个页面专门让用户看懂一件事：附子法不是继续把系统往外拨，而是把浮散无根的阳往下收、往里归、
-            让根部重新守住。只要这件事讲清楚，和桂枝法的差别就不再是文字概念。
+            这个页面专门处理一个容易被忽略的问题：不是所有局面都适合立刻开门或归根。很多时候，
+            需要先把上部乱象收下来、右侧带下去，让系统从“太躁太浮”变成“可继续处理”的状态。
           </p>
           <div className="hero__actions">
             <Link className="button button--primary" href="/modules/fu-yang-core">
               返回 fu-yang-core 模块
             </Link>
-            <Link className="button button--ghost" href="/prototypes/guizhi-gate-animation">
-              回看桂枝开门
-            </Link>
             <Link className="button button--ghost" href="/prototypes/guizhi-vs-fuzi">
-              打开双图对照
+              回看桂附对照
             </Link>
             <Link className="button button--ghost" href="/prototypes/fu-yang-action-triad">
               打开三动作总览
@@ -32,7 +29,7 @@ export default function FuziRootReturnPrototypePage() {
         <div className="detail-hero__stats">
           <div className="hero-metric">
             <strong>1</strong>
-            <span>归根滑杆</span>
+            <span>右降滑杆</span>
           </div>
           <div className="hero-metric">
             <strong>3</strong>
@@ -40,33 +37,33 @@ export default function FuziRootReturnPrototypePage() {
           </div>
           <div className="hero-metric">
             <strong>3</strong>
-            <span>归根状态</span>
+            <span>过渡状态</span>
           </div>
           <div className="hero-metric">
             <strong>MVP</strong>
-            <span>归根动作图</span>
+            <span>缓转动作图</span>
           </div>
         </div>
       </section>
 
-      <FuziRootPrototype />
+      <FushenRightDescendPrototype />
 
       <section className="section section--split">
         <div>
           <div className="section-heading">
             <p className="eyebrow">What To Validate</p>
             <h2>这张图当前主要验证什么</h2>
-            <p>它主要验证“归根”能不能被直观看懂，而不是继续被用户误解成“更热、更冲”。</p>
+            <p>它主要验证用户能否理解：有些时候最重要的不是猛进，而是先让局面缓下来。</p>
           </div>
           <div className="phase-list">
             <article className="phase-card">
-              <p>用户是否能区分“上面发亮”与“根部有主”不是同一个判断。</p>
+              <p>用户是否能看出“右降”与“开门”“归根”不是同一个方向动作。</p>
             </article>
             <article className="phase-card">
-              <p>滑杆和下潜轨迹，是否足够清楚地表达“收回去、守下来”的过程感。</p>
+              <p>滑杆和路径线是否足够清楚地表达“缓缓带下、先稳局面”的过程感。</p>
             </article>
             <article className="phase-card">
-              <p>用户是否能把这张图和桂枝法自动配对，形成“开门 vs 归根”的稳定记忆。</p>
+              <p>用户是否会自然接受它的过渡性角色，而不是误以为它是终局方案。</p>
             </article>
           </div>
         </div>
@@ -74,17 +71,17 @@ export default function FuziRootReturnPrototypePage() {
           <div className="section-heading">
             <p className="eyebrow">Next Build</p>
             <h2>如果方向成立，下一步怎么继续</h2>
-            <p>单图、双图和三动作总览都已经搭起来，接下来该接进判断练习和病例。</p>
+            <p>缓转动作已经补齐，下一步最值钱的工作是让用户开始用它做判断，而不是继续只看图。</p>
           </div>
           <div className="phase-list">
             <article className="phase-card">
-              <p>把“归根题”和“开门题”放到同一组练习里，逼用户真正做动作判断。</p>
+              <p>把“开、归、缓转”三动作总览页接进具体案例，训练用户何时先稳局面。</p>
             </article>
             <article className="phase-card">
-              <p>把“上热下寒、内外不通”的案例轻度挂进来，开始形成病例式学习入口。</p>
+              <p>把一个“上热下寒、心神不宁”的案例接进来，训练用户先判断更适合哪种动作。</p>
             </article>
             <article className="phase-card">
-              <p>把这张图继续挂回三动作总览页，形成从主图到病例的稳定学习链。</p>
+              <p>把这些原型进一步收成更短的入门互动脚本，开始为真实用户测试做准备。</p>
             </article>
           </div>
         </div>
