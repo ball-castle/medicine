@@ -1,0 +1,108 @@
+[
+  {
+    "id": "foundations",
+    "title": "圆运动基础",
+    "premise": "先把人体看成一个会流动的系统，而不是零散器官和病名表。",
+    "targetOutcome": "用户能说清中气、升降出入、五脏功能势能之间的关系。",
+    "visualFocus": "总览地图、循环流线、层级高亮。",
+    "conceptIds": [
+      "round-motion",
+      "middle-qi-axis",
+      "ascending-descending-in-out",
+      "five-zang-functional-powers",
+      "treat-pattern-not-disease-name"
+    ],
+    "diagramIds": [
+      "circle-flow-map",
+      "middle-axis-four-directions",
+      "five-zang-wheel"
+    ]
+  },
+  {
+    "id": "formula-logic",
+    "title": "方药与经方逻辑",
+    "premise": "先懂方在拨哪股气，再谈它治什么样的病名。",
+    "targetOutcome": "用户能把经方、药性和六经框架联系起来理解。",
+    "visualFocus": "方向罗盘、模型切换、对照动画。",
+    "conceptIds": [
+      "formulas-as-qi-models",
+      "six-meridian-framework",
+      "herbs-as-directions",
+      "mis-treatment-creates-new-pattern"
+    ],
+    "diagramIds": [
+      "formula-direction-compass",
+      "six-meridian-map"
+    ]
+  },
+  {
+    "id": "warm-disease-pediatrics",
+    "title": "温病与儿科本气",
+    "premise": "热象并不等于就该猛清，关键要看中气、津液和本气有没有散掉。",
+    "targetOutcome": "用户能理解温病、小儿病和时病为什么要先分清根本失衡。",
+    "visualFocus": "分支路径、风险提示、前后对比。",
+    "conceptIds": [
+      "warm-disease-root-pattern",
+      "protect-middle-qi-in-children",
+      "seasonal-illness-branching"
+    ],
+    "diagramIds": [
+      "warm-disease-root-path",
+      "pediatric-protection-loop"
+    ]
+  },
+  {
+    "id": "diagnostic-judgment",
+    "title": "脉法与舌象判断",
+    "premise": "不要先入为主，先用脉和舌抓整体，再判断局部。",
+    "targetOutcome": "用户能把脉、舌、病名放回正确的主次关系里。",
+    "visualFocus": "仪表盘、表层贴图、条件筛选。",
+    "conceptIds": [
+      "pulse-first",
+      "tongue-as-window",
+      "pulse-over-disease-name"
+    ],
+    "diagramIds": [
+      "pulse-dashboard",
+      "tongue-terrain-map"
+    ]
+  },
+  {
+    "id": "fu-yang-core",
+    "title": "扶阳与坎离水火",
+    "premise": "扶阳不是盲目上热药，而是围绕少阴真阳、坎离交通和开门归根来布局。",
+    "targetOutcome": "用户能区分桂枝法、附子法、茯神法的主轴和使用节奏。",
+    "visualFocus": "上下交通、门轴机制、3D 流动场景。",
+    "conceptIds": [
+      "medical-yi-bridge",
+      "kan-li-water-fire",
+      "support-yang-not-blind-heat",
+      "guizhi-opens-gate",
+      "fuzi-returns-root",
+      "fushen-right-descends",
+      "jueyin-as-pivot",
+      "upper-hot-lower-cold"
+    ],
+    "diagramIds": [
+      "kan-li-circulation",
+      "guizhi-gate-animation",
+      "fuzi-root-return",
+      "fushen-right-descend",
+      "jueyin-reversal-arc"
+    ]
+  },
+  {
+    "id": "cases-and-application",
+    "title": "医案与活解",
+    "premise": "临床不是一张方走到底，而是根据病机变化分阶段推进。",
+    "targetOutcome": "用户能看懂医案里的先后手、节奏和转方逻辑。",
+    "visualFocus": "时间线、节点切换、病例决策树。",
+    "conceptIds": [
+      "staged-treatment-rhythm",
+      "active-interpretation"
+    ],
+    "diagramIds": [
+      "case-stage-timeline"
+    ]
+  }
+]

@@ -8,3 +8,8 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Node / frontend
+node_modules/
+.next/
+npm-debug.log*

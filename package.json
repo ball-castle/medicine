@@ -1,0 +1,14 @@
+{
+  "name": "medicine",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace @medicine/web",
+    "content:check": "node tools/check-content.mjs",
+    "dev": "npm run dev --workspace @medicine/web",
+    "typecheck": "npm run typecheck --workspace @medicine/web"
+  }
+}
