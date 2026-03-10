@@ -66,6 +66,8 @@ npm run content:check
   首页学习地图
 - `/modules/foundations`
   第一版模块页样例
+- `/prototypes/circle-flow-map`
+  圆运动总图交互原型
 - `/storyboards`
   第一轮重点图表分镜页
 

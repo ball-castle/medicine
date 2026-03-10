@@ -8,6 +8,7 @@ import type {
   StoryboardRecord,
 } from "@medicine/content-schema";
 
+import { CircleFlowPrototype } from "@/components/circle-flow-prototype";
 import { getSiteContent } from "@/lib/content";
 
 function pickModuleContent(
@@ -126,6 +127,25 @@ export default async function ModulePage(props: {
           </ol>
         </div>
       </section>
+
+      {module.id === "foundations" && (
+        <section className="section">
+          <div className="section-heading">
+            <p className="eyebrow">Interactive Prototype</p>
+            <h2>第一张真正可玩的图已经接进来了</h2>
+            <p>
+              这张原型用来验证一个关键问题：用户能不能通过切换时令、观察中轴强弱和对比失衡模式，
+              真正把“圆运动”理解成可感知的整体结构。
+            </p>
+          </div>
+          <CircleFlowPrototype />
+          <div className="section-linkout">
+            <Link className="button button--ghost" href="/prototypes/circle-flow-map">
+              打开独立原型页
+            </Link>
+          </div>
+        </section>
+      )}
 
       <section className="section">
         <div className="section-heading">
