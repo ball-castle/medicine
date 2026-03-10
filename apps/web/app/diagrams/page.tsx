@@ -1,6 +1,9 @@
 import Link from "next/link";
 import type { DiagramRecord, ModuleRecord, StoryboardRecord } from "@medicine/content-schema";
 
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { getSiteContent } from "@/lib/content";
 
 function DiagramAtlasCard(props: {
@@ -9,41 +12,47 @@ function DiagramAtlasCard(props: {
   storyboard: StoryboardRecord | null;
 }) {
   return (
-    <article className="atlas-card">
-      <div className="atlas-card__top">
-        <div>
-          <p className="eyebrow">Diagram</p>
-          <h2>{props.diagram.title}</h2>
+    <Card className="h-full border-border/70 bg-card/82">
+      <CardHeader className="space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="space-y-3">
+            <Badge className="w-fit rounded-full px-3 py-1" variant="outline">
+              Diagram
+            </Badge>
+            <CardTitle className="text-[1.55rem]">{props.diagram.title}</CardTitle>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <Badge variant="secondary">{props.diagram.productionFormat}</Badge>
+            <Badge variant="outline">{props.diagram.visualPriority}</Badge>
+          </div>
         </div>
-        <div className="atlas-card__meta">
-          <span>{props.diagram.productionFormat}</span>
-          <span>{props.diagram.visualPriority}</span>
+        <CardDescription className="text-base">{props.diagram.purpose}</CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-5">
+        <p className="text-sm leading-7 text-foreground/85">{props.diagram.interactionIdea}</p>
+        <div className="flex flex-wrap gap-2">
+          <Badge variant="accent">{props.module.title}</Badge>
+          <Badge variant="outline">{props.diagram.chapter}</Badge>
+          {props.storyboard ? <Badge variant="secondary">已有分镜</Badge> : null}
+          {props.diagram.prototypeHref ? <Badge variant="secondary">已有原型</Badge> : null}
         </div>
-      </div>
-      <p>{props.diagram.purpose}</p>
-      <p className="atlas-card__idea">{props.diagram.interactionIdea}</p>
-      <div className="token-row">
-        <span className="token">{props.module.title}</span>
-        <span className="token token--light">{props.diagram.chapter}</span>
-        {props.storyboard && <span className="token">已有分镜</span>}
-        {props.diagram.prototypeHref && <span className="token">已有原型</span>}
-      </div>
-      <div className="atlas-card__actions">
-        <Link className="button button--ghost" href={`/modules/${props.module.id}`}>
-          回到模块
-        </Link>
-        {props.diagram.prototypeHref && (
-          <Link className="button button--ghost" href={props.diagram.prototypeHref}>
-            打开原型
-          </Link>
-        )}
-        {props.storyboard && (
-          <Link className="button button--ghost" href="/storyboards">
-            查看分镜
-          </Link>
-        )}
-      </div>
-    </article>
+        <div className="flex flex-wrap gap-3">
+          <Button asChild variant="outline">
+            <Link href={`/modules/${props.module.id}`}>回到模块</Link>
+          </Button>
+          {props.diagram.prototypeHref ? (
+            <Button asChild variant="outline">
+              <Link href={props.diagram.prototypeHref}>打开原型</Link>
+            </Button>
+          ) : null}
+          {props.storyboard ? (
+            <Button asChild variant="ghost">
+              <Link href="/storyboards">查看分镜</Link>
+            </Button>
+          ) : null}
+        </div>
+      </CardContent>
+    </Card>
   );
 }
 
@@ -57,55 +66,73 @@ export default async function DiagramsPage() {
   const storyboardMap = new Map(storyboards.map((storyboard) => [storyboard.diagramId, storyboard]));
 
   return (
-    <main className="page-shell page-shell--storyboards">
-      <section className="detail-hero">
-        <div className="detail-hero__content">
-          <p className="eyebrow">Diagrams</p>
-          <h1>图表目录页</h1>
-          <p className="detail-hero__subtitle">把重点图表、模块归属、原型入口和分镜状态放进同一页。</p>
-          <p className="detail-hero__intro">
-            这个页面的任务不是展示“有多少图”，而是让图表真正成为课程和练习的中间层。后面继续补图时，也应该先从这里登记，而不是直接散落到各个页面。
-          </p>
-          <div className="hero__actions">
-            <Link className="button button--primary" href="/">
-              返回首页
-            </Link>
-            <Link className="button button--ghost" href="/storyboards">
-              查看分镜页
-            </Link>
-            <Link className="button button--ghost" href="/progress">
-              查看学习进度
-            </Link>
+    <main className="mx-auto flex w-[min(1200px,calc(100vw-32px))] flex-col gap-6 py-8 md:py-10">
+      <section className="grid gap-6 rounded-[36px] border border-border/70 bg-[linear-gradient(135deg,rgba(255,249,240,0.9),rgba(241,233,220,0.74))] p-6 shadow-soft backdrop-blur md:p-8 lg:grid-cols-[1.18fr_0.82fr]">
+        <div className="space-y-6">
+          <div className="space-y-4">
+            <Badge className="rounded-full px-3 py-1" variant="accent">
+              Diagrams
+            </Badge>
+            <h1 className="font-display text-4xl leading-[0.96] tracking-[-0.05em] text-foreground md:text-6xl">
+              图表目录页
+            </h1>
+            <p className="text-lg leading-8 text-foreground/86">把重点图表、模块归属、原型入口和分镜状态放进同一页。</p>
+            <p className="max-w-3xl text-base leading-8 text-muted-foreground">
+              这个页面的任务不是展示“有多少图”，而是让图表真正成为课程和练习的中间层。后面继续补图时，也应该先从这里登记，而不是直接散落到各个页面。
+            </p>
+          </div>
+
+          <div className="flex flex-wrap gap-3">
+            <Button asChild size="lg">
+              <Link href="/">返回首页</Link>
+            </Button>
+            <Button asChild size="lg" variant="outline">
+              <Link href="/storyboards">查看分镜页</Link>
+            </Button>
+            <Button asChild size="lg" variant="outline">
+              <Link href="/progress">查看学习进度</Link>
+            </Button>
           </div>
         </div>
-        <div className="detail-hero__stats">
-          <div className="hero-metric">
-            <strong>{diagrams.length}</strong>
-            <span>图表总数</span>
-          </div>
-          <div className="hero-metric">
-            <strong>{diagrams.filter((diagram) => diagram.prototypeHref).length}</strong>
-            <span>已有原型</span>
-          </div>
-          <div className="hero-metric">
-            <strong>{storyboards.length}</strong>
-            <span>已有分镜</span>
-          </div>
-          <div className="hero-metric">
-            <strong>{modules.length}</strong>
-            <span>覆盖模块</span>
-          </div>
+
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Card className="border-border/70 bg-card/78">
+            <CardHeader className="space-y-2">
+              <CardTitle className="text-4xl">{diagrams.length}</CardTitle>
+              <CardDescription>图表总数</CardDescription>
+            </CardHeader>
+          </Card>
+          <Card className="border-border/70 bg-card/78">
+            <CardHeader className="space-y-2">
+              <CardTitle className="text-4xl">{diagrams.filter((diagram) => diagram.prototypeHref).length}</CardTitle>
+              <CardDescription>已有原型</CardDescription>
+            </CardHeader>
+          </Card>
+          <Card className="border-border/70 bg-card/78">
+            <CardHeader className="space-y-2">
+              <CardTitle className="text-4xl">{storyboards.length}</CardTitle>
+              <CardDescription>已有分镜</CardDescription>
+            </CardHeader>
+          </Card>
+          <Card className="border-border/70 bg-card/78">
+            <CardHeader className="space-y-2">
+              <CardTitle className="text-4xl">{modules.length}</CardTitle>
+              <CardDescription>覆盖模块</CardDescription>
+            </CardHeader>
+          </Card>
         </div>
       </section>
 
       {diagramsByModule.map(({ module, diagrams: moduleDiagrams }) => (
-        <section className="section" key={module.id}>
-          <div className="section-heading">
-            <p className="eyebrow">Module Atlas</p>
-            <h2>{module.title}</h2>
-            <p>{module.visualFocus}</p>
+        <section className="rounded-[32px] border border-border/70 bg-card/80 p-6 shadow-soft backdrop-blur md:p-8" key={module.id}>
+          <div className="space-y-3">
+            <p className="font-display text-xs uppercase tracking-[0.24em] text-primary">Module Atlas</p>
+            <h2 className="font-display text-3xl leading-tight tracking-[-0.04em] text-foreground md:text-4xl">
+              {module.title}
+            </h2>
+            <p className="max-w-3xl text-base leading-8 text-muted-foreground">{module.visualFocus}</p>
           </div>
-          <div className="atlas-grid">
+          <div className="mt-6 grid gap-4 xl:grid-cols-2">
             {moduleDiagrams.map((diagram) => (
               <DiagramAtlasCard
                 diagram={diagram}

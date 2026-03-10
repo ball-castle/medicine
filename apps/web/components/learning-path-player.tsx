@@ -4,6 +4,11 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import type { LearningPathRecord, LearningPathStepRecord } from "@medicine/content-schema";
 
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { cn } from "@/lib/utils";
 import { getLearningPathHref } from "@/lib/learning-paths";
 import {
   readLearningProgress,
@@ -39,7 +44,7 @@ export function LearningPathPlayer(props: { path: LearningPathRecord }) {
     path.steps.find((step) => step.id === selectedStepId) ?? findFirstIncompleteStep(path, completedStepIds) ?? null;
   const selectedIndex = selectedStep ? path.steps.findIndex((step) => step.id === selectedStep.id) : 0;
   const progressPercent = path.steps.length ? Math.round((completedStepIds.length / path.steps.length) * 100) : 0;
-  const nextStep = path.steps[selectedIndex + 1] ?? null;
+  const nextStep = selectedIndex >= 0 ? path.steps[selectedIndex + 1] ?? null : null;
 
   const summary = useMemo(() => {
     const firstIncomplete = findFirstIncompleteStep(path, completedStepIds);
@@ -94,179 +99,225 @@ export function LearningPathPlayer(props: { path: LearningPathRecord }) {
 
   if (!selectedStep) {
     return (
-      <section className="path-player path-player--empty">
-        <article className="phase-card">
-          <p>当前路线还没有可展示的学习步骤。</p>
-        </article>
+      <section>
+        <Card className="border-border/70 bg-card/80">
+          <CardContent className="p-6">
+            <p className="text-sm leading-7 text-muted-foreground">当前路线还没有可展示的学习步骤。</p>
+          </CardContent>
+        </Card>
       </section>
     );
   }
 
   return (
-    <section className="path-player">
-      <div className="path-player__sidebar">
-        <div className="path-player__intro">
-          <p className="eyebrow">Learning Route</p>
-          <h2>{path.title}</h2>
-          <p>{path.summary}</p>
-        </div>
+    <section className="grid gap-6 xl:grid-cols-[0.92fr_1.08fr]">
+      <div className="space-y-6">
+        <Card className="border-border/70 bg-card/82">
+          <CardHeader className="space-y-4">
+            <Badge className="w-fit rounded-full px-3 py-1" variant="accent">
+              Learning Route
+            </Badge>
+            <div className="space-y-3">
+              <CardTitle className="text-3xl">{path.title}</CardTitle>
+              <CardDescription className="text-base">{path.summary}</CardDescription>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-5">
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-sm text-muted-foreground">
+                <span>当前完成度</span>
+                <span>
+                  {completedStepIds.length}/{path.steps.length}
+                </span>
+              </div>
+              <Progress value={progressPercent} />
+              <p className="text-sm text-foreground/80">{progressPercent}% 已完成</p>
+            </div>
+            <div className="grid gap-3 md:grid-cols-2">
+              <Card className="border-border/70 bg-background/60 shadow-none">
+                <CardContent className="space-y-2 p-5">
+                  <p className="text-xs uppercase tracking-[0.22em] text-primary">目标结果</p>
+                  <strong className="block text-base leading-7 text-foreground">{path.targetOutcome}</strong>
+                  <span className="block text-sm text-muted-foreground">{path.estimatedTime}</span>
+                </CardContent>
+              </Card>
+              <Card className="border-border/70 bg-background/60 shadow-none">
+                <CardContent className="space-y-2 p-5">
+                  <p className="text-xs uppercase tracking-[0.22em] text-primary">下一步建议</p>
+                  <strong className="block text-base leading-7 text-foreground">{summary.nextTitle}</strong>
+                  <span className="block text-sm text-muted-foreground">
+                    这条路线不要求一次看完，但最好按顺序走。
+                  </span>
+                </CardContent>
+              </Card>
+            </div>
+          </CardContent>
+        </Card>
 
-        <div className="path-player__summary">
-          <article className="path-player__summary-card">
-            <p className="path-player__label">当前完成度</p>
-            <strong>
-              {completedStepIds.length}/{path.steps.length}
-            </strong>
-            <span>{progressPercent}% 已完成</span>
-          </article>
-          <article className="path-player__summary-card">
-            <p className="path-player__label">目标结果</p>
-            <strong>{path.targetOutcome}</strong>
-            <span>{path.estimatedTime}</span>
-          </article>
-        </div>
+        <Card className="border-border/70 bg-card/82">
+          <CardHeader className="space-y-3">
+            <p className="font-display text-xs uppercase tracking-[0.24em] text-primary">Step Navigator</p>
+            <CardTitle className="text-2xl">按顺序推进这条路线</CardTitle>
+          </CardHeader>
+          <CardContent className="grid gap-3">
+            {path.steps.map((step, index) => {
+              const isDone = completedStepIds.includes(step.id);
+              const isActive = selectedStep.id === step.id;
 
-        <div className="path-player__step-list">
-          {path.steps.map((step, index) => {
-            const isDone = completedStepIds.includes(step.id);
-            const isActive = selectedStep.id === step.id;
+              return (
+                <button
+                  className={cn(
+                    "rounded-[24px] border px-4 py-4 text-left transition-all duration-200",
+                    isActive
+                      ? "border-primary/40 bg-primary/10 shadow-soft"
+                      : "border-border/70 bg-background/60 hover:bg-background",
+                    isDone && "border-accent/40 bg-accent/10",
+                  )}
+                  key={step.id}
+                  onClick={() => continueToStep(step.id)}
+                  type="button"
+                >
+                  <div className="flex items-center gap-3 text-xs uppercase tracking-[0.22em] text-primary">
+                    <span>{index + 1}</span>
+                    <span>{step.kind}</span>
+                    {isDone ? <Badge variant="secondary">已完成</Badge> : null}
+                  </div>
+                  <strong className="mt-3 block text-lg leading-7 text-foreground">{step.title}</strong>
+                  <p className="mt-2 text-sm leading-7 text-muted-foreground">{step.goal}</p>
+                </button>
+              );
+            })}
+          </CardContent>
+        </Card>
 
-            return (
-              <button
-                className={`path-player__step-tab ${isActive ? "is-active" : ""} ${isDone ? "is-done" : ""}`}
-                key={step.id}
-                onClick={() => continueToStep(step.id)}
-                type="button"
-              >
-                <div className="path-player__step-meta">
-                  <span>{index + 1}</span>
-                  <em>{step.kind}</em>
-                </div>
-                <strong>{step.title}</strong>
-                <p>{step.goal}</p>
-              </button>
-            );
-          })}
-        </div>
-
-        <div className="path-player__notes">
-          <article className="path-player__note-card">
-            <p className="path-player__label">下一步建议</p>
-            <strong>{summary.nextTitle}</strong>
-            <p>这条路线不要求一次看完，但最好按顺序走，不然体验会重新碎回单页面。</p>
-          </article>
-          <article className="path-player__note-card">
-            <p className="path-player__label">收尾检查</p>
-            <strong>走完以后至少确认这 4 件事</strong>
-            <ul>
-              {path.reviewChecklist.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </article>
-        </div>
+        <Card className="border-border/70 bg-card/82">
+          <CardHeader className="space-y-3">
+            <p className="font-display text-xs uppercase tracking-[0.24em] text-primary">Review Checklist</p>
+            <CardTitle className="text-2xl">走完以后至少确认这几件事</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {path.reviewChecklist.map((item) => (
+              <div className="rounded-[20px] border border-border/70 bg-background/60 px-4 py-4 text-sm leading-7 text-foreground/85" key={item}>
+                {item}
+              </div>
+            ))}
+          </CardContent>
+        </Card>
       </div>
 
-      <div className="path-player__stage">
-        <div className="path-player__detail-card">
-          <div className="path-player__detail-top">
-            <div>
-              <p className="eyebrow">Current Step</p>
-              <h3>{selectedStep.title}</h3>
+      <div className="space-y-6">
+        <Card className="border-border/70 bg-card/84">
+          <CardHeader className="space-y-4">
+            <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+              <div className="space-y-3">
+                <Badge className="w-fit rounded-full px-3 py-1" variant="outline">
+                  Current Step
+                </Badge>
+                <CardTitle className="text-[2rem]">{selectedStep.title}</CardTitle>
+              </div>
+              <Badge variant="secondary">
+                {selectedIndex + 1}/{path.steps.length}
+              </Badge>
             </div>
-            <div className="path-player__counter">
-              {selectedIndex + 1}/{path.steps.length}
+            <CardDescription className="text-base">{selectedStep.summary}</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-5">
+            <div className="grid gap-4 md:grid-cols-2">
+              <Card className="border-border/70 bg-background/60 shadow-none">
+                <CardContent className="space-y-2 p-5">
+                  <p className="text-xs uppercase tracking-[0.22em] text-primary">这一步要完成什么</p>
+                  <strong className="block text-base leading-7 text-foreground">{selectedStep.goal}</strong>
+                  <span className="block text-sm text-muted-foreground">{selectedStep.estimatedTime}</span>
+                </CardContent>
+              </Card>
+              <Card className="border-border/70 bg-background/60 shadow-none">
+                <CardContent className="space-y-2 p-5">
+                  <p className="text-xs uppercase tracking-[0.22em] text-primary">完成提示</p>
+                  <strong className="block text-base leading-7 text-foreground">{selectedStep.completionHint}</strong>
+                  <span className="block text-sm text-muted-foreground">走完后直接标记完成，再顺着按钮进入下一步。</span>
+                </CardContent>
+              </Card>
             </div>
-          </div>
-          <p className="path-player__detail-subtitle">{selectedStep.summary}</p>
-          <div className="path-player__detail-grid">
-            <article className="path-player__detail-panel">
-              <p className="path-player__label">这一步要完成什么</p>
-              <strong>{selectedStep.goal}</strong>
-              <span>{selectedStep.estimatedTime}</span>
-            </article>
-            <article className="path-player__detail-panel">
-              <p className="path-player__label">完成提示</p>
-              <strong>{selectedStep.completionHint}</strong>
-              <span>走完后直接标记完成，再顺着按钮进入下一步。</span>
-            </article>
-          </div>
 
-          <div className="path-player__actions">
-            <Link className="button button--primary" href={selectedStep.href}>
-              {selectedStep.buttonLabel}
-            </Link>
-            <button
-              className="button button--ghost"
-              onClick={() => toggleStep(selectedStep)}
-              type="button"
-            >
-              {completedStepIds.includes(selectedStep.id) ? "取消完成" : "标记这一步已完成"}
-            </button>
-            {nextStep && (
-              <button
-                className="button button--ghost"
-                onClick={() => continueToStep(nextStep.id)}
-                type="button"
-              >
-                跳到下一步
-              </button>
-            )}
-            {!nextStep && completedStepIds.includes(selectedStep.id) && (
-              <Link className="button button--ghost" href="/progress">
-                打开进度页复盘
-              </Link>
-            )}
-          </div>
-        </div>
+            <div className="flex flex-wrap gap-3">
+              <Button asChild>
+                <Link href={selectedStep.href}>{selectedStep.buttonLabel}</Link>
+              </Button>
+              <Button onClick={() => toggleStep(selectedStep)} type="button" variant="outline">
+                {completedStepIds.includes(selectedStep.id) ? "取消完成" : "标记这一步已完成"}
+              </Button>
+              {nextStep ? (
+                <Button onClick={() => continueToStep(nextStep.id)} type="button" variant="outline">
+                  跳到下一步
+                </Button>
+              ) : completedStepIds.includes(selectedStep.id) ? (
+                <Button asChild variant="outline">
+                  <Link href="/progress">打开进度页复盘</Link>
+                </Button>
+              ) : null}
+            </div>
+          </CardContent>
+        </Card>
 
-        <div className="path-player__timeline">
+        <div className="grid gap-4">
           {path.steps.map((step, index) => {
             const isDone = completedStepIds.includes(step.id);
             const isCurrent = step.id === selectedStep.id;
 
             return (
-              <article
-                className={`path-player__timeline-card ${isCurrent ? "is-active" : ""} ${isDone ? "is-done" : ""}`}
+              <Card
+                className={cn(
+                  "border-border/70 bg-card/80 transition-all duration-200",
+                  isCurrent && "border-primary/40 bg-primary/5 shadow-soft",
+                  isDone && "border-accent/40 bg-accent/5",
+                )}
                 key={step.id}
               >
-                <div className="path-player__timeline-top">
-                  <span>{index + 1}</span>
-                  <em>{step.kind}</em>
-                </div>
-                <h3>{step.title}</h3>
-                <p>{step.summary}</p>
-                <div className="token-row">
-                  <span className="token token--light">{step.moduleId}</span>
-                  <span className="token token--light">{step.estimatedTime}</span>
-                  {isDone && <span className="token">已完成</span>}
-                </div>
-                <div className="path-player__timeline-actions">
-                  <button className="button button--ghost" onClick={() => continueToStep(step.id)} type="button">
+                <CardHeader className="space-y-4">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Badge variant="outline">Step {index + 1}</Badge>
+                    <Badge variant="secondary">{step.kind}</Badge>
+                    <Badge variant="outline">{step.moduleId}</Badge>
+                    <Badge variant="outline">{step.estimatedTime}</Badge>
+                    {isDone ? <Badge variant="accent">已完成</Badge> : null}
+                  </div>
+                  <div className="space-y-3">
+                    <CardTitle className="text-[1.55rem]">{step.title}</CardTitle>
+                    <CardDescription className="text-base">{step.summary}</CardDescription>
+                  </div>
+                </CardHeader>
+                <CardContent className="flex flex-wrap gap-3">
+                  <Button onClick={() => continueToStep(step.id)} type="button" variant="outline">
                     查看这一步
-                  </button>
-                  <Link className="button button--ghost" href={step.href}>
-                    打开页面
-                  </Link>
-                </div>
-              </article>
+                  </Button>
+                  <Button asChild variant="ghost">
+                    <Link href={step.href}>打开页面</Link>
+                  </Button>
+                </CardContent>
+              </Card>
             );
           })}
         </div>
 
-        <article className="path-player__completion-card">
-          <p className="path-player__label">路线收尾</p>
-          <strong>{summary.finished ? "这条路线已经走完" : "走完以后，你会拿到什么"}</strong>
-          <p>{path.completionMessage}</p>
-          <div className="path-player__actions">
-            <Link className="button button--ghost" href={summary.nextHref}>
-              {summary.nextLabel}
-            </Link>
-            <Link className="button button--ghost" href="/paths">
-              查看路线目录
-            </Link>
-          </div>
-        </article>
+        <Card className="border-border/70 bg-[linear-gradient(135deg,rgba(15,118,110,0.08),rgba(255,250,242,0.92))]">
+          <CardHeader className="space-y-3">
+            <Badge className="w-fit rounded-full px-3 py-1" variant="accent">
+              路线收尾
+            </Badge>
+            <div className="space-y-3">
+              <CardTitle className="text-3xl">{summary.finished ? "这条路线已经走完" : "走完以后，你会拿到什么"}</CardTitle>
+              <CardDescription className="text-base">{path.completionMessage}</CardDescription>
+            </div>
+          </CardHeader>
+          <CardContent className="flex flex-wrap gap-3">
+            <Button asChild variant="outline">
+              <Link href={summary.nextHref}>{summary.nextLabel}</Link>
+            </Button>
+            <Button asChild variant="ghost">
+              <Link href="/paths">查看路线目录</Link>
+            </Button>
+          </CardContent>
+        </Card>
       </div>
     </section>
   );

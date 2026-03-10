@@ -3,6 +3,9 @@ import { notFound } from "next/navigation";
 import type { BookRecord, ConceptRecord, DiagramRecord } from "@medicine/content-schema";
 
 import { CaseStudyPlayer } from "@/components/case-study-player";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { getCaseStudyHref } from "@/lib/cases";
 import { getSiteContent } from "@/lib/content";
 
@@ -11,9 +14,7 @@ export async function generateStaticParams() {
   return caseStudies.map((caseStudy) => ({ caseStudyId: caseStudy.id }));
 }
 
-export default async function CaseStudyPage(props: {
-  params: Promise<{ caseStudyId: string }>;
-}) {
+export default async function CaseStudyPage(props: { params: Promise<{ caseStudyId: string }> }) {
   const { caseStudyId } = await props.params;
   const { books, caseStudies, concepts, diagrams, modules } = await getSiteContent();
 
@@ -27,126 +28,149 @@ export default async function CaseStudyPage(props: {
   const conceptMap = new Map(concepts.map((concept) => [concept.id, concept]));
   const diagramMap = new Map(diagrams.map((diagram) => [diagram.id, diagram]));
 
-  const focusBooks = caseStudy.bookIds
-    .map((bookId) => bookMap.get(bookId))
-    .filter(Boolean) as BookRecord[];
-  const focusConcepts = caseStudy.focusConceptIds
-    .map((conceptId) => conceptMap.get(conceptId))
-    .filter(Boolean) as ConceptRecord[];
-  const focusDiagrams = caseStudy.focusDiagramIds
-    .map((diagramId) => diagramMap.get(diagramId))
-    .filter(Boolean) as DiagramRecord[];
+  const focusBooks = caseStudy.bookIds.map((bookId) => bookMap.get(bookId)).filter(Boolean) as BookRecord[];
+  const focusConcepts = caseStudy.focusConceptIds.map((conceptId) => conceptMap.get(conceptId)).filter(Boolean) as ConceptRecord[];
+  const focusDiagrams = caseStudy.focusDiagramIds.map((diagramId) => diagramMap.get(diagramId)).filter(Boolean) as DiagramRecord[];
   const siblingCases = caseStudies.filter((item) => item.id !== caseStudy.id);
 
   return (
-    <main className="page-shell page-shell--prototype">
-      <section className="detail-hero">
-        <div className="detail-hero__content">
-          <p className="eyebrow">Case Study</p>
-          <h1>{caseStudy.title}</h1>
-          <p className="detail-hero__subtitle">{caseStudy.subtitle}</p>
-          <p className="detail-hero__intro">{caseStudy.summary}</p>
-          <div className="hero__actions">
-            <Link className="button button--primary" href="/cases">
-              返回病例目录
-            </Link>
-            {module && (
-              <Link className="button button--ghost" href={`/modules/${module.id}`}>
-                回到 {module.title}
-              </Link>
-            )}
-            <Link className="button button--ghost" href="/diagrams">
-              查看相关图表
-            </Link>
+    <main className="mx-auto flex w-[min(1200px,calc(100vw-32px))] flex-col gap-6 py-8 md:py-10">
+      <section className="grid gap-6 rounded-[36px] border border-border/70 bg-[linear-gradient(135deg,rgba(255,249,240,0.9),rgba(241,233,220,0.74))] p-6 shadow-soft backdrop-blur md:p-8 lg:grid-cols-[1.18fr_0.82fr]">
+        <div className="space-y-6">
+          <div className="space-y-4">
+            <Badge className="rounded-full px-3 py-1" variant="accent">
+              Case Study
+            </Badge>
+            <h1 className="font-display text-4xl leading-[0.96] tracking-[-0.05em] text-foreground md:text-6xl">
+              {caseStudy.title}
+            </h1>
+            <p className="text-lg leading-8 text-foreground/86">{caseStudy.subtitle}</p>
+            <p className="max-w-3xl text-base leading-8 text-muted-foreground">{caseStudy.summary}</p>
+          </div>
+
+          <div className="flex flex-wrap gap-3">
+            <Button asChild size="lg">
+              <Link href="/cases">返回病例目录</Link>
+            </Button>
+            {module ? (
+              <Button asChild size="lg" variant="outline">
+                <Link href={`/modules/${module.id}`}>回到 {module.title}</Link>
+              </Button>
+            ) : null}
+            <Button asChild size="lg" variant="outline">
+              <Link href="/diagrams">查看相关图表</Link>
+            </Button>
           </div>
         </div>
-        <div className="detail-hero__stats">
-          <div className="hero-metric">
-            <strong>{caseStudy.stages.length}</strong>
-            <span>阶段节点</span>
-          </div>
-          <div className="hero-metric">
-            <strong>{focusConcepts.length}</strong>
-            <span>锚点概念</span>
-          </div>
-          <div className="hero-metric">
-            <strong>{focusDiagrams.length}</strong>
-            <span>回看图表</span>
-          </div>
-          <div className="hero-metric">
-            <strong>{caseStudy.estimatedTime}</strong>
-            <span>建议时长</span>
-          </div>
+
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Card className="border-border/70 bg-card/78">
+            <CardHeader className="space-y-2">
+              <CardTitle className="text-4xl">{caseStudy.stages.length}</CardTitle>
+              <CardDescription>阶段节点</CardDescription>
+            </CardHeader>
+          </Card>
+          <Card className="border-border/70 bg-card/78">
+            <CardHeader className="space-y-2">
+              <CardTitle className="text-4xl">{focusConcepts.length}</CardTitle>
+              <CardDescription>锚点概念</CardDescription>
+            </CardHeader>
+          </Card>
+          <Card className="border-border/70 bg-card/78">
+            <CardHeader className="space-y-2">
+              <CardTitle className="text-4xl">{focusDiagrams.length}</CardTitle>
+              <CardDescription>回看图表</CardDescription>
+            </CardHeader>
+          </Card>
+          <Card className="border-border/70 bg-card/78">
+            <CardHeader className="space-y-2">
+              <CardTitle className="text-4xl">{caseStudy.estimatedTime}</CardTitle>
+              <CardDescription>建议时长</CardDescription>
+            </CardHeader>
+          </Card>
         </div>
       </section>
 
       <CaseStudyPlayer caseStudy={caseStudy} />
 
-      <section className="section section--split">
-        <div>
-          <div className="section-heading">
-            <p className="eyebrow">Focus</p>
-            <h2>这组病例在练什么</h2>
-            <p>{caseStudy.targetSkill}</p>
+      <section className="grid gap-6 lg:grid-cols-2">
+        <div className="rounded-[32px] border border-border/70 bg-card/80 p-6 shadow-soft backdrop-blur md:p-8">
+          <div className="space-y-3">
+            <p className="font-display text-xs uppercase tracking-[0.24em] text-primary">Focus</p>
+            <h2 className="font-display text-3xl leading-tight tracking-[-0.04em] text-foreground md:text-4xl">
+              这组病例在练什么
+            </h2>
+            <p className="max-w-3xl text-base leading-8 text-muted-foreground">{caseStudy.targetSkill}</p>
           </div>
-          <div className="token-row">
+          <div className="mt-6 flex flex-wrap gap-2">
             {focusConcepts.map((concept) => (
-              <span className="token" key={concept.id}>
+              <Badge key={concept.id} variant="accent">
                 {concept.title}
-              </span>
+              </Badge>
             ))}
             {focusDiagrams.map((diagram) => (
-              <span className="token token--light" key={diagram.id}>
+              <Badge key={diagram.id} variant="outline">
                 {diagram.title}
-              </span>
+              </Badge>
             ))}
           </div>
-          <div className="phase-list">
+          <div className="mt-6 grid gap-4">
             {focusBooks.map((book) => (
-              <article className="phase-card" key={book.id}>
-                <div className="phase-card__top">
-                  <h3>{book.shortTitle}</h3>
-                  <span>{book.author}</span>
-                </div>
-                <p>{book.focus}</p>
-              </article>
+              <Card className="border-border/70 bg-card/82" key={book.id}>
+                <CardHeader className="space-y-4">
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <CardTitle className="text-[1.35rem]">{book.shortTitle}</CardTitle>
+                    <Badge variant="outline">{book.author}</Badge>
+                  </div>
+                  <CardDescription className="text-base">{book.focus}</CardDescription>
+                </CardHeader>
+              </Card>
             ))}
           </div>
         </div>
-        <div>
-          <div className="section-heading">
-            <p className="eyebrow">Next</p>
-            <h2>看完这组病例后接着去哪</h2>
-            <p>当前病例不是孤立页面，它应该把用户重新带回模块、图表和下一组病例里。</p>
+
+        <div className="rounded-[32px] border border-border/70 bg-card/80 p-6 shadow-soft backdrop-blur md:p-8">
+          <div className="space-y-3">
+            <p className="font-display text-xs uppercase tracking-[0.24em] text-primary">Next</p>
+            <h2 className="font-display text-3xl leading-tight tracking-[-0.04em] text-foreground md:text-4xl">
+              看完这组病例后接着去哪
+            </h2>
+            <p className="max-w-3xl text-base leading-8 text-muted-foreground">
+              当前病例不是孤立页面，它应该把用户重新带回模块、图表和下一组病例里。
+            </p>
           </div>
-          <div className="phase-list">
-            {module && (
-              <article className="phase-card">
-                <div className="phase-card__top">
-                  <h3>{module.title}</h3>
-                  <span>所属模块</span>
-                </div>
-                <p>{module.targetOutcome}</p>
-                <div className="atlas-card__actions">
-                  <Link className="button button--ghost" href={`/modules/${module.id}`}>
-                    回到模块
-                  </Link>
-                </div>
-              </article>
-            )}
+          <div className="mt-6 grid gap-4">
+            {module ? (
+              <Card className="border-border/70 bg-card/82">
+                <CardHeader className="space-y-4">
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <CardTitle className="text-[1.35rem]">{module.title}</CardTitle>
+                    <Badge variant="outline">所属模块</Badge>
+                  </div>
+                  <CardDescription className="text-base">{module.targetOutcome}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Button asChild variant="outline">
+                    <Link href={`/modules/${module.id}`}>回到模块</Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            ) : null}
             {siblingCases.slice(0, 2).map((item) => (
-              <article className="phase-card" key={item.id}>
-                <div className="phase-card__top">
-                  <h3>{item.title}</h3>
-                  <span>{item.stages.length} 阶段</span>
-                </div>
-                <p>{item.summary}</p>
-                <div className="atlas-card__actions">
-                  <Link className="button button--ghost" href={getCaseStudyHref(item.id)}>
-                    打开这组病例
-                  </Link>
-                </div>
-              </article>
+              <Card className="border-border/70 bg-card/82" key={item.id}>
+                <CardHeader className="space-y-4">
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <CardTitle className="text-[1.35rem]">{item.title}</CardTitle>
+                    <Badge variant="outline">{item.stages.length} 阶段</Badge>
+                  </div>
+                  <CardDescription className="text-base">{item.summary}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Button asChild variant="outline">
+                    <Link href={getCaseStudyHref(item.id)}>打开这组病例</Link>
+                  </Button>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>

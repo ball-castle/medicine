@@ -1,9 +1,14 @@
 "use client";
 
-import type { PracticeDifficulty, PracticeSetRecord } from "@medicine/content-schema";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import type { PracticeDifficulty, PracticeSetRecord } from "@medicine/content-schema";
 
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { cn } from "@/lib/utils";
 import { readLearningProgress, savePracticeSetProgress } from "@/lib/learning-progress";
 import { getPracticeHref } from "@/lib/practice";
 
@@ -29,9 +34,7 @@ export function PracticeSetPlayer({ practiceSet }: PracticeSetPlayerProps) {
 
   const summary = useMemo(() => {
     const finished = practiceSet.cases.filter((item) => revealed[item.id]).length;
-    const correct = practiceSet.cases.filter(
-      (item) => revealed[item.id] && answers[item.id] === item.correctActionId,
-    ).length;
+    const correct = practiceSet.cases.filter((item) => revealed[item.id] && answers[item.id] === item.correctActionId).length;
     const difficultyMix = practiceSet.cases.reduce<Record<PracticeDifficulty, number>>(
       (result, item) => {
         result[item.difficulty] += 1;
@@ -93,12 +96,12 @@ export function PracticeSetPlayer({ practiceSet }: PracticeSetPlayerProps) {
     return null;
   }
 
-  const currentResult =
-    isRevealed && currentAnswer ? currentAnswer === currentCase.correctActionId : null;
+  const currentResult = isRevealed && currentAnswer ? currentAnswer === currentCase.correctActionId : null;
   const wrongAction =
     isRevealed && currentAnswer && currentAnswer !== currentCase.correctActionId
       ? practiceSet.actions.find((item) => item.id === currentAnswer) ?? null
       : null;
+  const progressPercent = practiceSet.cases.length ? Math.round((summary.finished / practiceSet.cases.length) * 100) : 0;
 
   function handleReveal() {
     if (!currentAnswer) {
@@ -113,181 +116,237 @@ export function PracticeSetPlayer({ practiceSet }: PracticeSetPlayerProps) {
   }
 
   return (
-    <section className="practice-prototype">
-      <div className="practice-prototype__sidebar">
-        <div className="practice-prototype__intro">
-          <p className="eyebrow">Practice</p>
-          <h2>{practiceSet.title}</h2>
-          <p>{practiceSet.objective}</p>
-        </div>
+    <section className="grid gap-6 xl:grid-cols-[0.92fr_1.08fr]">
+      <div className="space-y-6">
+        <Card className="border-border/70 bg-card/82">
+          <CardHeader className="space-y-4">
+            <Badge className="w-fit rounded-full px-3 py-1" variant="accent">
+              Practice
+            </Badge>
+            <div className="space-y-3">
+              <CardTitle className="text-3xl">{practiceSet.title}</CardTitle>
+              <CardDescription className="text-base">{practiceSet.objective}</CardDescription>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-5">
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-sm text-muted-foreground">
+                <span>练习进度</span>
+                <span>
+                  {summary.finished}/{practiceSet.cases.length}
+                </span>
+              </div>
+              <Progress value={progressPercent} />
+            </div>
+            <div className="grid gap-3 md:grid-cols-2">
+              <Card className="border-border/70 bg-background/60 shadow-none">
+                <CardContent className="space-y-2 p-5">
+                  <p className="text-xs uppercase tracking-[0.22em] text-primary">已完成</p>
+                  <strong className="block text-base leading-7 text-foreground">
+                    {summary.finished}/{practiceSet.cases.length}
+                  </strong>
+                  <span className="block text-sm text-muted-foreground">
+                    先做完 {practiceSet.cases.length} 题，再看自己最容易混淆的是哪一类判断。
+                  </span>
+                </CardContent>
+              </Card>
+              <Card className="border-border/70 bg-background/60 shadow-none">
+                <CardContent className="space-y-2 p-5">
+                  <p className="text-xs uppercase tracking-[0.22em] text-primary">当前得分</p>
+                  <strong className="block text-base leading-7 text-foreground">
+                    {summary.correct}/{summary.finished || 1}
+                  </strong>
+                  <span className="block text-sm text-muted-foreground">{practiceSet.warning}</span>
+                </CardContent>
+              </Card>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {summary.difficultyMix.foundation > 0 ? <Badge variant="outline">基础 {summary.difficultyMix.foundation}</Badge> : null}
+              {summary.difficultyMix.intermediate > 0 ? <Badge variant="outline">进阶 {summary.difficultyMix.intermediate}</Badge> : null}
+              {summary.difficultyMix.advanced > 0 ? <Badge variant="outline">挑战 {summary.difficultyMix.advanced}</Badge> : null}
+            </div>
+          </CardContent>
+        </Card>
 
-        <div className="practice-prototype__summary">
-          <article className="practice-prototype__summary-card">
-            <p className="practice-prototype__summary-label">已完成</p>
-            <strong>
-              {summary.finished}/{practiceSet.cases.length}
-            </strong>
-            <span>先做完 {practiceSet.cases.length} 题，再看自己最容易混淆的是哪一类判断。</span>
-          </article>
-          <article className="practice-prototype__summary-card">
-            <p className="practice-prototype__summary-label">当前得分</p>
-            <strong>
-              {summary.correct}/{summary.finished || 1}
-            </strong>
-            <span>{practiceSet.warning}</span>
-          </article>
-        </div>
+        <Card className="border-border/70 bg-card/82">
+          <CardHeader className="space-y-3">
+            <p className="font-display text-xs uppercase tracking-[0.24em] text-primary">Case Navigator</p>
+            <CardTitle className="text-2xl">按题推进这组练习</CardTitle>
+          </CardHeader>
+          <CardContent className="grid gap-3">
+            {practiceSet.cases.map((item, index) => {
+              const answered = revealed[item.id];
+              const correct = answers[item.id] === item.correctActionId;
 
-        <div className="token-row">
-          {summary.difficultyMix.foundation > 0 && (
-            <span className="token token--light">基础 {summary.difficultyMix.foundation}</span>
-          )}
-          {summary.difficultyMix.intermediate > 0 && (
-            <span className="token token--light">进阶 {summary.difficultyMix.intermediate}</span>
-          )}
-          {summary.difficultyMix.advanced > 0 && (
-            <span className="token token--light">挑战 {summary.difficultyMix.advanced}</span>
-          )}
-        </div>
-
-        <div className="practice-prototype__case-tabs">
-          {practiceSet.cases.map((item, index) => {
-            const answered = revealed[item.id];
-            const correct = answers[item.id] === item.correctActionId;
-
-            return (
-              <button
-                className={`practice-prototype__case-tab ${index === caseIndex ? "is-active" : ""}`}
-                key={item.id}
-                onClick={() => setCaseIndex(index)}
-                type="button"
-              >
-                <strong>{item.title}</strong>
-                <span>{item.brief}</span>
-                <div className="practice-prototype__case-meta">
-                  <em className="practice-prototype__difficulty">{DIFFICULTY_LABELS[item.difficulty]}</em>
-                  <em className={answered ? (correct ? "is-correct" : "is-wrong") : ""}>
-                    {answered ? (correct ? "已答对" : "已解析") : "未作答"}
-                  </em>
-                </div>
-              </button>
-            );
-          })}
-        </div>
+              return (
+                <button
+                  className={cn(
+                    "rounded-[24px] border px-4 py-4 text-left transition-all duration-200",
+                    index === caseIndex ? "border-primary/40 bg-primary/10 shadow-soft" : "border-border/70 bg-background/60 hover:bg-background",
+                  )}
+                  key={item.id}
+                  onClick={() => setCaseIndex(index)}
+                  type="button"
+                >
+                  <strong className="block text-lg leading-7 text-foreground">{item.title}</strong>
+                  <p className="mt-2 text-sm leading-7 text-muted-foreground">{item.brief}</p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    <Badge variant="outline">{DIFFICULTY_LABELS[item.difficulty]}</Badge>
+                    <Badge variant={answered ? (correct ? "accent" : "secondary") : "outline"}>
+                      {answered ? (correct ? "已答对" : "已解析") : "未作答"}
+                    </Badge>
+                  </div>
+                </button>
+              );
+            })}
+          </CardContent>
+        </Card>
       </div>
 
-      <div className="practice-prototype__stage">
-        <article className="practice-prototype__scenario-card">
-          <div className="practice-prototype__scenario-top">
-            <div>
-              <p className="eyebrow">Case</p>
-              <h3>{currentCase.title}</h3>
+      <div className="space-y-6">
+        <Card className="border-border/70 bg-card/84">
+          <CardHeader className="space-y-4">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div className="space-y-3">
+                <Badge className="w-fit rounded-full px-3 py-1" variant="outline">
+                  Case
+                </Badge>
+                <CardTitle className="text-[2rem]">{currentCase.title}</CardTitle>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <Badge variant="secondary">
+                  {caseIndex + 1}/{practiceSet.cases.length}
+                </Badge>
+                <Badge variant="outline">{DIFFICULTY_LABELS[currentCase.difficulty]}</Badge>
+              </div>
             </div>
-            <div className="practice-prototype__scenario-badges">
-              <span className="practice-prototype__counter">
-                {caseIndex + 1}/{practiceSet.cases.length}
-              </span>
-              <span className="practice-prototype__difficulty-pill">
-                {DIFFICULTY_LABELS[currentCase.difficulty]}
-              </span>
-            </div>
-          </div>
-          <p className="practice-prototype__scenario-text">{currentCase.scenario}</p>
-          <div className="practice-prototype__clues">
-            {currentCase.clues.map((clue) => (
-              <article className="practice-prototype__clue" key={clue}>
-                <p>{clue}</p>
-              </article>
-            ))}
-          </div>
-        </article>
-
-        <div className="practice-prototype__action-grid">
-          {practiceSet.actions.map((item) => {
-            const isActive = currentAnswer === item.id;
-            const resultClass =
-              isRevealed && item.id === currentCase.correctActionId
-                ? "is-correct"
-                : isRevealed && isActive && item.id !== currentCase.correctActionId
-                  ? "is-wrong"
-                  : "";
-
-            return (
-              <button
-                className={`practice-prototype__action ${isActive ? "is-active" : ""} ${resultClass}`.trim()}
-                key={item.id}
-                onClick={() => setAnswers((prev) => ({ ...prev, [currentCase.id]: item.id }))}
-                type="button"
-              >
-                <p>{item.shortLabel}</p>
-                <strong>{item.label}</strong>
-                <span>{item.summary}</span>
-              </button>
-            );
-          })}
-        </div>
-
-        <div className="practice-prototype__actions-row">
-          <button
-            className="button button--primary"
-            disabled={!currentAnswer || isRevealed}
-            onClick={handleReveal}
-            type="button"
-          >
-            提交判断
-          </button>
-          <button className="button button--ghost" onClick={handleNextCase} type="button">
-            下一题
-          </button>
-          <Link className="button button--ghost" href="/progress">
-            查看学习进度
-          </Link>
-        </div>
-
-        {isRevealed && currentAnswer && (
-          <div className="practice-prototype__feedback">
-            <article className={`practice-prototype__result-card ${currentResult ? "is-correct" : "is-wrong"}`}>
-              <p className="practice-prototype__summary-label">本题结果</p>
-              <strong>{currentResult ? "判断正确" : "这题更适合换一个动作"}</strong>
-              <p>{currentCase.rationale}</p>
-            </article>
-
-            {!currentResult && wrongAction && (
-              <article className="practice-prototype__result-card">
-                <p className="practice-prototype__summary-label">常见误区</p>
-                <strong>{currentCase.mistakeTag}</strong>
-                <p>
-                  你刚刚更偏向选了“{wrongAction.label}”。{currentCase.mistakeReason}
-                </p>
-              </article>
-            )}
-
-            <article className="practice-prototype__result-card">
-              <p className="practice-prototype__summary-label">回看建议</p>
-              <strong>{currentCase.nextLabel}</strong>
-              <p>{currentCase.reviewPrompt}</p>
-            </article>
-
-            <div className="practice-prototype__matrix">
-              {practiceSet.actions.map((item) => (
-                <article className="practice-prototype__matrix-card" key={item.id}>
-                  <p className="practice-prototype__summary-label">{item.shortLabel}</p>
-                  <strong>{item.label}</strong>
-                  <span>{currentCase.comparisons[item.id]}</span>
-                </article>
+            <CardDescription className="text-base">{currentCase.scenario}</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-5">
+            <div className="grid gap-3 md:grid-cols-2">
+              {currentCase.clues.map((clue) => (
+                <Card className="border-border/70 bg-background/60 shadow-none" key={clue}>
+                  <CardContent className="p-5 text-sm leading-7 text-foreground/85">{clue}</CardContent>
+                </Card>
               ))}
             </div>
 
-            <div className="practice-prototype__next-row">
-              <Link className="button button--ghost" href={currentCase.nextHref}>
-                {currentCase.nextLabel}
-              </Link>
-              <Link className="button button--ghost" href={practiceSet.actions.find((item) => item.id === currentCase.correctActionId)?.linkedPrototypeHref ?? currentCase.nextHref}>
-                打开对应动作图
-              </Link>
+            <div className="grid gap-3">
+              {practiceSet.actions.map((item) => {
+                const isActive = currentAnswer === item.id;
+                const resultClass =
+                  isRevealed && item.id === currentCase.correctActionId
+                    ? "border-emerald-400/50 bg-emerald-50"
+                    : isRevealed && isActive && item.id !== currentCase.correctActionId
+                      ? "border-amber-400/50 bg-amber-50"
+                      : "";
+
+                return (
+                  <button
+                    className={cn(
+                      "rounded-[24px] border px-4 py-4 text-left transition-all duration-200",
+                      isActive ? "border-primary/40 bg-primary/10 shadow-soft" : "border-border/70 bg-background/60 hover:bg-background",
+                      resultClass,
+                    )}
+                    key={item.id}
+                    onClick={() => setAnswers((prev) => ({ ...prev, [currentCase.id]: item.id }))}
+                    type="button"
+                  >
+                    <p className="text-sm uppercase tracking-[0.2em] text-primary">{item.shortLabel}</p>
+                    <strong className="mt-2 block text-lg leading-7 text-foreground">{item.label}</strong>
+                    <span className="mt-2 block text-sm leading-7 text-muted-foreground">{item.summary}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="flex flex-wrap gap-3">
+              <Button disabled={!currentAnswer || isRevealed} onClick={handleReveal} type="button">
+                提交判断
+              </Button>
+              <Button onClick={handleNextCase} type="button" variant="outline">
+                下一题
+              </Button>
+              <Button asChild variant="ghost">
+                <Link href="/progress">查看学习进度</Link>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        {isRevealed && currentAnswer ? (
+          <div className="space-y-4">
+            <Card className={cn("border-border/70", currentResult ? "bg-emerald-50" : "bg-amber-50")}>
+              <CardHeader className="space-y-3">
+                <Badge className="w-fit rounded-full px-3 py-1" variant={currentResult ? "accent" : "secondary"}>
+                  本题结果
+                </Badge>
+                <CardTitle className="text-[1.5rem]">{currentResult ? "判断正确" : "这题更适合换一个动作"}</CardTitle>
+                <CardDescription className="text-base">{currentCase.rationale}</CardDescription>
+              </CardHeader>
+            </Card>
+
+            {!currentResult && wrongAction ? (
+              <Card className="border-border/70 bg-card/82">
+                <CardHeader className="space-y-3">
+                  <Badge className="w-fit rounded-full px-3 py-1" variant="outline">
+                    常见误区
+                  </Badge>
+                  <CardTitle className="text-[1.35rem]">{currentCase.mistakeTag}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm leading-7 text-foreground/85">
+                    你刚刚更偏向选了“{wrongAction.label}”。{currentCase.mistakeReason}
+                  </p>
+                </CardContent>
+              </Card>
+            ) : null}
+
+            <Card className="border-border/70 bg-card/82">
+              <CardHeader className="space-y-3">
+                <Badge className="w-fit rounded-full px-3 py-1" variant="outline">
+                  回看建议
+                </Badge>
+                <CardTitle className="text-[1.35rem]">{currentCase.nextLabel}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm leading-7 text-foreground/85">{currentCase.reviewPrompt}</p>
+              </CardContent>
+            </Card>
+
+            <div className="grid gap-4 md:grid-cols-2">
+              {practiceSet.actions.map((item) => (
+                <Card className="border-border/70 bg-card/82" key={item.id}>
+                  <CardHeader className="space-y-3">
+                    <Badge className="w-fit rounded-full px-3 py-1" variant="outline">
+                      {item.shortLabel}
+                    </Badge>
+                    <CardTitle className="text-[1.25rem]">{item.label}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm leading-7 text-foreground/85">{currentCase.comparisons[item.id]}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            <div className="flex flex-wrap gap-3">
+              <Button asChild variant="outline">
+                <Link href={currentCase.nextHref}>{currentCase.nextLabel}</Link>
+              </Button>
+              <Button asChild variant="ghost">
+                <Link
+                  href={
+                    practiceSet.actions.find((item) => item.id === currentCase.correctActionId)?.linkedPrototypeHref ??
+                    currentCase.nextHref
+                  }
+                >
+                  打开对应动作图
+                </Link>
+              </Button>
             </div>
           </div>
-        )}
+        ) : null}
       </div>
     </section>
   );
