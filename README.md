@@ -66,8 +66,16 @@ npm run content:check
   首页学习地图
 - `/modules/foundations`
   第一版模块页样例
+- `/modules/fu-yang-core`
+  扶阳模块页样例
 - `/prototypes/circle-flow-map`
   圆运动总图交互原型
+- `/prototypes/kan-li-circulation`
+  坎离水火交通图交互原型
+- `/prototypes/guizhi-gate-animation`
+  桂枝法开门动画交互原型
+- `/prototypes/fuzi-root-return`
+  附子法归根动画交互原型
 - `/storyboards`
   第一轮重点图表分镜页
 

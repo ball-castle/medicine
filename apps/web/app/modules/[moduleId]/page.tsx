@@ -9,6 +9,9 @@ import type {
 } from "@medicine/content-schema";
 
 import { CircleFlowPrototype } from "@/components/circle-flow-prototype";
+import { FuziRootPrototype } from "@/components/fuzi-root-prototype";
+import { GuizhiGatePrototype } from "@/components/guizhi-gate-prototype";
+import { KanLiPrototype } from "@/components/kan-li-prototype";
 import { getSiteContent } from "@/lib/content";
 
 function pickModuleContent(
@@ -145,6 +148,61 @@ export default async function ModulePage(props: {
             </Link>
           </div>
         </section>
+      )}
+
+      {module.id === "fu-yang-core" && (
+        <>
+          <section className="section">
+            <div className="section-heading">
+              <p className="eyebrow">Interactive Prototype</p>
+              <h2>扶阳模块的核心结构图已经能直接体验</h2>
+              <p>
+                这张原型先把“坎离水火”“上下交通”“表面热象”和“归根”放进同一张画面里，
+                让用户先理解结构，再进入具体动作差异。
+              </p>
+            </div>
+            <KanLiPrototype />
+            <div className="section-linkout">
+              <Link className="button button--ghost" href="/prototypes/kan-li-circulation">
+                打开坎离独立原型页
+              </Link>
+            </div>
+          </section>
+
+          <section className="section">
+            <div className="section-heading">
+              <p className="eyebrow">Action Prototype</p>
+              <h2>桂枝法的“开门拨机”也已经被做成动作原型</h2>
+              <p>
+                这一张图专门负责把“门没打开”和“把门拨开”讲清楚。它不是补充说明，而是扶阳模块里
+                最需要一眼看懂的动作图之一。
+              </p>
+            </div>
+            <GuizhiGatePrototype />
+            <div className="section-linkout">
+              <Link className="button button--ghost" href="/prototypes/guizhi-gate-animation">
+                打开桂枝独立原型页
+              </Link>
+            </div>
+          </section>
+
+          <section className="section">
+            <div className="section-heading">
+              <p className="eyebrow">Return Prototype</p>
+              <h2>附子法的“归根回阳”也已经被做成动作原型</h2>
+              <p>
+                这一张图专门负责把“浮散无根”和“收回归根”讲清楚。它和桂枝法不是同一类动作，
+                必须让用户在视觉上直接看到一个是开门，一个是归根。
+              </p>
+            </div>
+            <FuziRootPrototype />
+            <div className="section-linkout">
+              <Link className="button button--ghost" href="/prototypes/fuzi-root-return">
+                打开附子独立原型页
+              </Link>
+            </div>
+          </section>
+        </>
       )}
 
       <section className="section">
