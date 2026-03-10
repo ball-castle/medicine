@@ -6,8 +6,10 @@ import type {
   BookRecord,
   ConceptRecord,
   DiagramRecord,
+  ModuleDetailRecord,
   ModuleRecord,
   RoadmapPhaseRecord,
+  StoryboardRecord,
 } from "@medicine/content-schema";
 
 const contentRoot = path.resolve(process.cwd(), "../../content");
@@ -19,13 +21,15 @@ async function loadJson<T>(...segments: string[]): Promise<T> {
 }
 
 export const getSiteContent = cache(async () => {
-  const [books, concepts, diagrams, modules, phases] = await Promise.all([
+  const [books, concepts, diagrams, modules, moduleDetails, phases, storyboards] = await Promise.all([
     loadJson<BookRecord[]>("books", "books.json"),
     loadJson<ConceptRecord[]>("concepts", "concepts.json"),
     loadJson<DiagramRecord[]>("diagrams", "diagrams.json"),
     loadJson<ModuleRecord[]>("modules", "modules.json"),
+    loadJson<ModuleDetailRecord[]>("modules", "module-details.json"),
     loadJson<RoadmapPhaseRecord[]>("roadmap", "phases.json"),
+    loadJson<StoryboardRecord[]>("storyboards", "storyboards.json"),
   ]);
 
-  return { books, concepts, diagrams, modules, phases };
+  return { books, concepts, diagrams, modules, moduleDetails, phases, storyboards };
 });

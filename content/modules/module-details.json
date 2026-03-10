@@ -1,0 +1,88 @@
+[
+  {
+    "moduleId": "foundations",
+    "subtitle": "所有后续模块的底层语言",
+    "estimatedDuration": "18-25 分钟",
+    "intro": "这个模块的任务，不是让用户立刻记住所有术语，而是先让他们把中医看病的观察方式彻底换掉：从盯病名和症状，改成先看整体气机有没有失去平衡。",
+    "learningQuestions": [
+      "为什么《圆运动》一直强调先看整体运行，而不是先看病名？",
+      "中气为什么会被说成全局轴心？",
+      "升降出入到底是观察什么，而不是背什么？"
+    ],
+    "sections": [
+      {
+        "id": "system-first",
+        "title": "先看系统，不先看零件",
+        "summary": "先把人体理解成一个持续循环的系统，才能看懂后面所有概念。",
+        "body": "在这个模块里，用户要先放下“哪一个器官坏了”的直觉。圆运动真正想教的是：肝、肺、脾、肾、心不是五块独立零件，而是五种彼此牵动的运动方向。只要流动关系失去协调，病就会从不同部位表现出来。第一段课程建议用大图和缓动流线，先给用户建立“整体在转”的感觉，再进入细节解释。",
+        "anchorConceptIds": ["round-motion", "five-zang-functional-powers"],
+        "anchorDiagramIds": ["circle-flow-map", "five-zang-wheel"]
+      },
+      {
+        "id": "middle-axis",
+        "title": "把中气立成全局轴心",
+        "summary": "中气是理解很多病机和治法的真正入口。",
+        "body": "普通用户最容易接受的比喻是轴心和轮子。课程可以先展示一个平衡运转的系统，再把中轴轻微拉斜，让用户看到外围方向如何跟着失衡。这样能把“脾胃中气是轴”从一句抽象判断，变成一眼就懂的结构。这里不需要过早塞太多术语，重点是让用户记住：表面问题常常只是外围摆动，中轴才是根。",
+        "anchorConceptIds": ["middle-qi-axis", "ascending-descending-in-out"],
+        "anchorDiagramIds": ["middle-axis-four-directions", "circle-flow-map"]
+      },
+      {
+        "id": "pattern-before-label",
+        "title": "先辨方向，再看名字",
+        "summary": "让用户第一次明白为什么中医不能只用病名学习。",
+        "body": "这一段课程适合加入对照：同样都叫咳嗽、发热、泄泻，背后结构可以完全不同。课程不需要做成临床讲义，而是做成“看方向”的入门训练。比如给出几种不同的流线状态，让用户判断是‘该降不降’还是‘该升不升’，从而把辨证思维从一开始就种下去。这会决定后面方药、脉法、扶阳模块能否真正接住。",
+        "anchorConceptIds": ["ascending-descending-in-out", "treat-pattern-not-disease-name"],
+        "anchorDiagramIds": ["middle-axis-four-directions"]
+      }
+    ],
+    "exerciseIdeas": [
+      "给出 3 组症状外观，让用户先判断失衡方向，而不是猜病名。",
+      "让用户拖动五脏功能节点，观察哪条流线最先失去平衡。",
+      "用一个滑杆演示中气变弱时，外围四向如何同步偏移。"
+    ],
+    "nextModuleIds": ["formula-logic", "fu-yang-core"]
+  },
+  {
+    "moduleId": "fu-yang-core",
+    "subtitle": "把扶阳主线讲成大众能看懂的空间结构",
+    "estimatedDuration": "20-28 分钟",
+    "intro": "这个模块的任务不是传播神秘感，而是把《火神门》里最容易被误解的扶阳逻辑，转成直观、空间化、可比较的学习体验。重点不是药名堆砌，而是开门、交通、归根、右降这几个动作。",
+    "learningQuestions": [
+      "扶阳为什么不等于无脑上热药？",
+      "坎离水火的上下交通，到底在教学上该怎么画出来？",
+      "桂枝法、附子法、茯神法三个动作为什么不能混成一团？"
+    ],
+    "sections": [
+      {
+        "id": "kan-li-core",
+        "title": "先把水火交通讲成结构，不讲成玄学",
+        "summary": "坎离是整个扶阳模块的视觉中心。",
+        "body": "课程开头应该先用上下交通的空间结构，让用户看到‘通’与‘不通’的差别。只要这一步讲清楚，扶阳就不会被误会成简单加热。这里的目标是让用户记住：真正关键的是水火能不能接、阳能不能归根，而不是一味放大冷热表象。",
+        "anchorConceptIds": ["kan-li-water-fire", "support-yang-not-blind-heat"],
+        "anchorDiagramIds": ["kan-li-circulation"]
+      },
+      {
+        "id": "guizhi-vs-fuzi",
+        "title": "把开门和归根做成强对照",
+        "summary": "桂枝法和附子法必须被讲成两种不同动作，而不是两种相似热药。",
+        "body": "适合用左右对照或前后切换的方式表现：桂枝法像把门轴拨开，让内外恢复沟通；附子法像把快散掉的火重新收回根部。只要用户能分清这两个动作，扶阳学派最核心的一层就已经跨过去了。课程里可以用同一个人物或同一个系统模型，在不同状态下切换两种处理方式。",
+        "anchorConceptIds": ["guizhi-opens-gate", "fuzi-returns-root", "support-yang-not-blind-heat"],
+        "anchorDiagramIds": ["guizhi-gate-animation", "fuzi-root-return"]
+      },
+      {
+        "id": "gentle-transition",
+        "title": "加入右降和过渡，避免把扶阳讲成猛攻套路",
+        "summary": "茯神法和上热下寒结构是这一模块的缓冲层。",
+        "body": "如果课程里只有‘开’和‘归’，用户仍然可能把扶阳理解成强力操作。因此需要补上一段过渡：当病机混乱、上热下寒、心神不宁时，为什么要先右降、先缓转。这里适合做成一个层层降噪的动画，让用户看到强法不是时时可用，节奏本身就是医学判断的一部分。",
+        "anchorConceptIds": ["fushen-right-descends", "upper-hot-lower-cold", "staged-treatment-rhythm"],
+        "anchorDiagramIds": ["fushen-right-descend", "kan-li-circulation"]
+      }
+    ],
+    "exerciseIdeas": [
+      "让用户判断当前状态更需要‘开门’还是‘归根’。",
+      "用前后对比动画，让用户识别‘上热下寒’和‘上下既济’的差别。",
+      "把一个病例拆成三阶段，要求用户选出先后手顺序。"
+    ],
+    "nextModuleIds": ["cases-and-application", "diagnostic-judgment"]
+  }
+]

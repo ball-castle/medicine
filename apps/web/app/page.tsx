@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { ConceptRecord, DiagramRecord, ModuleRecord } from "@medicine/content-schema";
 
 import { getSiteContent } from "@/lib/content";
@@ -18,7 +19,7 @@ function ModuleCard(props: {
   diagrams: DiagramRecord[];
 }) {
   return (
-    <article className="module-card">
+    <Link className="module-card module-card--link" href={`/modules/${props.module.id}`}>
       <div className="module-card__top">
         <p className="module-card__eyebrow">Learning Module</p>
         <h3>{props.module.title}</h3>
@@ -36,7 +37,7 @@ function ModuleCard(props: {
           </span>
         ))}
       </div>
-    </article>
+    </Link>
   );
 }
 
@@ -52,7 +53,7 @@ function DiagramCard(props: { diagram: DiagramRecord }) {
 }
 
 export default async function HomePage() {
-  const { books, concepts, diagrams, modules, phases } = await getSiteContent();
+  const { books, concepts, diagrams, modules, phases, storyboards } = await getSiteContent();
 
   const conceptMap = new Map(concepts.map((concept) => [concept.id, concept]));
   const diagramMap = new Map(diagrams.map((diagram) => [diagram.id, diagram]));
@@ -74,9 +75,9 @@ export default async function HomePage() {
             <a className="button button--primary" href="#modules">
               看模块结构
             </a>
-            <a className="button button--ghost" href="#diagrams">
-              看图表优先级
-            </a>
+            <Link className="button button--ghost" href="/storyboards">
+              看分镜稿
+            </Link>
           </div>
         </div>
         <div className="hero__panel">
@@ -114,6 +115,24 @@ export default async function HomePage() {
           <p className="track__index">03</p>
           <h3>选择性 3D</h3>
           <p>只把圆运动、坎离水火、厥阴逆冲这些空间感最强的概念做成沉浸式场景。</p>
+        </div>
+      </section>
+
+      <section className="storyboard-strip">
+        <div>
+          <p className="eyebrow">Production Ready</p>
+          <h2>第一批分镜已经能直接进入设计讨论。</h2>
+          <p>
+            3 张最高优先级图已经拆成目标、场景、交互、素材说明和成功标准，不需要再从零讨论“到底要讲什么”。
+          </p>
+        </div>
+        <div className="storyboard-strip__list">
+          {storyboards.map((storyboard) => (
+            <article className="storyboard-pill" key={storyboard.id}>
+              <strong>{storyboard.title}</strong>
+              <span>{storyboard.scenes.length} 个场景</span>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -196,6 +215,11 @@ export default async function HomePage() {
           {featuredDiagrams.map((diagram) => (
             <DiagramCard key={diagram.id} diagram={diagram} />
           ))}
+        </div>
+        <div className="section-linkout">
+          <Link className="button button--ghost" href="/storyboards">
+            查看 3 张重点图分镜
+          </Link>
         </div>
       </section>
 

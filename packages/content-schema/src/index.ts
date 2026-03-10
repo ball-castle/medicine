@@ -58,6 +58,47 @@ export interface ModuleRecord {
   diagramIds: string[];
 }
 
+export interface ModuleDetailSectionRecord {
+  id: string;
+  title: string;
+  summary: string;
+  body: string;
+  anchorConceptIds: string[];
+  anchorDiagramIds: string[];
+}
+
+export interface ModuleDetailRecord {
+  moduleId: string;
+  subtitle: string;
+  estimatedDuration: string;
+  intro: string;
+  learningQuestions: string[];
+  sections: ModuleDetailSectionRecord[];
+  exerciseIdeas: string[];
+  nextModuleIds: string[];
+}
+
+export interface StoryboardSceneRecord {
+  id: string;
+  title: string;
+  duration: string;
+  visualFocus: string;
+  narration: string;
+  interaction: string;
+}
+
+export interface StoryboardRecord {
+  id: string;
+  diagramId: string;
+  title: string;
+  targetFeeling: string;
+  userGoal: string;
+  scenes: StoryboardSceneRecord[];
+  interactionBeats: string[];
+  assetNotes: string[];
+  successCriteria: string[];
+}
+
 export interface RoadmapPhaseRecord {
   id: string;
   title: string;

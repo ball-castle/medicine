@@ -11,7 +11,7 @@
    把两本书拆成模块、知识点、图表清单和开发路线图。
 
 3. Web 产品骨架
-   一个基于 Next.js 的首页学习地图，用来承载后续动态图表、课程和 3D 场景。
+   一个基于 Next.js 的首页学习地图、模块页和分镜页，用来承载后续动态图表、课程和 3D 场景。
 
 ## 目录
 
@@ -21,9 +21,11 @@ content/books/             书目元数据
 content/concepts/          核心知识点
 content/diagrams/          图表重绘清单
 content/modules/           学习模块
+content/storyboards/       第一轮图表分镜数据
 content/roadmap/           开发路线图
 docs/core_curriculum.md    人读版知识点与图表清单
 docs/project_direction.md  产品方向规划
+docs/storyboards_round1.md 第一轮重点图分镜文档
 packages/content-schema/   内容 schema 类型
 tools/check-content.mjs    内容一致性校验脚本
 tools/ocr_pdf.py           OCR 脚本
@@ -39,6 +41,7 @@ tools/ocr_pdf.py           OCR 脚本
 - 结构化产品底盘：
   - `content/`
   - `docs/core_curriculum.md`
+  - `docs/storyboards_round1.md`
 
 ## 前端命令
 
@@ -56,6 +59,15 @@ npm run typecheck
 npm run build
 npm run content:check
 ```
+
+## 当前页面
+
+- `/`
+  首页学习地图
+- `/modules/foundations`
+  第一版模块页样例
+- `/storyboards`
+  第一轮重点图表分镜页
 
 ## 当前建议的产品路线
 

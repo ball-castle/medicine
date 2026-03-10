@@ -21,7 +21,9 @@ async function main() {
   const concepts = await load(path.join("concepts", "concepts.json"));
   const diagrams = await load(path.join("diagrams", "diagrams.json"));
   const modules = await load(path.join("modules", "modules.json"));
+  const moduleDetails = await load(path.join("modules", "module-details.json"));
   const phases = await load(path.join("roadmap", "phases.json"));
+  const storyboards = await load(path.join("storyboards", "storyboards.json"));
 
   const bookIds = new Set(books.map((book) => book.id));
   const conceptIds = new Set(concepts.map((concept) => concept.id));
@@ -32,7 +34,9 @@ async function main() {
   assert(concepts.length >= 20, "Expected at least 20 concepts.");
   assert(diagrams.length >= 10, "Expected at least 10 diagrams.");
   assert(modules.length >= 3, "Expected at least 3 modules.");
+  assert(moduleDetails.length >= 2, "Expected at least 2 module details.");
   assert(phases.length >= 3, "Expected at least 3 roadmap phases.");
+  assert(storyboards.length >= 3, "Expected at least 3 storyboards.");
 
   for (const concept of concepts) {
     assert(moduleIds.has(concept.moduleId), `Unknown module on concept ${concept.id}`);
@@ -60,8 +64,28 @@ async function main() {
     }
   }
 
+  for (const moduleDetail of moduleDetails) {
+    assert(moduleIds.has(moduleDetail.moduleId), `Unknown module detail ${moduleDetail.moduleId}`);
+    for (const section of moduleDetail.sections) {
+      for (const conceptId of section.anchorConceptIds) {
+        assert(conceptIds.has(conceptId), `Unknown concept ${conceptId} in module detail ${moduleDetail.moduleId}`);
+      }
+      for (const diagramId of section.anchorDiagramIds) {
+        assert(diagramIds.has(diagramId), `Unknown diagram ${diagramId} in module detail ${moduleDetail.moduleId}`);
+      }
+    }
+    for (const nextModuleId of moduleDetail.nextModuleIds) {
+      assert(moduleIds.has(nextModuleId), `Unknown next module ${nextModuleId} in module detail ${moduleDetail.moduleId}`);
+    }
+  }
+
+  for (const storyboard of storyboards) {
+    assert(diagramIds.has(storyboard.diagramId), `Unknown diagram ${storyboard.diagramId} in storyboard ${storyboard.id}`);
+    assert(storyboard.scenes.length >= 3, `Storyboard ${storyboard.id} must have at least 3 scenes.`);
+  }
+
   console.log(
-    `content ok: books=${books.length}, concepts=${concepts.length}, diagrams=${diagrams.length}, modules=${modules.length}, phases=${phases.length}`,
+    `content ok: books=${books.length}, concepts=${concepts.length}, diagrams=${diagrams.length}, modules=${modules.length}, moduleDetails=${moduleDetails.length}, phases=${phases.length}, storyboards=${storyboards.length}`,
   );
 }
 
