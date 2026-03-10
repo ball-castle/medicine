@@ -1,17 +1,26 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 import { FuYangTriagePractice } from "@/components/fu-yang-triage-practice";
+import { getSiteContent } from "@/lib/content";
 
-export default function FuYangTriagePracticePage() {
+export default async function FuYangTriagePracticePage() {
+  const { practiceSets } = await getSiteContent();
+  const practiceSet = practiceSets.find((item) => item.id === "fu-yang-triage-basic");
+
+  if (!practiceSet) {
+    notFound();
+  }
+
   return (
     <main className="page-shell page-shell--prototype">
       <section className="detail-hero">
         <div className="detail-hero__content">
           <p className="eyebrow">Practice</p>
-          <h1>扶阳病例分流练习</h1>
-          <p className="detail-hero__subtitle">第一张真正让用户做判断的练习页，不再只是看图，而是开始分流。</p>
+          <h1>{practiceSet.title}</h1>
+          <p className="detail-hero__subtitle">{practiceSet.subtitle}</p>
           <p className="detail-hero__intro">
-            这个页面把前面的动作原型转成 3 个简化案例，让用户先判断更像“开门、归根、还是缓转”。
+            这个页面把前面的动作原型转成 {practiceSet.cases.length} 个简化案例，让用户先判断更像“开门、归根、还是缓转”。
             它的价值在于从展示型产品，往可学习、可测试的产品迈一步。
           </p>
           <div className="hero__actions">
@@ -28,16 +37,16 @@ export default function FuYangTriagePracticePage() {
         </div>
         <div className="detail-hero__stats">
           <div className="hero-metric">
-            <strong>3</strong>
+            <strong>{practiceSet.cases.length}</strong>
             <span>练习案例</span>
           </div>
           <div className="hero-metric">
-            <strong>3</strong>
+            <strong>{practiceSet.actions.length}</strong>
             <span>动作选项</span>
           </div>
           <div className="hero-metric">
-            <strong>1</strong>
-            <span>即时解析</span>
+            <strong>{practiceSet.estimatedTime}</strong>
+            <span>推荐时长</span>
           </div>
           <div className="hero-metric">
             <strong>MVP</strong>
@@ -46,7 +55,7 @@ export default function FuYangTriagePracticePage() {
         </div>
       </section>
 
-      <FuYangTriagePractice />
+      <FuYangTriagePractice practiceSet={practiceSet} />
 
       <section className="section section--split">
         <div>
@@ -63,7 +72,7 @@ export default function FuYangTriagePracticePage() {
               <p>即时解析是否足够帮助用户理解“为什么不是另外两个动作”。</p>
             </article>
             <article className="phase-card">
-              <p>3 题小练习是否已经能形成最初的可测试学习闭环。</p>
+              <p>{practiceSet.cases.length} 题小练习是否已经能形成第一版可测试学习闭环。</p>
             </article>
           </div>
         </div>
@@ -75,10 +84,10 @@ export default function FuYangTriagePracticePage() {
           </div>
           <div className="phase-list">
             <article className="phase-card">
-              <p>把练习页扩成 6 到 9 个案例，形成第一版入门测验。</p>
+              <p>把每道题的错因接到对应原型页，形成“做错就回看”的学习回路。</p>
             </article>
             <article className="phase-card">
-              <p>把每道题的错因接到对应原型页，形成“做错就回看”的学习回路。</p>
+              <p>把题目继续抽成更细的难度层级，开始形成基础题和进阶题。</p>
             </article>
             <article className="phase-card">
               <p>再决定哪些案例值得升级成更完整的 2.5D 动画推演或 3D 漫游场景。</p>

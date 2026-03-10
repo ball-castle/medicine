@@ -1,0 +1,156 @@
+[
+  {
+    "id": "fu-yang-triage-basic",
+    "moduleId": "fu-yang-core",
+    "title": "扶阳病例分流练习",
+    "subtitle": "先判断更偏开门、归根还是缓转",
+    "objective": "训练用户先辨没路、没根，还是太乱，再决定更适合哪一种动作。",
+    "warning": "这里只做概念训练，不构成真实用药建议。",
+    "estimatedTime": "6-8 分钟",
+    "actions": [
+      {
+        "id": "open",
+        "label": "桂枝开门",
+        "shortLabel": "开门",
+        "summary": "更适合内外不接、门轴卡住的局面。",
+        "linkedPrototypeHref": "/prototypes/guizhi-gate-animation"
+      },
+      {
+        "id": "return",
+        "label": "附子归根",
+        "shortLabel": "归根",
+        "summary": "更适合阳浮于上、根部失守的局面。",
+        "linkedPrototypeHref": "/prototypes/fuzi-root-return"
+      },
+      {
+        "id": "transition",
+        "label": "茯神缓转",
+        "shortLabel": "缓转",
+        "summary": "更适合先稳局面、先把乱象带下来的局面。",
+        "linkedPrototypeHref": "/prototypes/fushen-right-descend"
+      }
+    ],
+    "cases": [
+      {
+        "id": "wind-gate",
+        "title": "题 1: 门轴被卡住",
+        "brief": "外感刚起，胸背不舒，像是门没开。",
+        "scenario": "一个入门案例里，人物怕风、身微热、汗像是想出来又出不畅，胸背发紧，整个人像被卡在里外之间。",
+        "clues": [
+          "重点是“内外不接”，不是阳气完全掉回去。",
+          "局面没有明显的“真阳浮越无根”感。",
+          "更像先把门轴拨开，让里外恢复接轨。"
+        ],
+        "correctActionId": "open",
+        "rationale": "这题最像“门没打开”。要先恢复里外交通，所以优先看桂枝法的开门拨机，而不是直接归根或先做长时间缓转。",
+        "comparisons": {
+          "open": "对，因为问题核心是门轴卡住、内外不接。",
+          "return": "不对，因为这里不是典型的阳浮无根，不是先往下收的题。",
+          "transition": "不对，因为局面并不以躁乱失序为主，先稳局面的优先级没那么高。"
+        },
+        "nextHref": "/prototypes/guizhi-gate-animation",
+        "nextLabel": "回看桂枝开门"
+      },
+      {
+        "id": "yang-root",
+        "title": "题 2: 上亮下空",
+        "brief": "上面热象明显，但下面接不住。",
+        "scenario": "另一个案例里，人物面赤、烦躁、上部像很亮很亢，但手足偏冷，下部空虚，整个人给人的感觉是“往上冲，却没有根”。",
+        "clues": [
+          "重点不是开一条路，而是把浮散之阳收回来。",
+          "上部亮，不等于系统有主。",
+          "如果根不守住，只往外开，局面会更浮。"
+        ],
+        "correctActionId": "return",
+        "rationale": "这题更像“阳浮无根”。要先让根部重新守住，所以优先看附子法的归根回阳，而不是把注意力放在开门或仅仅缓缓带下。",
+        "comparisons": {
+          "open": "不对，因为这里的主问题不是路没开，而是根没守住。",
+          "return": "对，因为最关键的是把浮散无根的阳收回去、守下来。",
+          "transition": "不对，因为虽然也可能有躁，但核心矛盾仍是无根，不只是需要过渡。"
+        },
+        "nextHref": "/prototypes/fuzi-root-return",
+        "nextLabel": "回看附子归根"
+      },
+      {
+        "id": "agitated-handoff",
+        "title": "题 3: 局面太乱，先别猛推",
+        "brief": "上部烦躁乱动，先把局面缓下来。",
+        "scenario": "第三个案例里，人物心烦不宁、上部躁动明显，整个人很乱，虽然也能看到上热下弱，但你会直觉觉得：现在如果立刻猛开或猛收，都容易让局面更硬。",
+        "clues": [
+          "先要把乱象带下去，让系统能接住。",
+          "这一手更像过渡动作，不是终局动作。",
+          "重点是“先稳局面，再决定后续”。"
+        ],
+        "correctActionId": "transition",
+        "rationale": "这题最适合先看茯神法的右降缓转。它的价值在于先让系统从“太乱”变成“可继续处理”，之后才更好判断是否要进一步开门或归根。",
+        "comparisons": {
+          "open": "不对，因为现在最急的不是开门，而是先把乱象降下来。",
+          "return": "不对，因为虽然可能也有根虚，但当前第一任务不是立刻强收，而是先稳住。",
+          "transition": "对，因为这题的核心是过渡处理，让系统先能承接。"
+        },
+        "nextHref": "/prototypes/fushen-right-descend",
+        "nextLabel": "回看茯神缓转"
+      },
+      {
+        "id": "surface-locked",
+        "title": "题 4: 像在门口打转",
+        "brief": "发热不扬、身微痛、汗不透，卡在表里之间。",
+        "scenario": "这个案例里，人物发热不高但一直不爽快，肩背拘紧，汗像有一点点却不畅达，整个人不是大乱，而是一直卡在门口打转。",
+        "clues": [
+          "更像交通口堵住，而不是根本收不住。",
+          "局面不以躁乱为主，也不是明显真阳上越。",
+          "关键是让里外重新接起来。"
+        ],
+        "correctActionId": "open",
+        "rationale": "这题依然是“门口被卡住”的类型。核心任务不是下潜归根，也不是先缓缓安顿，而是让里外恢复开合和交通。",
+        "comparisons": {
+          "open": "对，因为主问题还是表里不接、门口不利。",
+          "return": "不对，因为这里没有强烈的无根感，先收回去并不是第一步。",
+          "transition": "不对，因为它不是先稳乱局的题，而是先通开合的题。"
+        },
+        "nextHref": "/prototypes/guizhi-gate-animation",
+        "nextLabel": "回看桂枝开门"
+      },
+      {
+        "id": "floating-fire",
+        "title": "题 5: 火在上面飘",
+        "brief": "头面烦热、足冷、下空，上面亮却没有主。",
+        "scenario": "这个人物看起来火很大，面赤、睡不安、上部躁热，但往下一看，手足偏冷、腰以下空虚，整个人像被一股向上的力量牵着走。",
+        "clues": [
+          "这里最怕继续往外拨，让上面更浮。",
+          "问题不在门口，而在下面承接不住。",
+          "要先让阳气回到能守住的位置。"
+        ],
+        "correctActionId": "return",
+        "rationale": "这题更应该优先处理“无根上浮”。所以先看附子法的归根回阳更合理，先把根守住，再谈后续交通和稳定。",
+        "comparisons": {
+          "open": "不对，因为继续开路只会让已经上浮的东西更散。",
+          "return": "对，因为当前首要问题是把漂在上面的阳重新收回根部。",
+          "transition": "不对，因为虽然人也烦躁，但烦躁只是表面，核心矛盾仍是无根。"
+        },
+        "nextHref": "/prototypes/fuzi-root-return",
+        "nextLabel": "回看附子归根"
+      },
+      {
+        "id": "restless-before-move",
+        "title": "题 6: 先让它不那么乱",
+        "brief": "惊悸、睡不安、头面躁热，先稳局面更重要。",
+        "scenario": "最后一个案例里，人物白天心神不宁，晚上也不安，头面时有烦热，胸口发闷，下部承接又弱。你一看就觉得：现在最先要做的不是大开或大收，而是先让整个人别那么乱。",
+        "clues": [
+          "这一步更像建立承接条件。",
+          "先稳住，后面的判断才会更清楚。",
+          "它不是终局动作，而是让系统进入可处理状态。"
+        ],
+        "correctActionId": "transition",
+        "rationale": "这题最适合用缓转思路来理解。茯神法的价值在于先把乱象收一收、带一带，等系统能接住以后，再决定是不是要开门或归根。",
+        "comparisons": {
+          "open": "不对，因为眼前最急的不是打开通路，而是先把纷乱局面缓下来。",
+          "return": "不对，因为虽然也能看到下弱，但第一任务不是立刻强收，而是先让系统能承接。",
+          "transition": "对，因为它是典型的先稳局面、再做后续动作判断的题。"
+        },
+        "nextHref": "/prototypes/fushen-right-descend",
+        "nextLabel": "回看茯神缓转"
+      }
+    ]
+  }
+]

@@ -21,6 +21,7 @@ content/books/             书目元数据
 content/concepts/          核心知识点
 content/diagrams/          图表重绘清单
 content/modules/           学习模块
+content/practices/         练习题库
 content/storyboards/       第一轮图表分镜数据
 content/roadmap/           开发路线图
 docs/core_curriculum.md    人读版知识点与图表清单

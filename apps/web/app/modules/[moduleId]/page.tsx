@@ -51,7 +51,7 @@ export default async function ModulePage(props: {
   params: Promise<{ moduleId: string }>;
 }) {
   const { moduleId } = await props.params;
-  const { modules, concepts, diagrams, moduleDetails, storyboards } = await getSiteContent();
+  const { modules, concepts, diagrams, moduleDetails, storyboards, practiceSets } = await getSiteContent();
 
   const module = modules.find((item) => item.id === moduleId);
   if (!module) {
@@ -71,6 +71,8 @@ export default async function ModulePage(props: {
         .map((id) => modules.find((item) => item.id === id))
         .filter(Boolean) as ModuleRecord[]
     : [];
+  const modulePracticeSet =
+    practiceSets.find((item) => item.moduleId === module.id) ?? null;
 
   return (
     <main className="page-shell page-shell--module">
@@ -258,22 +260,24 @@ export default async function ModulePage(props: {
             </div>
           </section>
 
-          <section className="section">
-            <div className="section-heading">
-              <p className="eyebrow">Practice Prototype</p>
-              <h2>扶阳模块已经开始进入“能做判断”的练习形态</h2>
-              <p>
-                这一页不再只是看图，而是用 3 个简化病例训练用户先做动作分流。
-                这意味着项目正式从展示型原型，开始向学习型产品推进。
-              </p>
-            </div>
-            <FuYangTriagePractice />
-            <div className="section-linkout">
-              <Link className="button button--ghost" href="/prototypes/fu-yang-triage-practice">
-                打开病例分流练习页
-              </Link>
-            </div>
-          </section>
+          {modulePracticeSet && (
+            <section className="section">
+              <div className="section-heading">
+                <p className="eyebrow">Practice Prototype</p>
+                <h2>扶阳模块已经开始进入“能做判断”的练习形态</h2>
+                <p>
+                  这一页不再只是看图，而是用 {modulePracticeSet.cases.length} 个简化病例训练用户先做动作分流。
+                  这意味着项目正式从展示型原型，开始向学习型产品推进。
+                </p>
+              </div>
+              <FuYangTriagePractice practiceSet={modulePracticeSet} />
+              <div className="section-linkout">
+                <Link className="button button--ghost" href="/prototypes/fu-yang-triage-practice">
+                  打开病例分流练习页
+                </Link>
+              </div>
+            </section>
+          )}
         </>
       )}
 

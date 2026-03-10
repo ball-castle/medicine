@@ -106,3 +106,36 @@ export interface RoadmapPhaseRecord {
   goal: string;
   deliverables: string[];
 }
+
+export interface PracticeActionRecord {
+  id: string;
+  label: string;
+  shortLabel: string;
+  summary: string;
+  linkedPrototypeHref: string;
+}
+
+export interface PracticeCaseRecord {
+  id: string;
+  title: string;
+  brief: string;
+  scenario: string;
+  clues: string[];
+  correctActionId: string;
+  rationale: string;
+  comparisons: Record<string, string>;
+  nextHref: string;
+  nextLabel: string;
+}
+
+export interface PracticeSetRecord {
+  id: string;
+  moduleId: string;
+  title: string;
+  subtitle: string;
+  objective: string;
+  warning: string;
+  estimatedTime: string;
+  actions: PracticeActionRecord[];
+  cases: PracticeCaseRecord[];
+}
