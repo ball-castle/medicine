@@ -25,6 +25,7 @@ async function main() {
   const phases = await load(path.join("roadmap", "phases.json"));
   const storyboards = await load(path.join("storyboards", "storyboards.json"));
   const practiceSets = await load(path.join("practices", "practice-sets.json"));
+  const caseStudies = await load(path.join("cases", "case-studies.json"));
 
   const bookIds = new Set(books.map((book) => book.id));
   const conceptIds = new Set(concepts.map((concept) => concept.id));
@@ -35,10 +36,11 @@ async function main() {
   assert(concepts.length >= 20, "Expected at least 20 concepts.");
   assert(diagrams.length >= 10, "Expected at least 10 diagrams.");
   assert(modules.length >= 3, "Expected at least 3 modules.");
-  assert(moduleDetails.length >= 2, "Expected at least 2 module details.");
+  assert(moduleDetails.length === modules.length, "Expected every module to have a module detail.");
   assert(phases.length >= 3, "Expected at least 3 roadmap phases.");
   assert(storyboards.length >= 3, "Expected at least 3 storyboards.");
   assert(practiceSets.length >= 1, "Expected at least 1 practice set.");
+  assert(caseStudies.length >= 1, "Expected at least 1 case study.");
 
   for (const concept of concepts) {
     assert(moduleIds.has(concept.moduleId), `Unknown module on concept ${concept.id}`);
@@ -54,6 +56,9 @@ async function main() {
     assert(moduleIds.has(diagram.moduleId), `Unknown module on diagram ${diagram.id}`);
     for (const bookId of diagram.bookIds) {
       assert(bookIds.has(bookId), `Unknown book on diagram ${diagram.id}: ${bookId}`);
+    }
+    if (diagram.prototypeHref) {
+      assert(diagram.prototypeHref.startsWith("/"), `Diagram ${diagram.id} must use an app route in prototypeHref.`);
     }
   }
 
@@ -81,6 +86,13 @@ async function main() {
     }
   }
 
+  for (const module of modules) {
+    assert(
+      moduleDetails.some((moduleDetail) => moduleDetail.moduleId === module.id),
+      `Missing module detail for ${module.id}`,
+    );
+  }
+
   for (const storyboard of storyboards) {
     assert(diagramIds.has(storyboard.diagramId), `Unknown diagram ${storyboard.diagramId} in storyboard ${storyboard.id}`);
     assert(storyboard.scenes.length >= 3, `Storyboard ${storyboard.id} must have at least 3 scenes.`);
@@ -101,6 +113,17 @@ async function main() {
       assert(actionIds.has(caseItem.correctActionId), `Unknown correct action ${caseItem.correctActionId} in case ${caseItem.id}`);
       assert(caseItem.clues.length >= 3, `Case ${caseItem.id} in ${practiceSet.id} must have at least 3 clues.`);
       assert(caseItem.nextHref.startsWith("/"), `Case ${caseItem.id} in ${practiceSet.id} must use an app route.`);
+      assert(["foundation", "intermediate", "advanced"].includes(caseItem.difficulty), `Case ${caseItem.id} in ${practiceSet.id} must use a valid difficulty.`);
+      assert(caseItem.mistakeTag, `Case ${caseItem.id} in ${practiceSet.id} must have a mistakeTag.`);
+      assert(caseItem.mistakeReason, `Case ${caseItem.id} in ${practiceSet.id} must have a mistakeReason.`);
+      assert(caseItem.reviewPrompt, `Case ${caseItem.id} in ${practiceSet.id} must have a reviewPrompt.`);
+
+      for (const conceptId of caseItem.relatedConceptIds) {
+        assert(conceptIds.has(conceptId), `Unknown related concept ${conceptId} in case ${caseItem.id}`);
+      }
+      for (const diagramId of caseItem.relatedDiagramIds) {
+        assert(diagramIds.has(diagramId), `Unknown related diagram ${diagramId} in case ${caseItem.id}`);
+      }
 
       for (const actionId of actionIds) {
         assert(caseItem.comparisons[actionId], `Missing comparison for ${actionId} in case ${caseItem.id}`);
@@ -109,10 +132,46 @@ async function main() {
   }
 
   const totalPracticeCases = practiceSets.reduce((sum, practiceSet) => sum + practiceSet.cases.length, 0);
-  assert(totalPracticeCases >= 6, "Expected at least 6 practice cases.");
+  assert(totalPracticeCases >= 10, "Expected at least 10 practice cases.");
+
+  for (const caseStudy of caseStudies) {
+    assert(moduleIds.has(caseStudy.moduleId), `Unknown module ${caseStudy.moduleId} in case study ${caseStudy.id}`);
+    assert(caseStudy.stages.length >= 3, `Case study ${caseStudy.id} must have at least 3 stages.`);
+    for (const bookId of caseStudy.bookIds) {
+      assert(bookIds.has(bookId), `Unknown book ${bookId} in case study ${caseStudy.id}`);
+    }
+    for (const conceptId of caseStudy.focusConceptIds) {
+      assert(conceptIds.has(conceptId), `Unknown focus concept ${conceptId} in case study ${caseStudy.id}`);
+    }
+    for (const diagramId of caseStudy.focusDiagramIds) {
+      assert(diagramIds.has(diagramId), `Unknown focus diagram ${diagramId} in case study ${caseStudy.id}`);
+    }
+
+    for (const stage of caseStudy.stages) {
+      assert(stage.clues.length >= 3, `Stage ${stage.id} in ${caseStudy.id} must have at least 3 clues.`);
+      assert(stage.reviewHref.startsWith("/"), `Stage ${stage.id} in ${caseStudy.id} must use an app route in reviewHref.`);
+      assert(stage.options.length >= 2, `Stage ${stage.id} in ${caseStudy.id} must have at least 2 options.`);
+      const optionIds = new Set(stage.options.map((option) => option.id));
+      assert(optionIds.has(stage.correctOptionId), `Unknown correct option ${stage.correctOptionId} in stage ${stage.id}`);
+      for (const option of stage.options) {
+        if (option.href) {
+          assert(option.href.startsWith("/"), `Option ${option.id} in stage ${stage.id} must use an app route.`);
+        }
+      }
+      for (const conceptId of stage.relatedConceptIds) {
+        assert(conceptIds.has(conceptId), `Unknown related concept ${conceptId} in stage ${stage.id}`);
+      }
+      for (const diagramId of stage.relatedDiagramIds) {
+        assert(diagramIds.has(diagramId), `Unknown related diagram ${diagramId} in stage ${stage.id}`);
+      }
+      for (const optionId of optionIds) {
+        assert(stage.optionFeedbacks[optionId], `Missing option feedback ${optionId} in stage ${stage.id}`);
+      }
+    }
+  }
 
   console.log(
-    `content ok: books=${books.length}, concepts=${concepts.length}, diagrams=${diagrams.length}, modules=${modules.length}, moduleDetails=${moduleDetails.length}, phases=${phases.length}, storyboards=${storyboards.length}, practiceSets=${practiceSets.length}`,
+    `content ok: books=${books.length}, concepts=${concepts.length}, diagrams=${diagrams.length}, modules=${modules.length}, moduleDetails=${moduleDetails.length}, phases=${phases.length}, storyboards=${storyboards.length}, practiceSets=${practiceSets.length}, caseStudies=${caseStudies.length}`,
   );
 }
 

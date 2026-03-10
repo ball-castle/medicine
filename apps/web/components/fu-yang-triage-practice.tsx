@@ -1,17 +1,27 @@
 "use client";
 
-import type { PracticeSetRecord } from "@medicine/content-schema";
+import type { PracticeDifficulty, PracticeSetRecord } from "@medicine/content-schema";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
-type FuYangTriagePracticeProps = {
+import { readLearningProgress, savePracticeSetProgress } from "@/lib/learning-progress";
+import { getPracticeHref } from "@/lib/practice";
+
+type PracticeSetPlayerProps = {
   practiceSet: PracticeSetRecord;
 };
 
-export function FuYangTriagePractice({ practiceSet }: FuYangTriagePracticeProps) {
+const DIFFICULTY_LABELS: Record<PracticeDifficulty, string> = {
+  foundation: "基础题",
+  intermediate: "进阶题",
+  advanced: "挑战题",
+};
+
+export function PracticeSetPlayer({ practiceSet }: PracticeSetPlayerProps) {
   const [caseIndex, setCaseIndex] = useState(0);
   const [answers, setAnswers] = useState<Partial<Record<string, string>>>({});
   const [revealed, setRevealed] = useState<Partial<Record<string, boolean>>>({});
+  const [hasLoadedProgress, setHasLoadedProgress] = useState(false);
 
   const currentCase = practiceSet.cases[caseIndex];
   const currentAnswer = currentCase ? answers[currentCase.id] : undefined;
@@ -22,9 +32,62 @@ export function FuYangTriagePractice({ practiceSet }: FuYangTriagePracticeProps)
     const correct = practiceSet.cases.filter(
       (item) => revealed[item.id] && answers[item.id] === item.correctActionId,
     ).length;
+    const difficultyMix = practiceSet.cases.reduce<Record<PracticeDifficulty, number>>(
+      (result, item) => {
+        result[item.difficulty] += 1;
+        return result;
+      },
+      { foundation: 0, intermediate: 0, advanced: 0 },
+    );
 
-    return { finished, correct };
+    return { finished, correct, difficultyMix };
   }, [answers, practiceSet.cases, revealed]);
+
+  useEffect(() => {
+    const stored = readLearningProgress().practiceSets[practiceSet.id];
+    if (!stored) {
+      setHasLoadedProgress(true);
+      return;
+    }
+
+    setAnswers(stored.answers);
+    setRevealed(
+      stored.revealedCaseIds.reduce<Partial<Record<string, boolean>>>((result, caseId) => {
+        result[caseId] = true;
+        return result;
+      }, {}),
+    );
+    setHasLoadedProgress(true);
+  }, [practiceSet.id]);
+
+  useEffect(() => {
+    if (!hasLoadedProgress) {
+      return;
+    }
+
+    const revealedCaseIds = Object.entries(revealed)
+      .filter(([, value]) => value)
+      .map(([caseId]) => caseId);
+    const correctCaseIds = practiceSet.cases
+      .filter((item) => revealed[item.id] && answers[item.id] === item.correctActionId)
+      .map((item) => item.id);
+    const wrongCaseIds = practiceSet.cases
+      .filter((item) => revealed[item.id] && answers[item.id] && answers[item.id] !== item.correctActionId)
+      .map((item) => item.id);
+
+    savePracticeSetProgress({
+      practiceSetId: practiceSet.id,
+      moduleId: practiceSet.moduleId,
+      title: practiceSet.title,
+      totalCases: practiceSet.cases.length,
+      answers: answers as Record<string, string>,
+      revealedCaseIds,
+      correctCaseIds,
+      wrongCaseIds,
+      continueHref: getPracticeHref(practiceSet.id),
+      lastUpdatedAt: new Date().toISOString(),
+    });
+  }, [answers, hasLoadedProgress, practiceSet.cases, practiceSet.id, practiceSet.moduleId, practiceSet.title, revealed]);
 
   if (!currentCase) {
     return null;
@@ -32,6 +95,10 @@ export function FuYangTriagePractice({ practiceSet }: FuYangTriagePracticeProps)
 
   const currentResult =
     isRevealed && currentAnswer ? currentAnswer === currentCase.correctActionId : null;
+  const wrongAction =
+    isRevealed && currentAnswer && currentAnswer !== currentCase.correctActionId
+      ? practiceSet.actions.find((item) => item.id === currentAnswer) ?? null
+      : null;
 
   function handleReveal() {
     if (!currentAnswer) {
@@ -60,7 +127,7 @@ export function FuYangTriagePractice({ practiceSet }: FuYangTriagePracticeProps)
             <strong>
               {summary.finished}/{practiceSet.cases.length}
             </strong>
-            <span>先做完 {practiceSet.cases.length} 题，再看自己最容易混淆的是哪一类动作。</span>
+            <span>先做完 {practiceSet.cases.length} 题，再看自己最容易混淆的是哪一类判断。</span>
           </article>
           <article className="practice-prototype__summary-card">
             <p className="practice-prototype__summary-label">当前得分</p>
@@ -69,6 +136,18 @@ export function FuYangTriagePractice({ practiceSet }: FuYangTriagePracticeProps)
             </strong>
             <span>{practiceSet.warning}</span>
           </article>
+        </div>
+
+        <div className="token-row">
+          {summary.difficultyMix.foundation > 0 && (
+            <span className="token token--light">基础 {summary.difficultyMix.foundation}</span>
+          )}
+          {summary.difficultyMix.intermediate > 0 && (
+            <span className="token token--light">进阶 {summary.difficultyMix.intermediate}</span>
+          )}
+          {summary.difficultyMix.advanced > 0 && (
+            <span className="token token--light">挑战 {summary.difficultyMix.advanced}</span>
+          )}
         </div>
 
         <div className="practice-prototype__case-tabs">
@@ -85,9 +164,12 @@ export function FuYangTriagePractice({ practiceSet }: FuYangTriagePracticeProps)
               >
                 <strong>{item.title}</strong>
                 <span>{item.brief}</span>
-                <em className={answered ? (correct ? "is-correct" : "is-wrong") : ""}>
-                  {answered ? (correct ? "已答对" : "已解析") : "未作答"}
-                </em>
+                <div className="practice-prototype__case-meta">
+                  <em className="practice-prototype__difficulty">{DIFFICULTY_LABELS[item.difficulty]}</em>
+                  <em className={answered ? (correct ? "is-correct" : "is-wrong") : ""}>
+                    {answered ? (correct ? "已答对" : "已解析") : "未作答"}
+                  </em>
+                </div>
               </button>
             );
           })}
@@ -101,9 +183,14 @@ export function FuYangTriagePractice({ practiceSet }: FuYangTriagePracticeProps)
               <p className="eyebrow">Case</p>
               <h3>{currentCase.title}</h3>
             </div>
-            <span className="practice-prototype__counter">
-              {caseIndex + 1}/{practiceSet.cases.length}
-            </span>
+            <div className="practice-prototype__scenario-badges">
+              <span className="practice-prototype__counter">
+                {caseIndex + 1}/{practiceSet.cases.length}
+              </span>
+              <span className="practice-prototype__difficulty-pill">
+                {DIFFICULTY_LABELS[currentCase.difficulty]}
+              </span>
+            </div>
           </div>
           <p className="practice-prototype__scenario-text">{currentCase.scenario}</p>
           <div className="practice-prototype__clues">
@@ -152,8 +239,8 @@ export function FuYangTriagePractice({ practiceSet }: FuYangTriagePracticeProps)
           <button className="button button--ghost" onClick={handleNextCase} type="button">
             下一题
           </button>
-          <Link className="button button--ghost" href="/prototypes/fu-yang-action-triad">
-            回看三动作总览
+          <Link className="button button--ghost" href="/progress">
+            查看学习进度
           </Link>
         </div>
 
@@ -163,6 +250,22 @@ export function FuYangTriagePractice({ practiceSet }: FuYangTriagePracticeProps)
               <p className="practice-prototype__summary-label">本题结果</p>
               <strong>{currentResult ? "判断正确" : "这题更适合换一个动作"}</strong>
               <p>{currentCase.rationale}</p>
+            </article>
+
+            {!currentResult && wrongAction && (
+              <article className="practice-prototype__result-card">
+                <p className="practice-prototype__summary-label">常见误区</p>
+                <strong>{currentCase.mistakeTag}</strong>
+                <p>
+                  你刚刚更偏向选了“{wrongAction.label}”。{currentCase.mistakeReason}
+                </p>
+              </article>
+            )}
+
+            <article className="practice-prototype__result-card">
+              <p className="practice-prototype__summary-label">回看建议</p>
+              <strong>{currentCase.nextLabel}</strong>
+              <p>{currentCase.reviewPrompt}</p>
             </article>
 
             <div className="practice-prototype__matrix">
@@ -179,8 +282,8 @@ export function FuYangTriagePractice({ practiceSet }: FuYangTriagePracticeProps)
               <Link className="button button--ghost" href={currentCase.nextHref}>
                 {currentCase.nextLabel}
               </Link>
-              <Link className="button button--ghost" href="/prototypes/guizhi-vs-fuzi">
-                回看双图对照
+              <Link className="button button--ghost" href={practiceSet.actions.find((item) => item.id === currentCase.correctActionId)?.linkedPrototypeHref ?? currentCase.nextHref}>
+                打开对应动作图
               </Link>
             </div>
           </div>

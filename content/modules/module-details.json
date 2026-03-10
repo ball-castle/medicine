@@ -43,6 +43,135 @@
     "nextModuleIds": ["formula-logic", "fu-yang-core"]
   },
   {
+    "moduleId": "formula-logic",
+    "subtitle": "把经方、药性和六经讲成可判断的方向系统",
+    "estimatedDuration": "18-24 分钟",
+    "intro": "这个模块的任务，是把‘学方就是背功效’这件事彻底扭过来。用户要学会的不是一串药名，而是每张方、每味药到底在把哪股气往哪里带，六经又如何帮助我们给这些动作定位。",
+    "learningQuestions": [
+      "为什么经方更像气机模型，而不是症状菜单？",
+      "六经为什么要被理解成分层地图，而不是零散条文？",
+      "误治为什么会把病一步步推成更复杂的结构？"
+    ],
+    "sections": [
+      {
+        "id": "formula-models",
+        "title": "先把方理解成方向模型",
+        "summary": "一张方真正回答的是‘要把哪股气带回去’。",
+        "body": "这段课要先把用户从功效词里拽出来。桂枝、麻黄、承气、四逆这些经典方，如果只记‘发汗、通便、回阳’，很快就会碎掉；如果先抓它们在调整哪种升降出入，就会变成一套可以迁移的动作模型。这里最适合用罗盘和方向轴，把方义讲成一条运动路线。",
+        "anchorConceptIds": ["formulas-as-qi-models", "herbs-as-directions"],
+        "anchorDiagramIds": ["formula-direction-compass"]
+      },
+      {
+        "id": "six-meridian-layers",
+        "title": "把六经讲成一张分层地图",
+        "summary": "六经真正的价值，是帮助用户给问题定位。",
+        "body": "六经不应该被上来就讲成条文背诵，而应该先讲成层次和方向：太阳更像外层开合，阳明偏里实与燥结，少阳偏枢机，三阴则更深入到承接、封藏和转换。只要用户先有地图感，后面方义和病势才不会散成碎片。",
+        "anchorConceptIds": ["six-meridian-framework", "formulas-as-qi-models"],
+        "anchorDiagramIds": ["six-meridian-map", "formula-direction-compass"]
+      },
+      {
+        "id": "mistreatment-branches",
+        "title": "学会看错法如何改写病机",
+        "summary": "误治不是附属知识，而是理解临床转坏的关键入口。",
+        "body": "这段课要让用户看到：错误的汗、吐、下、火法，往往不是‘没治好’，而是直接制造新的复杂层次。适合把几个典型分支做成时间线，让用户在同一病例里看到‘原本是什么结构、处理错了以后又变成什么结构’，这样才能真正理解方药逻辑不是静态选择题。",
+        "anchorConceptIds": ["mis-treatment-creates-new-pattern", "herbs-as-directions"],
+        "anchorDiagramIds": ["six-meridian-map"]
+      }
+    ],
+    "exerciseIdeas": [
+      "给出几张经典方，让用户先判断它更偏开、收、升还是降。",
+      "给出一个六经层次示意，要求用户把当前问题定位到更可能的层面。",
+      "用一个误治分支题，让用户看到不同处理顺序如何改写病机。"
+    ],
+    "nextModuleIds": ["diagnostic-judgment", "cases-and-application"]
+  },
+  {
+    "moduleId": "warm-disease-pediatrics",
+    "subtitle": "把温病和儿科讲成根气与本气判断，而不是见热就猛清",
+    "estimatedDuration": "16-22 分钟",
+    "intro": "这个模块的任务，是把大众最容易误会的一件事讲清楚：有热象，不等于就该猛清。无论温病、时病还是儿科，真正要先看的是本气、中气、津液和整体承接能力有没有先乱掉。",
+    "learningQuestions": [
+      "为什么温病要先分邪盛还是正乱？",
+      "为什么儿科第一原则是护中气，而不是见热就泻火？",
+      "为什么同样的时病名字，内部路数可以完全不同？"
+    ],
+    "sections": [
+      {
+        "id": "root-before-heat",
+        "title": "看到热象，先问根有没有乱",
+        "summary": "温病不是只看热，还要看本气是不是先散了。",
+        "body": "课程开头不应该直接讲方，而应该先给用户一个判断框架：眼前看到的热、渴、烦、昏，是邪盛压出来的，还是正气、中气、津液散乱后的虚越表现。只要这一步不分，后面就会把所有温病学成见热就清。这里适合用路径图，让用户看到不同起点如何走向相似表象。",
+        "anchorConceptIds": ["warm-disease-root-pattern", "treat-pattern-not-disease-name"],
+        "anchorDiagramIds": ["warm-disease-root-path"]
+      },
+      {
+        "id": "children-protect-center",
+        "title": "小儿重在护中气和津液",
+        "summary": "儿科的风险不只是病邪，更是本身系统娇嫩、容易被伤。",
+        "body": "这一段要把‘小儿纯阳’这种大众印象拆掉。更适合讲成一套脆弱系统模型：中气轻、津液易伤、木气易动，所以很多看起来像火热、惊动、烦躁的问题，背后可能是承接不足和系统过度摆动。这里适合做成风险提示型课程，让用户先学会别乱上猛法。",
+        "anchorConceptIds": ["protect-middle-qi-in-children", "middle-qi-axis"],
+        "anchorDiagramIds": ["pediatric-protection-loop"]
+      },
+      {
+        "id": "seasonal-branching",
+        "title": "同名时病，先分不同路数",
+        "summary": "名字一样，不代表病机就一样。",
+        "body": "这一段最适合做成分支学习：同样是泻、暑、湿、咳，背后可能分别是中气下陷、津液已伤、木火上扰、湿困不化。课程要刻意避免把时病讲成一个病名对应一个固定方案，而是训练用户先把路线分开，再决定后续怎么看。",
+        "anchorConceptIds": ["seasonal-illness-branching", "warm-disease-root-pattern"],
+        "anchorDiagramIds": ["warm-disease-root-path", "pediatric-protection-loop"]
+      }
+    ],
+    "exerciseIdeas": [
+      "给出几种发热场景，让用户判断更像邪盛还是正乱。",
+      "给出一个小儿案例，让用户先判断是先护中气还是先攻邪。",
+      "把几个同名时病案例放在一起，让用户选出它们分别更偏哪一条病机路径。"
+    ],
+    "nextModuleIds": ["diagnostic-judgment", "cases-and-application"]
+  },
+  {
+    "moduleId": "diagnostic-judgment",
+    "subtitle": "把脉、舌和病名重新排出主次顺序",
+    "estimatedDuration": "16-22 分钟",
+    "intro": "这个模块的任务，是把‘先看病名再找对应方案’的习惯打断。用户要在这里学会：脉象先抓总开关，舌象是辅助窗口，病名只是最后才放回来的标签。",
+    "learningQuestions": [
+      "为什么脉法在这套体系里总是排在病名前面？",
+      "舌象什么时候能帮忙，什么时候不能单独下结论？",
+      "为什么真实临床里，主轴判断永远比标签更重要？"
+    ],
+    "sections": [
+      {
+        "id": "pulse-main-axis",
+        "title": "先让脉说出整体主轴",
+        "summary": "脉法的价值不在神秘，而在先分出大方向。",
+        "body": "课程不应该把脉法讲成玄奥术，而要讲成整体判断工具。用户首先要学会的是：脉能帮助我们快速分出阳虚、阴虚、中虚、滞积、浮散、沉困这些大方向。只要先抓到主轴，后面看症状、病名、舌象都不会乱套。",
+        "anchorConceptIds": ["pulse-first", "pulse-over-disease-name"],
+        "anchorDiagramIds": ["pulse-dashboard"]
+      },
+      {
+        "id": "tongue-supports-pulse",
+        "title": "舌象是窗口，不是判决书",
+        "summary": "舌象最适合帮助判断津液、寒热、湿燥，但必须回到整体里。",
+        "body": "这一段要特别防止大众把舌象学成图谱对号入座。更好的讲法是：舌像窗户，帮助我们看见湿燥、津液、寒热和局部负担，但它必须和脉象、气机主轴一起看。适合用舌图叠层和脉象提示一起出现，让用户习惯做联合判断。",
+        "anchorConceptIds": ["tongue-as-window", "pulse-first"],
+        "anchorDiagramIds": ["tongue-terrain-map", "pulse-dashboard"]
+      },
+      {
+        "id": "label-after-axis",
+        "title": "最后再把病名放回正确位置",
+        "summary": "病名不是无用，而是顺序不能排在最前面。",
+        "body": "课程最后要把用户最熟悉的现代病名重新排位。高血压、糖尿病、焦虑、失眠这些标签都可以保留，但应该放在脉和整体主轴之后。这样一来，用户才会理解为什么同病名可以有完全不同的中医路线，也能理解为什么病例推演必须先定主轴，再谈招式。",
+        "anchorConceptIds": ["pulse-over-disease-name", "treat-pattern-not-disease-name"],
+        "anchorDiagramIds": ["pulse-dashboard"]
+      }
+    ],
+    "exerciseIdeas": [
+      "给出几组脉象描述，让用户先判断整体大方向。",
+      "把舌象和脉象组合起来，训练用户什么时候能下判断、什么时候还不能。",
+      "给出同一个病名的两种不同主轴，让用户比较为什么路线不能一样。"
+    ],
+    "nextModuleIds": ["fu-yang-core", "cases-and-application"]
+  },
+  {
     "moduleId": "fu-yang-core",
     "subtitle": "把扶阳主线讲成大众能看懂的空间结构",
     "estimatedDuration": "20-28 分钟",
@@ -84,5 +213,48 @@
       "把一个病例拆成三阶段，要求用户选出先后手顺序。"
     ],
     "nextModuleIds": ["cases-and-application", "diagnostic-judgment"]
+  },
+  {
+    "moduleId": "cases-and-application",
+    "subtitle": "把理论真正落到先后手、节奏和活解上",
+    "estimatedDuration": "18-24 分钟",
+    "intro": "这个模块的任务，是把前面所有结构和动作真正落到医案里。用户在这里要学会的不是‘答案’，而是看懂一个病例为什么先这样走、后来为什么要转方、为什么有些路线当时不能选。",
+    "learningQuestions": [
+      "为什么临床不是一张方走到底，而是分阶段推进？",
+      "什么叫先后手，什么叫节奏感？",
+      "活解为什么不是脱离总纲乱加减，而是在主轴不变下灵活调度？"
+    ],
+    "sections": [
+      {
+        "id": "find-main-axis",
+        "title": "看医案，先抓主轴，不先数症状",
+        "summary": "医案最难的不是信息少，而是信息太多却不知道先抓哪一条。",
+        "body": "课程第一段要帮助用户从‘症状清单阅读法’切换到‘主轴阅读法’。同一个病例里可能同时有热、寒、虚、实、烦、痛、泻、咳，但真正决定路线的是哪一条是根、哪一条是枝。适合先给一个复杂案例，再逐步删去干扰信息，让用户看到主轴判断如何浮现出来。",
+        "anchorConceptIds": ["staged-treatment-rhythm", "pulse-over-disease-name"],
+        "anchorDiagramIds": ["case-stage-timeline"]
+      },
+      {
+        "id": "stage-by-stage",
+        "title": "把治疗讲成一段一段推进",
+        "summary": "很多病例的成败，不在方对不对，而在顺序对不对。",
+        "body": "这一段要把时间线做成核心视觉。用户需要看到：某一阶段先开门，下一阶段再顾中土，或者先缓转、再归根，这种节奏变化本身就是医学判断。只要这段讲清楚，前面学的桂枝、附子、茯神就不再是孤立招式，而会变成一套可调用的策略。",
+        "anchorConceptIds": ["staged-treatment-rhythm", "fushen-right-descends", "guizhi-opens-gate"],
+        "anchorDiagramIds": ["case-stage-timeline"]
+      },
+      {
+        "id": "live-interpretation",
+        "title": "活解不是随便变，是主轴不变下的活用",
+        "summary": "真正的活解，是知道自己始终在调哪股气。",
+        "body": "课程结尾要把用户从‘灵活’和‘随意’之间分清楚。活解不是抛弃方义，而是在总纲不变的前提下，因时、因势、因当前阶段去调整外围手段。适合用同一主轴下的多条安全分支做对比，让用户看到什么叫有依据的变通，什么叫跑偏。",
+        "anchorConceptIds": ["active-interpretation", "formulas-as-qi-models", "staged-treatment-rhythm"],
+        "anchorDiagramIds": ["case-stage-timeline"]
+      }
+    ],
+    "exerciseIdeas": [
+      "给出一个分阶段病例，让用户排序先后手。",
+      "给出同一主轴下的两个转方选择，让用户判断哪个更稳。",
+      "让用户解释为什么某个病例当前不适合立刻用强法。"
+    ],
+    "nextModuleIds": []
   }
 ]

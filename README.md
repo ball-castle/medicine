@@ -18,6 +18,7 @@
 ```text
 apps/web/                  Next.js 前端骨架
 content/books/             书目元数据
+content/cases/             病例推演数据
 content/concepts/          核心知识点
 content/diagrams/          图表重绘清单
 content/modules/           学习模块
@@ -25,7 +26,10 @@ content/practices/         练习题库
 content/storyboards/       第一轮图表分镜数据
 content/roadmap/           开发路线图
 docs/core_curriculum.md    人读版知识点与图表清单
+docs/content_coverage_map.md 两本书内容覆盖地图
 docs/project_direction.md  产品方向规划
+docs/terminology_glossary.md 统一术语表
+docs/master_delivery_roadmap.md 项目总路线
 docs/storyboards_round1.md 第一轮重点图分镜文档
 packages/content-schema/   内容 schema 类型
 tools/check-content.mjs    内容一致性校验脚本
@@ -43,6 +47,7 @@ tools/ocr_pdf.py           OCR 脚本
   - `content/`
   - `docs/core_curriculum.md`
   - `docs/storyboards_round1.md`
+  - `content/cases/case-studies.json`
 
 ## 前端命令
 
@@ -69,6 +74,30 @@ npm run content:check
   第一版模块页样例
 - `/modules/fu-yang-core`
   扶阳模块页样例
+- `/diagrams`
+  图表目录页
+- `/progress`
+  学习进度页
+- `/cases`
+  病例推演目录
+- `/cases/fu-yang-three-step-case`
+  扶阳三步病例推演
+- `/cases/warm-disease-protect-center-case`
+  温病护中三段推演
+- `/cases/pulse-axis-priority-case`
+  脉象主轴优先病例推演
+- `/practice/foundations-direction-basic`
+  圆运动方向判断练习
+- `/practice/fu-yang-triage-basic`
+  扶阳病例分流练习
+- `/practice/warm-disease-root-basic`
+  温病与儿科根气判断练习
+- `/practice/diagnostic-axis-basic`
+  脉舌主次判断练习
+- `/practice/formula-direction-basic`
+  方药方向判断练习
+- `/practice/cases-stage-rhythm-basic`
+  医案先后手判断练习
 - `/prototypes/circle-flow-map`
   圆运动总图交互原型
 - `/prototypes/kan-li-circulation`
@@ -84,7 +113,7 @@ npm run content:check
 - `/prototypes/fu-yang-action-triad`
   扶阳三动作总览页
 - `/prototypes/fu-yang-triage-practice`
-  扶阳病例分流练习页
+  旧的扶阳练习别名页，会跳转到动态练习路由
 - `/storyboards`
   第一轮重点图表分镜页
 

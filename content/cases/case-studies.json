@@ -1,0 +1,539 @@
+[
+  {
+    "id": "fu-yang-three-step-case",
+    "moduleId": "cases-and-application",
+    "bookIds": ["huo-shen-men", "yuan-yun-dong"],
+    "title": "扶阳三步病例推演",
+    "subtitle": "先稳局面，再开门，最后归根",
+    "summary": "用一个连续三阶段的病例，把‘缓转、开门、归根’放回真实节奏里，不再把它们当成彼此孤立的招式。",
+    "targetSkill": "看懂同一个病例里为什么不能一步到位，而要先稳住、再疏通、再守根。",
+    "estimatedTime": "8-10 分钟",
+    "focusConceptIds": [
+      "staged-treatment-rhythm",
+      "fushen-right-descends",
+      "guizhi-opens-gate",
+      "fuzi-returns-root",
+      "upper-hot-lower-cold"
+    ],
+    "focusDiagramIds": [
+      "case-stage-timeline",
+      "fushen-right-descend",
+      "guizhi-gate-animation",
+      "fuzi-root-return"
+    ],
+    "stages": [
+      {
+        "id": "steady-chaos-first",
+        "title": "阶段 1: 先把乱象稳下来",
+        "stateSummary": "头面躁热、胸中烦闷、下部承接弱，整个人先是乱，不是单纯没路或没根。",
+        "question": "第一手更该先做什么？",
+        "clues": [
+          "人很烦、很乱，但还看不出一个稳定可接的落点。",
+          "如果现在直接猛开或猛收，都容易让局面更硬。",
+          "当前更像先创造‘能继续处理’的条件。"
+        ],
+        "options": [
+          {
+            "id": "transition",
+            "label": "先缓转稳局面",
+            "summary": "先把上部乱象带下来，让系统重新能承接。",
+            "href": "/prototypes/fushen-right-descend"
+          },
+          {
+            "id": "open",
+            "label": "立刻桂枝开门",
+            "summary": "马上去拨动门轴，先让里外通开。",
+            "href": "/prototypes/guizhi-gate-animation"
+          },
+          {
+            "id": "return",
+            "label": "立刻附子归根",
+            "summary": "直接把浮在上面的阳收回根部。",
+            "href": "/prototypes/fuzi-root-return"
+          }
+        ],
+        "correctOptionId": "transition",
+        "rationale": "这一阶段最重要的不是抢动作强度，而是先把乱象降下来。茯神法的价值就在于先让系统从‘太乱’进入‘可继续处理’，后面才能更清楚地分出开门还是归根。",
+        "takeaway": "病例刚开始很乱时，先稳局面往往比立刻做强动作更重要。",
+        "reviewPrompt": "先回看茯神法的右降缓转，再观察它为什么常常是承上启下的一步。",
+        "reviewHref": "/prototypes/fushen-right-descend",
+        "reviewLabel": "回看茯神缓转",
+        "relatedConceptIds": [
+          "fushen-right-descends",
+          "staged-treatment-rhythm",
+          "upper-hot-lower-cold"
+        ],
+        "relatedDiagramIds": [
+          "case-stage-timeline",
+          "fushen-right-descend",
+          "kan-li-circulation"
+        ],
+        "optionFeedbacks": {
+          "transition": "对。这一步的价值不是终局解决，而是先把乱象降下来，让后续判断有落点。",
+          "open": "不对。现在局面还太乱，直接开门容易让本来就浮躁的势头更散。",
+          "return": "不对。虽然也能看到下弱，但此时最先缺的是承接条件，不是立刻强收。"
+        }
+      },
+      {
+        "id": "open-gate-next",
+        "title": "阶段 2: 局面一稳，先把里外接起来",
+        "stateSummary": "烦乱减了一层，但人仍像卡在表里之间，汗不畅、胸背拘、门口不开。",
+        "question": "第二手更适合往哪一边推进？",
+        "clues": [
+          "躁乱少了，但仍然像堵在门口，里外不接。",
+          "这时问题更像‘没路’，而不是‘完全没根’。",
+          "如果门口一直不开，后面的收与守也不容易落实。"
+        ],
+        "options": [
+          {
+            "id": "open",
+            "label": "转入桂枝开门",
+            "summary": "把门轴拨开，让里外交通重新接上。",
+            "href": "/prototypes/guizhi-gate-animation"
+          },
+          {
+            "id": "return",
+            "label": "继续直接归根",
+            "summary": "先不管通路，先把阳往下收住。",
+            "href": "/prototypes/fuzi-root-return"
+          },
+          {
+            "id": "transition",
+            "label": "一直停在缓转",
+            "summary": "继续只做安顿，不进入下一手。",
+            "href": "/prototypes/fushen-right-descend"
+          }
+        ],
+        "correctOptionId": "open",
+        "rationale": "这一阶段的主问题已经从‘太乱’转成‘门口不开’。因此更该切到桂枝法的开门拨机，让里外重新接轨，而不是停在过渡位或直接跳到归根。",
+        "takeaway": "同一个病例，阶段一和阶段二的正确动作可以完全不同，关键在主轴是否已经变化。",
+        "reviewPrompt": "回看桂枝法开门动画，重点看‘门没开’和‘根没守住’为什么是两种完全不同的问题。",
+        "reviewHref": "/prototypes/guizhi-gate-animation",
+        "reviewLabel": "回看桂枝开门",
+        "relatedConceptIds": [
+          "guizhi-opens-gate",
+          "kan-li-water-fire",
+          "staged-treatment-rhythm"
+        ],
+        "relatedDiagramIds": [
+          "case-stage-timeline",
+          "guizhi-gate-animation",
+          "kan-li-circulation"
+        ],
+        "optionFeedbacks": {
+          "open": "对。现在最该解决的是门口卡住、里外不接，所以开门优先。",
+          "return": "不对。虽然下部还弱，但此刻最突出的问题仍是通路没接上，直接归根还早了一步。",
+          "transition": "不对。缓转已经完成了它该做的承接任务，继续停在这里会错过真正的转折点。"
+        }
+      },
+      {
+        "id": "guard-root-finally",
+        "title": "阶段 3: 有路以后，还要守住根",
+        "stateSummary": "门口已开，里外接上，但人仍见上亮下空、下部承接不足，像通了却还没守住。",
+        "question": "这时第三手更该把重点放在哪里？",
+        "clues": [
+          "现在不再是单纯没路，而是通了之后仍然浮在上面。",
+          "上面亮一点，不代表下面就已经接住了。",
+          "如果不把根守住，前面打开的路也容易又变成浮散。"
+        ],
+        "options": [
+          {
+            "id": "return",
+            "label": "转入附子归根",
+            "summary": "把已经打开的路，进一步落到有根可守的状态。",
+            "href": "/prototypes/fuzi-root-return"
+          },
+          {
+            "id": "open",
+            "label": "继续加大开门",
+            "summary": "既然门开了，就继续往外拨。",
+            "href": "/prototypes/guizhi-gate-animation"
+          },
+          {
+            "id": "transition",
+            "label": "重新退回缓转",
+            "summary": "不进入守根，继续停在过渡动作。",
+            "href": "/prototypes/fushen-right-descend"
+          }
+        ],
+        "correctOptionId": "return",
+        "rationale": "到第三阶段，主轴已经不再是局面太乱，也不再是门口不开，而是‘有路了，但还没守住根’。因此更合理的动作是附子法归根回阳，让整个节奏真正落地。",
+        "takeaway": "病例后段常常不是重复前一手，而是把前一手创造出来的条件收束成真正稳定的状态。",
+        "reviewPrompt": "回看附子法归根动画，重点看‘有路’和‘有根’为什么必须分开讲。",
+        "reviewHref": "/prototypes/fuzi-root-return",
+        "reviewLabel": "回看附子归根",
+        "relatedConceptIds": [
+          "fuzi-returns-root",
+          "support-yang-not-blind-heat",
+          "staged-treatment-rhythm"
+        ],
+        "relatedDiagramIds": [
+          "case-stage-timeline",
+          "fuzi-root-return",
+          "kan-li-circulation"
+        ],
+        "optionFeedbacks": {
+          "return": "对。当前核心任务是让已接通的系统真正守住根，不再浮散在上。",
+          "open": "不对。门已经开了，再一味往外拨，只会让本就偏浮的部分更散。",
+          "transition": "不对。过渡阶段已经过去，现在该把节奏真正落到归根上。"
+        }
+      }
+    ]
+  },
+  {
+    "id": "warm-disease-protect-center-case",
+    "moduleId": "cases-and-application",
+    "bookIds": ["yuan-yun-dong"],
+    "title": "温病护中三段推演",
+    "subtitle": "看到热象，先分本气，再护中气，再重新分路",
+    "summary": "用一个温病兼小儿体质的案例，把‘见热不先猛清’拆成三段判断，训练用户先看本气和中气，再谈后续路数。",
+    "targetSkill": "面对发热烦渴和小儿脆弱体质时，先分邪盛还是正乱，再决定如何保护中气与后续分路。",
+    "estimatedTime": "7-9 分钟",
+    "focusConceptIds": [
+      "warm-disease-root-pattern",
+      "protect-middle-qi-in-children",
+      "seasonal-illness-branching",
+      "middle-qi-axis",
+      "staged-treatment-rhythm"
+    ],
+    "focusDiagramIds": [
+      "case-stage-timeline",
+      "warm-disease-root-path",
+      "pediatric-protection-loop"
+    ],
+    "stages": [
+      {
+        "id": "see-through-heat",
+        "title": "阶段 1: 先透过热象看根",
+        "stateSummary": "孩子发热、口渴、烦躁，但又食少、神倦、舌津不足，表面热，底盘却不厚。",
+        "question": "第一眼最该先建立什么判断框架？",
+        "clues": [
+          "有热象，但同时也看到中气和津液承接不足。",
+          "如果只按热象一把抓，很容易忽略底盘已经偏虚。",
+          "当前最重要的是先分‘邪盛’和‘正乱’谁更主。"
+        ],
+        "options": [
+          {
+            "id": "root-pattern",
+            "label": "先分邪盛还是正乱",
+            "summary": "先看这股热更像实邪压出来，还是本气先乱后外露。",
+            "href": "/modules/warm-disease-pediatrics"
+          },
+          {
+            "id": "direct-clear",
+            "label": "先按热象猛清",
+            "summary": "既然发热口渴，就立刻把热压下去。",
+            "href": "/modules/warm-disease-pediatrics"
+          },
+          {
+            "id": "disease-name-first",
+            "label": "先按病名套流程",
+            "summary": "先归到某个标准病名，再按既定步骤处理。",
+            "href": "/modules/cases-and-application"
+          }
+        ],
+        "correctOptionId": "root-pattern",
+        "rationale": "这一步最重要的是透过热象先看本气。只有先分清是邪盛压出来，还是中气、津液、本气先乱后外露，后面的处理才不会走偏。",
+        "takeaway": "温病和儿科最容易误判的地方，就是把‘热’直接当成唯一主轴。",
+        "reviewPrompt": "先回到温病模块，看‘热象不等于就该猛清’这一层根本判断。",
+        "reviewHref": "/modules/warm-disease-pediatrics",
+        "reviewLabel": "回到温病与儿科模块",
+        "relatedConceptIds": [
+          "warm-disease-root-pattern",
+          "treat-pattern-not-disease-name",
+          "middle-qi-axis"
+        ],
+        "relatedDiagramIds": [
+          "case-stage-timeline",
+          "warm-disease-root-path"
+        ],
+        "optionFeedbacks": {
+          "root-pattern": "对。先分邪盛还是正乱，才能决定后面是攻邪优先还是护本优先。",
+          "direct-clear": "不对。眼前虽有热象，但若底盘已虚，直接猛清很容易把能恢复的中气和津液再打散。",
+          "disease-name-first": "不对。病名能帮助归类，但放在第一位会遮住最关键的结构判断。"
+        }
+      },
+      {
+        "id": "protect-middle-next",
+        "title": "阶段 2: 先护住能承接的中气",
+        "stateSummary": "热势还在，但胃口差、便溏、精神弱，孩子整体像扛不住，只剩表面发热最显眼。",
+        "question": "第二手的优先级更该落在哪里？",
+        "clues": [
+          "此时最怕的是为了压热，把本来就弱的中气和津液再伤一层。",
+          "孩子系统更嫩，承接力比成人更容易垮。",
+          "先保住中间这根轴，后面才谈得上安全分路。"
+        ],
+        "options": [
+          {
+            "id": "protect-middle",
+            "label": "先护中气和津液",
+            "summary": "把能承接的底盘先守住，再决定如何处理表面热象。",
+            "href": "/modules/warm-disease-pediatrics"
+          },
+          {
+            "id": "press-heat-hard",
+            "label": "优先重手压热",
+            "summary": "先把高热和烦躁压下去，其他之后再说。",
+            "href": "/diagrams"
+          },
+          {
+            "id": "split-labels-fast",
+            "label": "先急着细分标签",
+            "summary": "先把所有症状拆成更多分类，再考虑主次。",
+            "href": "/modules/diagnostic-judgment"
+          }
+        ],
+        "correctOptionId": "protect-middle",
+        "rationale": "到了这一阶段，更关键的是护住中气和津液这根承接轴。尤其在小儿体质里，先守底盘比追着表面热象跑更重要。",
+        "takeaway": "中气不是附属问题，而是很多热病处理能不能安全推进的底盘。",
+        "reviewPrompt": "回看小儿护中气回路图，重点看为什么中气一垮，后面很多处理都会失去依托。",
+        "reviewHref": "/diagrams",
+        "reviewLabel": "打开图表目录回看护中图",
+        "relatedConceptIds": [
+          "protect-middle-qi-in-children",
+          "middle-qi-axis",
+          "warm-disease-root-pattern"
+        ],
+        "relatedDiagramIds": [
+          "case-stage-timeline",
+          "pediatric-protection-loop",
+          "warm-disease-root-path"
+        ],
+        "optionFeedbacks": {
+          "protect-middle": "对。先护中气和津液，才能让后面的任何处理有承接基础。",
+          "press-heat-hard": "不对。只盯热象会把问题看窄，而且孩子的底盘未必扛得住这种优先级。",
+          "split-labels-fast": "不对。分类不是没用，但在当前阶段，先守住主轴比追细标签更重要。"
+        }
+      },
+      {
+        "id": "branch-after-stability",
+        "title": "阶段 3: 底盘稍稳后，重新分路",
+        "stateSummary": "热势略缓，精神稍回，但仍有咳、渴、汗、便等夹杂表现，说明后续不能沿第一印象一路走到底。",
+        "question": "第三手更该怎样收束思路？",
+        "clues": [
+          "局面已经不是第一阶段那个样子，主轴需要重新判断。",
+          "如果还按最初印象死顶，会把后续变化看漏。",
+          "这时更适合重新分支，看当前更偏哪一条病机路径。"
+        ],
+        "options": [
+          {
+            "id": "reassess-branch",
+            "label": "按当前主轴重新分路",
+            "summary": "重新看现在更偏湿、燥、升降失常还是中气未复，再决定后手。",
+            "href": "/modules/cases-and-application"
+          },
+          {
+            "id": "repeat-same-strategy",
+            "label": "沿用第一步判断到底",
+            "summary": "既然最初是这么判断的，后面就继续一路做下去。",
+            "href": "/modules/cases-and-application"
+          },
+          {
+            "id": "chase-surface",
+            "label": "哪里冒头先打哪里",
+            "summary": "谁最显眼就先压谁，不再回看整体结构。",
+            "href": "/modules/foundations"
+          }
+        ],
+        "correctOptionId": "reassess-branch",
+        "rationale": "临床走到第三阶段，最重要的是重新评估当前主轴，而不是死守第一印象。只有按新的结构重新分路，前面护中的价值才真正落到后续节奏上。",
+        "takeaway": "分阶段治疗的关键不只是‘有先后’，还包括每一段都重新判断当前主轴。",
+        "reviewPrompt": "回到医案与活解模块，看‘活解不是背死方’这一层如何落到分阶段判断上。",
+        "reviewHref": "/modules/cases-and-application",
+        "reviewLabel": "回到医案与活解模块",
+        "relatedConceptIds": [
+          "seasonal-illness-branching",
+          "active-interpretation",
+          "staged-treatment-rhythm"
+        ],
+        "relatedDiagramIds": [
+          "case-stage-timeline",
+          "warm-disease-root-path",
+          "pediatric-protection-loop"
+        ],
+        "optionFeedbacks": {
+          "reassess-branch": "对。每过一个阶段，都要重新看当前主轴，而不是沿着第一印象机械推进。",
+          "repeat-same-strategy": "不对。第一步是第一步的判断，阶段变了，主轴也可能已经跟着变。",
+          "chase-surface": "不对。追着表面跑会把刚建立起来的整体判断再次打碎。"
+        }
+      }
+    ]
+  },
+  {
+    "id": "pulse-axis-priority-case",
+    "moduleId": "diagnostic-judgment",
+    "bookIds": ["huo-shen-men", "yuan-yun-dong"],
+    "title": "脉象主轴优先病例推演",
+    "subtitle": "先抓总开关，再让舌象辅助，最后压过病名标签",
+    "summary": "用一个现代病名很多、症状也很杂的案例，训练用户不要先被标签牵着走，而是先抓脉象主轴，再让舌象进来辅助判断。",
+    "targetSkill": "面对病名复杂、症状繁多的病例时，先用脉象抓整体主轴，再让舌象辅助，而不是直接按标签套路线。",
+    "estimatedTime": "7-9 分钟",
+    "focusConceptIds": [
+      "pulse-first",
+      "tongue-as-window",
+      "pulse-over-disease-name",
+      "treat-pattern-not-disease-name"
+    ],
+    "focusDiagramIds": [
+      "pulse-dashboard",
+      "tongue-terrain-map",
+      "case-stage-timeline"
+    ],
+    "stages": [
+      {
+        "id": "pulse-before-label",
+        "title": "阶段 1: 先别被病名带走",
+        "stateSummary": "病历上写着高血压、失眠、焦虑、胃胀，但脉象更浮、更散、更缺承接，提示真正主轴未必在标签表面。",
+        "question": "第一眼更该先抓什么？",
+        "clues": [
+          "病名很多，但它们不一定都在讲同一层问题。",
+          "脉象先在提示整体的浮散和承接失衡。",
+          "如果一上来就按标签拆题，最容易把主轴看散。"
+        ],
+        "options": [
+          {
+            "id": "pulse-main-axis",
+            "label": "先用脉抓总开关",
+            "summary": "先分整体更偏浮散、虚弱、滞积还是别的主轴。",
+            "href": "/modules/diagnostic-judgment"
+          },
+          {
+            "id": "disease-name-stack",
+            "label": "先按病名一项项拆",
+            "summary": "先把高血压、失眠、焦虑分别配上各自路线。",
+            "href": "/modules/diagnostic-judgment"
+          },
+          {
+            "id": "surface-symptoms-first",
+            "label": "先抓最刺眼症状",
+            "summary": "谁看起来最重，就先围着谁打转。",
+            "href": "/modules/foundations"
+          }
+        ],
+        "correctOptionId": "pulse-main-axis",
+        "rationale": "这一步最重要的是让脉先说出整体主轴。病名和症状当然有价值，但它们应该排在脉象后面，不该一开始就接管判断顺序。",
+        "takeaway": "病名多的时候，更需要先抓主轴，不然最容易一开始就被信息量带偏。",
+        "reviewPrompt": "回到脉法与舌象判断模块，先看为什么脉法总是被放在病名前面。",
+        "reviewHref": "/modules/diagnostic-judgment",
+        "reviewLabel": "回到诊断判断模块",
+        "relatedConceptIds": [
+          "pulse-first",
+          "pulse-over-disease-name",
+          "treat-pattern-not-disease-name"
+        ],
+        "relatedDiagramIds": [
+          "pulse-dashboard",
+          "case-stage-timeline"
+        ],
+        "optionFeedbacks": {
+          "pulse-main-axis": "对。先让脉说出整体主轴，后面的症状和病名才知道该放在什么位置。",
+          "disease-name-stack": "不对。标签拆得再细，也可能只是把主轴拆碎，反而更看不见整体。",
+          "surface-symptoms-first": "不对。只追最刺眼症状，往往会把真正的底层结构漏掉。"
+        }
+      },
+      {
+        "id": "tongue-joins-later",
+        "title": "阶段 2: 舌象进来辅助，不是抢主位",
+        "stateSummary": "脉象已经先提示主轴，舌象这时能帮助看寒热、津液、湿燥，但不该自己变成判决书。",
+        "question": "第二步更合理的做法是什么？",
+        "clues": [
+          "舌能帮你看到窗口，但窗口不等于全屋。",
+          "如果舌象和脉象冲突，更要回到主轴核对。",
+          "这一阶段不是忽略舌，而是给它正确的位置。"
+        ],
+        "options": [
+          {
+            "id": "tongue-supports-pulse",
+            "label": "让舌象辅助脉象",
+            "summary": "用舌象补充寒热、湿燥、津液信息，但仍以整体主轴为准。",
+            "href": "/modules/diagnostic-judgment"
+          },
+          {
+            "id": "tongue-alone-verdict",
+            "label": "直接按舌象下结论",
+            "summary": "看到舌像什么，就优先按那个路数走。",
+            "href": "/diagrams"
+          },
+          {
+            "id": "ignore-window",
+            "label": "完全不看舌象",
+            "summary": "既然脉重要，就把舌象完全排除。",
+            "href": "/modules/diagnostic-judgment"
+          }
+        ],
+        "correctOptionId": "tongue-supports-pulse",
+        "rationale": "舌象是窗口，能补充很多层面的信息，但它应该辅助脉法，而不是夺走主位。真正合理的顺序是先有主轴，再看舌如何帮助校验和补充。",
+        "takeaway": "正确顺序不是‘只看脉’或‘只看舌’，而是先有主轴，再让窗口帮助你看得更完整。",
+        "reviewPrompt": "回看舌象寒热湿燥地图，再对照脉法面板，体会‘窗口’和‘总开关’的先后关系。",
+        "reviewHref": "/diagrams",
+        "reviewLabel": "打开图表目录",
+        "relatedConceptIds": [
+          "tongue-as-window",
+          "pulse-first",
+          "middle-qi-axis"
+        ],
+        "relatedDiagramIds": [
+          "tongue-terrain-map",
+          "pulse-dashboard"
+        ],
+        "optionFeedbacks": {
+          "tongue-supports-pulse": "对。舌象是辅助窗口，最适合拿来补充、校验，而不是单独下最终判断。",
+          "tongue-alone-verdict": "不对。只看舌象容易把窗口当全景，顺序一错，后面判断就容易跑偏。",
+          "ignore-window": "不对。舌象并不是没用，而是不能抢主位；完全不用会丢掉重要线索。"
+        }
+      },
+      {
+        "id": "axis-over-label-final",
+        "title": "阶段 3: 定路线时，让主轴压过标签",
+        "stateSummary": "脉和舌已经把整体结构勾出来了，此时病名仍在，但它应该回到附属位置，而不是重新抢回指挥权。",
+        "question": "最后定学习路线时，应该怎么收束？",
+        "clues": [
+          "病名不是不要，而是要放回后位。",
+          "真正要落地的是当前这股气机主轴，而不是标签拼盘。",
+          "只要主轴抓对，同病名也可能走不同路线。"
+        ],
+        "options": [
+          {
+            "id": "axis-over-label",
+            "label": "按主轴落路线，病名只作参考",
+            "summary": "让整体结构决定方向，再把病名放回辅助说明。",
+            "href": "/modules/diagnostic-judgment"
+          },
+          {
+            "id": "label-returns-front",
+            "label": "最后还是让病名主导",
+            "summary": "虽然前面看了脉舌，但真正定路线时还是回到病名。",
+            "href": "/modules/cases-and-application"
+          },
+          {
+            "id": "symptom-patchwork",
+            "label": "按症状一块块拼",
+            "summary": "哪个症状冒头，就单独补哪个，最后拼成方案。",
+            "href": "/modules/formula-logic"
+          }
+        ],
+        "correctOptionId": "axis-over-label",
+        "rationale": "真正落路线时，仍然应该让整体主轴压过病名标签。病名可以保留，但应该退回到辅助说明的位置，而不是重新抢回判断的第一位。",
+        "takeaway": "诊断顺序一旦立稳，最后落路线时也不能再把权力交回给病名。",
+        "reviewPrompt": "回到诊断判断模块，再看‘脉比病名更重要’这一条是怎么贯穿整条判断链的。",
+        "reviewHref": "/modules/diagnostic-judgment",
+        "reviewLabel": "回到诊断判断模块",
+        "relatedConceptIds": [
+          "pulse-over-disease-name",
+          "treat-pattern-not-disease-name",
+          "active-interpretation"
+        ],
+        "relatedDiagramIds": [
+          "pulse-dashboard",
+          "case-stage-timeline",
+          "tongue-terrain-map"
+        ],
+        "optionFeedbacks": {
+          "axis-over-label": "对。病名能留下，但决定路线的权重必须交给当前真正的气机主轴。",
+          "label-returns-front": "不对。前面辛苦建立的主轴顺序，如果最后又交还给病名，就等于重新走回老路。",
+          "symptom-patchwork": "不对。症状拼图最容易把整体结构拆散，最后只剩一堆互相打架的局部解释。"
+        }
+      }
+    ]
+  }
+]

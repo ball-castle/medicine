@@ -1,0 +1,105 @@
+⨯ Error: ENOENT: no such file or directory, open 'c:\Users\TSOU\Desktop\medicine\content\cases\case-studies.json'
+    at async loadJson (lib\content.ts:21:15)
+    at async (lib\content.ts:26:111)
+    at async ModulePage (app\modules\[moduleId]\page.tsx:55:85)
+  19 | async function loadJson<T>(...segments: string[]): Promise<T> {
+  20 |   const filePath = path.join(contentRoot, ...segments);
+> 21 |   const raw = await readFile(filePath, "utf8");
+     |               ^
+  22 |   return JSON.parse(raw) as T;
+  23 | }
+  24 | {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'c:\\Users\\TSOU\\Desktop\\medicine\\content\\cases\\case-studies.json',
+  digest: '2046016087'
+}
+⨯ Error: ENOENT: no such file or directory, open 'c:\Users\TSOU\Desktop\medicine\content\cases\case-studies.json'
+    at async loadJson (lib\content.ts:21:15)
+    at async (lib\content.ts:26:111)
+    at async ModulePage (app\modules\[moduleId]\page.tsx:55:85)
+  19 | async function loadJson<T>(...segments: string[]): Promise<T> {
+  20 |   const filePath = path.join(contentRoot, ...segments);
+> 21 |   const raw = await readFile(filePath, "utf8");
+     |               ^
+  22 |   return JSON.parse(raw) as T;
+  23 | }
+  24 | {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'c:\\Users\\TSOU\\Desktop\\medicine\\content\\cases\\case-studies.json',
+  digest: '2046016087'
+}
+⨯ Error: ENOENT: no such file or directory, open 'c:\Users\TSOU\Desktop\medicine\content\cases\case-studies.json'
+    at async loadJson (lib\content.ts:21:15)
+    at async (lib\content.ts:26:111)
+    at async ModulePage (app\modules\[moduleId]\page.tsx:55:85)
+  19 | async function loadJson<T>(...segments: string[]): Promise<T> {
+  20 |   const filePath = path.join(contentRoot, ...segments);
+> 21 |   const raw = await readFile(filePath, "utf8");
+     |               ^
+  22 |   return JSON.parse(raw) as T;
+  23 | }
+  24 | {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'c:\\Users\\TSOU\\Desktop\\medicine\\content\\cases\\case-studies.json',
+  digest: '2046016087'
+}
+⨯ Failed to generate static paths for /modules/[moduleId]:
+Error: ENOENT: no such file or directory, open 'c:\Users\TSOU\Desktop\medicine\content\cases\case-studies.json'
+    at async loadJson (lib\content.ts:21:15)
+    at async (lib\content.ts:26:111)
+    at async Object.generateStaticParams (app\modules\[moduleId]\page.tsx:47:23)
+  19 | async function loadJson<T>(...segments: string[]): Promise<T> {
+  20 |   const filePath = path.join(contentRoot, ...segments);
+> 21 |   const raw = await readFile(filePath, "utf8");
+     |               ^
+  22 |   return JSON.parse(raw) as T;
+  23 | }
+  24 | {
+  type: 'Error',
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'c:\\Users\\TSOU\\Desktop\\medicine\\content\\cases\\case-studies.json'
+}
+⨯ Failed to generate static paths for /modules/[moduleId]:
+Error: ENOENT: no such file or directory, open 'c:\Users\TSOU\Desktop\medicine\content\cases\case-studies.json'
+    at async loadJson (lib\content.ts:21:15)
+    at async (lib\content.ts:26:111)
+    at async Object.generateStaticParams (app\modules\[moduleId]\page.tsx:47:23)
+  19 | async function loadJson<T>(...segments: string[]): Promise<T> {
+  20 |   const filePath = path.join(contentRoot, ...segments);
+> 21 |   const raw = await readFile(filePath, "utf8");
+     |               ^
+  22 |   return JSON.parse(raw) as T;
+  23 | }
+  24 | {
+  type: 'Error',
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'c:\\Users\\TSOU\\Desktop\\medicine\\content\\cases\\case-studies.json'
+}
+⨯ Failed to generate static paths for /modules/[moduleId]:
+Error: ENOENT: no such file or directory, open 'c:\Users\TSOU\Desktop\medicine\content\cases\case-studies.json'
+    at async loadJson (lib\content.ts:21:15)
+    at async (lib\content.ts:26:111)
+    at async Object.generateStaticParams (app\modules\[moduleId]\page.tsx:47:23)
+  19 | async function loadJson<T>(...segments: string[]): Promise<T> {
+  20 |   const filePath = path.join(contentRoot, ...segments);
+> 21 |   const raw = await readFile(filePath, "utf8");
+     |               ^
+  22 |   return JSON.parse(raw) as T;
+  23 | }
+  24 | {
+  type: 'Error',
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'c:\\Users\\TSOU\\Desktop\\medicine\\content\\cases\\case-studies.json'
+}

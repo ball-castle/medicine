@@ -1,5 +1,195 @@
 [
   {
+    "id": "foundations-direction-basic",
+    "moduleId": "foundations",
+    "title": "圆运动方向判断练习",
+    "subtitle": "先判断中轴、升、降哪一侧出了问题",
+    "objective": "训练用户先看整体方向失衡：是该升的没升、该降的没降，还是中轴本身承接不住。",
+    "warning": "这里只做概念训练，不构成真实用药建议。",
+    "estimatedTime": "5-7 分钟",
+    "actions": [
+      {
+        "id": "rise-blocked",
+        "label": "升不起来",
+        "shortLabel": "升",
+        "summary": "更像该升的没升、系统郁住不达的局面。",
+        "linkedPrototypeHref": "/prototypes/circle-flow-map"
+      },
+      {
+        "id": "descend-blocked",
+        "label": "降不下去",
+        "shortLabel": "降",
+        "summary": "更像该降不降、上逆上扰的局面。",
+        "linkedPrototypeHref": "/prototypes/circle-flow-map"
+      },
+      {
+        "id": "axis-weak",
+        "label": "中轴偏弱",
+        "shortLabel": "轴",
+        "summary": "更像中气不能承接，外围一起跟着偏。",
+        "linkedPrototypeHref": "/prototypes/circle-flow-map"
+      }
+    ],
+    "cases": [
+      {
+        "id": "middle-tired-after-meal",
+        "title": "题 1: 吃完更困、更胀",
+        "brief": "饭后腹胀、身困、四肢乏力，像轴心转不起来。",
+        "scenario": "一个入门案例里，人物吃完饭后更容易腹胀、发困，四肢无力，脑子也像转不起来。表面没有特别明显的上冲或郁结，但整个人像缺少承接力。",
+        "clues": [
+          "不是哪一股气单独往上冲，而是整个系统都没力。",
+          "饭后更困、更胀，提示中间转运承接偏弱。",
+          "外围各方向一起变钝，常常先回到中轴来判断。"
+        ],
+        "difficulty": "foundation",
+        "correctActionId": "axis-weak",
+        "rationale": "这题最像中轴承接不足。问题不在单独的升或降，而在中气这根轴先弱了，所以外围一起跟着慢、滞、无力。",
+        "mistakeTag": "把轴弱看成局部方向问题",
+        "mistakeReason": "很多初学者一看到腹胀就急着判断升降，其实更深的问题是中间已经带不动了。",
+        "reviewPrompt": "回看圆运动总图里‘中轴偏弱’那一档，先看外围为什么会一起跟着慢下来。",
+        "relatedConceptIds": ["middle-qi-axis", "round-motion", "ascending-descending-in-out"],
+        "relatedDiagramIds": ["circle-flow-map", "middle-axis-four-directions"],
+        "comparisons": {
+          "rise-blocked": "不对，因为它不是单纯郁住不升，而是中间先带不动。",
+          "descend-blocked": "不对，因为也看不到明显上逆上扰的主轴。",
+          "axis-weak": "对，因为问题更像中轴承接不足，外围一起变钝。"
+        },
+        "nextHref": "/prototypes/circle-flow-map",
+        "nextLabel": "回看圆运动总图"
+      },
+      {
+        "id": "spring-stuck",
+        "title": "题 2: 该生发的时候却郁住了",
+        "brief": "胸胁不舒、想叹气、情绪压着走，更像升机不展。",
+        "scenario": "另一个案例里，人物总觉得胸胁发闷、想叹气，整个人提不起精神但又不是单纯疲乏，更像有一股劲想出来却出不来。",
+        "clues": [
+          "有‘往上、往外该展开却展开不了’的感觉。",
+          "重点是郁滞，不是上逆顶撞。",
+          "系统像被闷在里面，不是中间整体塌掉。"
+        ],
+        "difficulty": "foundation",
+        "correctActionId": "rise-blocked",
+        "rationale": "这题更像升机不展。要先看到‘该升的不升、该达的不达’，而不是把它误判成中轴全弱或气全往上冲。",
+        "mistakeTag": "把郁住误认成上逆",
+        "mistakeReason": "升不起来和降不下去都可能让人胸口不舒服，但一个是郁住，一个是往上顶，方向完全不同。",
+        "reviewPrompt": "回看圆运动总图里‘该升不升’那档，注意郁住和上逆的差别。",
+        "relatedConceptIds": ["ascending-descending-in-out", "five-zang-functional-powers", "treat-pattern-not-disease-name"],
+        "relatedDiagramIds": ["circle-flow-map", "middle-axis-four-directions"],
+        "comparisons": {
+          "rise-blocked": "对，因为主问题是该展开的升机被压住了。",
+          "descend-blocked": "不对，因为这里重点不是往上冲，而是出不来、展不开。",
+          "axis-weak": "不对，因为中间未必塌，只是某一股上行展开之机被闷住。"
+        },
+        "nextHref": "/prototypes/circle-flow-map",
+        "nextLabel": "回看圆运动总图"
+      },
+      {
+        "id": "upward-rush",
+        "title": "题 3: 老觉得气往上顶",
+        "brief": "胸口满、咳逆、恶心，像该降的没有降下来。",
+        "scenario": "这个案例里，人物常觉得胸口发满、气往上顶，偶尔还有恶心和咳逆，坐着比躺下稍好一些。整体感觉不是郁在里面，而是有东西老往上拱。",
+        "clues": [
+          "关键词是‘往上顶’而不是‘出不来’。",
+          "气有上逆感，说明下降那一路更值得先看。",
+          "这类表现和中轴偏弱有关，但第一判断仍是方向问题。"
+        ],
+        "difficulty": "foundation",
+        "correctActionId": "descend-blocked",
+        "rationale": "这题的主轴是该降的不降。虽然中轴也可能参与其中，但当前最先要抓的是下降路线没走通，所以才会出现上逆、恶心、咳逆这些表现。",
+        "mistakeTag": "把上逆误认成郁住",
+        "mistakeReason": "郁住和上逆都可能让胸口不舒服，但一个像卡住，一个像顶上来，动作方向不同。",
+        "reviewPrompt": "回看圆运动总图里‘该降不降’那档，注意上逆感是怎么出现的。",
+        "relatedConceptIds": ["ascending-descending-in-out", "round-motion", "treat-pattern-not-disease-name"],
+        "relatedDiagramIds": ["circle-flow-map", "middle-axis-four-directions"],
+        "comparisons": {
+          "rise-blocked": "不对，因为这里不是该升的不升，而是该降的老降不下来。",
+          "descend-blocked": "对，因为上逆、恶心、咳逆都在提示下降路线失利。",
+          "axis-weak": "不对，因为当前最先浮出来的问题是方向上逆，不是整体承接变慢。"
+        },
+        "nextHref": "/prototypes/circle-flow-map",
+        "nextLabel": "回看圆运动总图"
+      },
+      {
+        "id": "center-cannot-hold",
+        "title": "题 4: 不是冲，也不是郁，就是带不动",
+        "brief": "久泻后更乏、更冷、更没精神，中间像失去承托。",
+        "scenario": "这个人物久泻之后更容易乏力、怕冷、没胃口，整个人提不起劲，也没有特别强的上冲或郁闷感，更像中心越来越空，外面越来越转不动。",
+        "clues": [
+          "重点是承托不足，而不是局部一路堵住。",
+          "整体运转越来越慢，是中轴偏弱的典型外观。",
+          "如果先只盯局部症状，容易漏掉更核心的底盘问题。"
+        ],
+        "difficulty": "intermediate",
+        "correctActionId": "axis-weak",
+        "rationale": "这题更像中轴本身已经承托不住。比起单独去分升降，先看到中间这根轴已经失去运转力量更关键。",
+        "mistakeTag": "把整体塌陷看成单一路线堵住",
+        "mistakeReason": "当整个人都在变慢、变弱、带不动时，往往先不是局部动作问题，而是中间这根轴不再稳。",
+        "reviewPrompt": "回看中气轴心与四向升降图，重点看轴弱时外围为什么一起失衡。",
+        "relatedConceptIds": ["middle-qi-axis", "round-motion", "five-zang-functional-powers"],
+        "relatedDiagramIds": ["middle-axis-four-directions", "circle-flow-map"],
+        "comparisons": {
+          "rise-blocked": "不对，因为这里并没有突出‘该升的不升’的郁住感。",
+          "descend-blocked": "不对，因为也看不到明显的上逆上扰主轴。",
+          "axis-weak": "对，因为更像中间承托先空了，外围才一起带不动。"
+        },
+        "nextHref": "/prototypes/circle-flow-map",
+        "nextLabel": "回看圆运动总图"
+      },
+      {
+        "id": "held-back-expansion",
+        "title": "题 5: 一股气老想出去却被压着",
+        "brief": "两胁紧、想发散却发不出来，更像升展不利。",
+        "scenario": "这个案例里，人物并不算特别虚，但总觉得两胁发紧、身体像被箍住，有一股想往外舒展的劲却一直发不出来。",
+        "clues": [
+          "有‘被压着展开不了’的感觉。",
+          "不是明显上逆，更不是整体都塌。",
+          "主问题更像生发和舒展这一路受阻。"
+        ],
+        "difficulty": "intermediate",
+        "correctActionId": "rise-blocked",
+        "rationale": "这题依然要先看升不起来。它不是纯疲乏，也不是往上冲，而是本来该舒展、该上达的那股力量一直被压着。",
+        "mistakeTag": "把升机不展误看成中轴虚弱",
+        "mistakeReason": "郁住久了也会疲惫，但如果主感觉是‘展不开’，还是要优先看升机问题。",
+        "reviewPrompt": "回看五脏功能轮和圆运动总图，重点看‘疏发之机被压住’是什么感觉。",
+        "relatedConceptIds": ["ascending-descending-in-out", "five-zang-functional-powers", "round-motion"],
+        "relatedDiagramIds": ["five-zang-wheel", "circle-flow-map"],
+        "comparisons": {
+          "rise-blocked": "对，因为关键是本该舒展上达的一路被压住了。",
+          "descend-blocked": "不对，因为没有明显往上拱、往上冲的主感觉。",
+          "axis-weak": "不对，因为系统未必整体塌，只是升展这一侧更先出问题。"
+        },
+        "nextHref": "/prototypes/circle-flow-map",
+        "nextLabel": "回看圆运动总图"
+      },
+      {
+        "id": "full-above-cannot-drop",
+        "title": "题 6: 上面老满着、落不下来",
+        "brief": "头面胀、胸中堵、卧下更难受，更像下降路线受阻。",
+        "scenario": "最后一个案例里，人物头面时常发胀，胸中堵满，平躺时更觉得不舒服，整个人像有什么一直停在上面落不下来。",
+        "clues": [
+          "有明显‘停在上面’的感觉。",
+          "不是简单郁住，而是已经出现上部满滞和不降。",
+          "这种时候先看下降路线更容易抓到主轴。"
+        ],
+        "difficulty": "intermediate",
+        "correctActionId": "descend-blocked",
+        "rationale": "这题最适合先判断为降不下去。因为主感觉已经不是闷住那么简单，而是明显停在上面、落不下来。",
+        "mistakeTag": "把不降当成单纯郁闷",
+        "mistakeReason": "当上部的满、胀、堵已经非常明显时，往往更该先看下降通路，而不是只说它郁。",
+        "reviewPrompt": "回看中气轴心与四向升降图，重点看‘上部停滞不下’是如何形成的。",
+        "relatedConceptIds": ["ascending-descending-in-out", "middle-qi-axis", "treat-pattern-not-disease-name"],
+        "relatedDiagramIds": ["middle-axis-four-directions", "circle-flow-map"],
+        "comparisons": {
+          "rise-blocked": "不对，因为这里不是该展不开，而是已经停在上面不下。",
+          "descend-blocked": "对，因为主轴就是上部停滞、下降失利。",
+          "axis-weak": "不对，因为当前最先浮出来的是上部不降，不是整体承接失速。"
+        },
+        "nextHref": "/prototypes/circle-flow-map",
+        "nextLabel": "回看圆运动总图"
+      }
+    ]
+  },
+  {
     "id": "fu-yang-triage-basic",
     "moduleId": "fu-yang-core",
     "title": "扶阳病例分流练习",
@@ -41,8 +231,14 @@
           "局面没有明显的“真阳浮越无根”感。",
           "更像先把门轴拨开，让里外恢复接轨。"
         ],
+        "difficulty": "foundation",
         "correctActionId": "open",
         "rationale": "这题最像“门没打开”。要先恢复里外交通，所以优先看桂枝法的开门拨机，而不是直接归根或先做长时间缓转。",
+        "mistakeTag": "把没路误看成没根",
+        "mistakeReason": "很多初学者只要看到不舒服就想往下收，但这里真正卡住的是内外交通没有打开。",
+        "reviewPrompt": "回看桂枝法原型，重点看‘门轴卡住’和‘真阳无根’的差别。",
+        "relatedConceptIds": ["guizhi-opens-gate", "support-yang-not-blind-heat", "kan-li-water-fire"],
+        "relatedDiagramIds": ["guizhi-gate-animation", "kan-li-circulation"],
         "comparisons": {
           "open": "对，因为问题核心是门轴卡住、内外不接。",
           "return": "不对，因为这里不是典型的阳浮无根，不是先往下收的题。",
@@ -61,8 +257,14 @@
           "上部亮，不等于系统有主。",
           "如果根不守住，只往外开，局面会更浮。"
         ],
+        "difficulty": "foundation",
         "correctActionId": "return",
         "rationale": "这题更像“阳浮无根”。要先让根部重新守住，所以优先看附子法的归根回阳，而不是把注意力放在开门或仅仅缓缓带下。",
+        "mistakeTag": "把无根上浮误看成需要开路",
+        "mistakeReason": "上面很亮、很热时，初学者容易以为要继续往外开，但如果根本问题是无根，上面只会更浮。",
+        "reviewPrompt": "回看附子法原型，重点看‘有路’和‘有根’不是同一件事。",
+        "relatedConceptIds": ["fuzi-returns-root", "support-yang-not-blind-heat", "upper-hot-lower-cold"],
+        "relatedDiagramIds": ["fuzi-root-return", "kan-li-circulation"],
         "comparisons": {
           "open": "不对，因为这里的主问题不是路没开，而是根没守住。",
           "return": "对，因为最关键的是把浮散无根的阳收回去、守下来。",
@@ -81,8 +283,14 @@
           "这一手更像过渡动作，不是终局动作。",
           "重点是“先稳局面，再决定后续”。"
         ],
+        "difficulty": "foundation",
         "correctActionId": "transition",
         "rationale": "这题最适合先看茯神法的右降缓转。它的价值在于先让系统从“太乱”变成“可继续处理”，之后才更好判断是否要进一步开门或归根。",
+        "mistakeTag": "把过渡题硬做成强动作题",
+        "mistakeReason": "当局面还很乱时，很多人会着急选一个最强动作，但真正重要的是先让系统能接住。",
+        "reviewPrompt": "回看茯神法原型，重点看它为什么是过渡动作而不是终局动作。",
+        "relatedConceptIds": ["fushen-right-descends", "staged-treatment-rhythm", "upper-hot-lower-cold"],
+        "relatedDiagramIds": ["fushen-right-descend", "kan-li-circulation"],
         "comparisons": {
           "open": "不对，因为现在最急的不是开门，而是先把乱象降下来。",
           "return": "不对，因为虽然可能也有根虚，但当前第一任务不是立刻强收，而是先稳住。",
@@ -101,8 +309,14 @@
           "局面不以躁乱为主，也不是明显真阳上越。",
           "关键是让里外重新接起来。"
         ],
+        "difficulty": "intermediate",
         "correctActionId": "open",
         "rationale": "这题依然是“门口被卡住”的类型。核心任务不是下潜归根，也不是先缓缓安顿，而是让里外恢复开合和交通。",
+        "mistakeTag": "把表里不接误看成局面太乱",
+        "mistakeReason": "不是所有‘不舒服’都需要先缓转，若主轴是门口卡住，仍然要优先看开门。",
+        "reviewPrompt": "回看桂枝与附子对照页，重点看‘门没开’和‘局面太乱’的差别。",
+        "relatedConceptIds": ["guizhi-opens-gate", "staged-treatment-rhythm", "kan-li-water-fire"],
+        "relatedDiagramIds": ["guizhi-gate-animation", "kan-li-circulation"],
         "comparisons": {
           "open": "对，因为主问题还是表里不接、门口不利。",
           "return": "不对，因为这里没有强烈的无根感，先收回去并不是第一步。",
@@ -121,8 +335,14 @@
           "问题不在门口，而在下面承接不住。",
           "要先让阳气回到能守住的位置。"
         ],
+        "difficulty": "intermediate",
         "correctActionId": "return",
         "rationale": "这题更应该优先处理“无根上浮”。所以先看附子法的归根回阳更合理，先把根守住，再谈后续交通和稳定。",
+        "mistakeTag": "把浮越当成郁堵",
+        "mistakeReason": "上面很满很热时，很容易误以为只是堵住了，但如果下面接不住，真正的重点还是归根。",
+        "reviewPrompt": "回看附子法原型，重点看‘上亮下空’为什么先不是开门题。",
+        "relatedConceptIds": ["fuzi-returns-root", "upper-hot-lower-cold", "support-yang-not-blind-heat"],
+        "relatedDiagramIds": ["fuzi-root-return", "kan-li-circulation"],
         "comparisons": {
           "open": "不对，因为继续开路只会让已经上浮的东西更散。",
           "return": "对，因为当前首要问题是把漂在上面的阳重新收回根部。",
@@ -141,8 +361,14 @@
           "先稳住，后面的判断才会更清楚。",
           "它不是终局动作，而是让系统进入可处理状态。"
         ],
+        "difficulty": "intermediate",
         "correctActionId": "transition",
         "rationale": "这题最适合用缓转思路来理解。茯神法的价值在于先把乱象收一收、带一带，等系统能接住以后，再决定是不是要开门或归根。",
+        "mistakeTag": "把躁乱直接当成强攻信号",
+        "mistakeReason": "很多人看到烦躁、头热就想立刻做大动作，但如果系统还不能承接，先稳局面更重要。",
+        "reviewPrompt": "回看茯神法和三动作总览页，重点看‘先稳住’的意义。",
+        "relatedConceptIds": ["fushen-right-descends", "staged-treatment-rhythm", "support-yang-not-blind-heat"],
+        "relatedDiagramIds": ["fushen-right-descend", "kan-li-circulation"],
         "comparisons": {
           "open": "不对，因为眼前最急的不是打开通路，而是先把纷乱局面缓下来。",
           "return": "不对，因为虽然也能看到下弱，但第一任务不是立刻强收，而是先让系统能承接。",
@@ -150,6 +376,684 @@
         },
         "nextHref": "/prototypes/fushen-right-descend",
         "nextLabel": "回看茯神缓转"
+      }
+    ]
+  },
+  {
+    "id": "warm-disease-root-basic",
+    "moduleId": "warm-disease-pediatrics",
+    "title": "温病与儿科根气判断练习",
+    "subtitle": "先分本气，再护中气，再决定后续分路",
+    "objective": "训练用户面对热象时，不急着追热，而是先看本气、中气和当前到底该在哪一步下判断。",
+    "warning": "这里只做学习判断训练，不构成真实治疗建议。",
+    "estimatedTime": "6-8 分钟",
+    "actions": [
+      {
+        "id": "root-first",
+        "label": "先分本气",
+        "shortLabel": "本气",
+        "summary": "先透过热象判断更像邪盛，还是本气和中气先乱。 ",
+        "linkedPrototypeHref": "/modules/warm-disease-pediatrics"
+      },
+      {
+        "id": "protect-middle",
+        "label": "先护中气",
+        "shortLabel": "护中",
+        "summary": "先守住中气津液，避免只追热象把底盘再打散。",
+        "linkedPrototypeHref": "/diagrams"
+      },
+      {
+        "id": "branch-reassess",
+        "label": "重新分路",
+        "shortLabel": "分路",
+        "summary": "底盘稍稳后，重新看当前更偏哪一条病机路径。",
+        "linkedPrototypeHref": "/cases/warm-disease-protect-center-case"
+      }
+    ],
+    "cases": [
+      {
+        "id": "heat-thirst-but-weak",
+        "title": "题 1: 热象明显，但底盘并不厚",
+        "brief": "发热、口渴、烦躁，同时食少神倦，更像先分本气。",
+        "scenario": "一个孩子发热、口渴、心烦，表面看起来像热势很盛，但同时又食欲很差、精神萎靡、稍动就倦，给人的感觉不像单纯‘邪太实’，更像底盘已经有点接不住。",
+        "clues": [
+          "热象和承接不足同时出现。",
+          "如果只盯热，很容易漏掉更核心的本气问题。",
+          "第一步还不是立刻定招，而是先分当前主轴更偏哪边。"
+        ],
+        "difficulty": "foundation",
+        "correctActionId": "root-first",
+        "rationale": "这题最先该做的不是猛清或急护，而是先分邪盛还是正乱。只有先看清热象背后的本气状态，后面的动作才不会一开始就跑偏。",
+        "mistakeTag": "把热象直接当作唯一主轴",
+        "mistakeReason": "一看到热、渴、烦，就急着追热，最容易把本气已弱、承接不足这一层漏掉。",
+        "reviewPrompt": "回看温病模块里‘看到热象，先问根有没有乱’，先把第一判断顺序稳住。",
+        "relatedConceptIds": ["warm-disease-root-pattern", "middle-qi-axis", "treat-pattern-not-disease-name"],
+        "relatedDiagramIds": ["warm-disease-root-path", "pediatric-protection-loop"],
+        "comparisons": {
+          "root-first": "对，因为眼前最急的不是出手，而是先看热象背后到底更偏邪盛还是正乱。",
+          "protect-middle": "不对，因为护中很重要，但这一步更早的任务是先把主轴分清。",
+          "branch-reassess": "不对，因为还没走到‘底盘稍稳后重新分路’的阶段。"
+        },
+        "nextHref": "/modules/warm-disease-pediatrics",
+        "nextLabel": "回看温病模块"
+      },
+      {
+        "id": "child-fever-loose-stool",
+        "title": "题 2: 孩子发热，但吃不下也便溏",
+        "brief": "发热同时胃口差、便溏、神疲，先护中气更关键。",
+        "scenario": "这个孩子发热两天，面上有热，但肚子容易胀，吃不下，便也偏溏，整个人提不起精神。你一看就觉得：如果一味追着热跑，可能先把中间这一层带垮。",
+        "clues": [
+          "孩子系统更嫩，中气承接更容易先伤。",
+          "当前最怕为了压热，把底盘继续往下拉。",
+          "比起细分很多标签，先守住能承接的中气更重要。"
+        ],
+        "difficulty": "foundation",
+        "correctActionId": "protect-middle",
+        "rationale": "这题最需要先护中气。不是说热象不重要，而是孩子当前的承接已经在摇，先稳住中气津液，后面的判断和处理才有落点。",
+        "mistakeTag": "见热先追热，忘了孩子底盘更脆",
+        "mistakeReason": "儿科场景里，如果中气已弱，一味去追表面的热，往往比成人更容易把恢复能力打散。",
+        "reviewPrompt": "回看小儿护中气回路图，重点看为什么儿科里护中常常比追热更先。",
+        "relatedConceptIds": ["protect-middle-qi-in-children", "middle-qi-axis", "warm-disease-root-pattern"],
+        "relatedDiagramIds": ["pediatric-protection-loop", "warm-disease-root-path"],
+        "comparisons": {
+          "root-first": "不对，因为这题的第一判断已经相对清楚，下一步更关键的是先保住承接。",
+          "protect-middle": "对，因为当前最怕的是中气再伤，先守住底盘比追热更急。",
+          "branch-reassess": "不对，因为还没走到重新分支的时候，先护中才是当前动作。"
+        },
+        "nextHref": "/diagrams",
+        "nextLabel": "回看护中图表"
+      },
+      {
+        "id": "after-fever-route-changes",
+        "title": "题 3: 热势降了一截，但路数变了",
+        "brief": "热没那么高了，却转成咳、汗、渴夹杂，这时要重新分路。",
+        "scenario": "一个病例经过前面处理后，热势比一开始低了，但人开始出现咳、微汗、口干、偶有腹胀等混杂表现。现在再盯着最初的发热印象，已经不够用了。",
+        "clues": [
+          "当前局面已经不是刚开始那一阶段。",
+          "原来的主轴可能已经松动，需要按现在的结构重新看。",
+          "如果还死守第一印象，最容易把后续变化看漏。"
+        ],
+        "difficulty": "foundation",
+        "correctActionId": "branch-reassess",
+        "rationale": "这题最适合重新分路。当前不是继续重复第一步判断，也不是只讲护中，而是要根据现在的结构重新看更偏哪一条病机路径。",
+        "mistakeTag": "把阶段变化当成原问题的延长线",
+        "mistakeReason": "很多人会把一开始的判断一路用到底，但临床一旦过了一段，主轴往往已经跟着变了。",
+        "reviewPrompt": "回看温病护中三段推演，重点看为什么第三段一定要重新分路。",
+        "relatedConceptIds": ["seasonal-illness-branching", "staged-treatment-rhythm", "active-interpretation"],
+        "relatedDiagramIds": ["warm-disease-root-path", "case-stage-timeline"],
+        "comparisons": {
+          "root-first": "不对，因为这一步已经不是第一次定主轴，而是阶段变化后的再判断。",
+          "protect-middle": "不对，因为护中仍然重要，但当前更直接的任务是重新分清现在的路数。",
+          "branch-reassess": "对，因为阶段已经变了，当前要按新的结构重新分路。"
+        },
+        "nextHref": "/cases/warm-disease-protect-center-case",
+        "nextLabel": "回看温病病例"
+      },
+      {
+        "id": "bright-face-poor-appetite",
+        "title": "题 4: 看着热，但吃不进也撑不起",
+        "brief": "面赤、口干，但胃口差、身倦，先分本气更稳。",
+        "scenario": "这个场景里，人物面上发赤、口里发干，看上去很热，可一问却发现吃不进去、容易乏力，稍微一动就软。热象很抓眼，但底下像没有足够的承托。",
+        "clues": [
+          "外观很像热，但内部并不结实。",
+          "一上来就压热，风险在于把底盘问题遮掉。",
+          "更适合先把‘表面热’和‘根里虚’分清楚。"
+        ],
+        "difficulty": "intermediate",
+        "correctActionId": "root-first",
+        "rationale": "这题依然应该先分本气。因为眼前最大的风险不是错过热，而是把热象误读成全部主轴，导致后续判断一开始就偏掉。",
+        "mistakeTag": "把表面热误当成根里有力",
+        "mistakeReason": "面赤口干很容易让人以为邪势很实，但胃口差、乏力、承托不足都在提醒你：根里未必扛得住。",
+        "reviewPrompt": "回看温病本气失衡路径图，重点看为什么热象和本气虚乱可以同时存在。",
+        "relatedConceptIds": ["warm-disease-root-pattern", "treat-pattern-not-disease-name", "middle-qi-axis"],
+        "relatedDiagramIds": ["warm-disease-root-path", "pediatric-protection-loop"],
+        "comparisons": {
+          "root-first": "对，因为当前首先要分清热象背后的本气状态，而不是直接出手。",
+          "protect-middle": "不对，因为护中可能是后手，但这一步还需要先定主轴。",
+          "branch-reassess": "不对，因为还没走到后段重新分路的时点。"
+        },
+        "nextHref": "/modules/warm-disease-pediatrics",
+        "nextLabel": "回看温病模块"
+      },
+      {
+        "id": "cooling-made-child-weaker",
+        "title": "题 5: 热退了一些，人却更虚了",
+        "brief": "表面没那么热了，但胃口更差、精神更弱，先护中气。",
+        "scenario": "一个孩子经过前面处理后，发热看起来低了一点，可胃口更差，肚子更不舒服，整个人更没精神。你会发现：热象虽然轻了，底盘却好像被顺手带下去了。",
+        "clues": [
+          "问题不只是热有没有退，还要看退完以后底盘怎么样。",
+          "当前承接能力继续往下走，是更现实的风险点。",
+          "这时最急的不一定是继续追热，而是先保住中气。"
+        ],
+        "difficulty": "intermediate",
+        "correctActionId": "protect-middle",
+        "rationale": "这题最需要先护中气。因为真正危险的不是热还在，而是退热过程中底盘被越带越弱，接下来若不先护中，后续判断会越来越悬。",
+        "mistakeTag": "只看热退不退，不看底盘有没有被拖垮",
+        "mistakeReason": "热象是显眼指标，但对儿科和本气不足的场景来说，中气有没有被越治越弱，往往更决定后面能不能走稳。",
+        "reviewPrompt": "回看护中气回路和温病病例第二阶段，重点看为什么‘人更虚了’时要先守中间。",
+        "relatedConceptIds": ["protect-middle-qi-in-children", "middle-qi-axis", "staged-treatment-rhythm"],
+        "relatedDiagramIds": ["pediatric-protection-loop", "case-stage-timeline"],
+        "comparisons": {
+          "root-first": "不对，因为当前不是第一次定主轴，而是已经看见底盘明显被拖弱。",
+          "protect-middle": "对，因为这时最急的是守住承接，不让系统越走越空。",
+          "branch-reassess": "不对，因为重新分路要建立在底盘先稳住的基础上。"
+        },
+        "nextHref": "/diagrams",
+        "nextLabel": "回看护中图表"
+      },
+      {
+        "id": "same-name-different-body",
+        "title": "题 6: 都叫时病，但体内走法不一样",
+        "brief": "同样叫发热咳嗽，一个偏中气弱，一个偏外邪重，要重新分路。",
+        "scenario": "两个案例都挂着‘发热咳嗽’这个名字。一个人吃不下、便偏溏、身倦明显；另一个人虽然也热，也咳，但食欲还行，整体更像外邪压着表层。表面名字一样，路数却已经分开了。",
+        "clues": [
+          "病名相同，不代表内部结构相同。",
+          "这一步最重要的是把不同路径重新分出来。",
+          "如果还按统一模板往下走，最容易学成死路数。"
+        ],
+        "difficulty": "intermediate",
+        "correctActionId": "branch-reassess",
+        "rationale": "这题要练的就是重新分路。看到同名时病时，不要默认同一路线，而要根据当前中气、本气和邪势重新看它更偏哪一条路径。",
+        "mistakeTag": "把同名时病当成同一路线",
+        "mistakeReason": "一旦被病名绑住，最容易忽略不同个体在本气、中气、邪势上的真实差别。",
+        "reviewPrompt": "回看温病与儿科模块里‘同名时病，先分不同路数’这一段。",
+        "relatedConceptIds": ["seasonal-illness-branching", "treat-pattern-not-disease-name", "warm-disease-root-pattern"],
+        "relatedDiagramIds": ["warm-disease-root-path", "case-stage-timeline"],
+        "comparisons": {
+          "root-first": "不对，因为这里不是第一次定总纲，而是在同名场景里分不同路数。",
+          "protect-middle": "不对，因为护中可能是某一路的后手，但当前最先要做的是把两条路分开。",
+          "branch-reassess": "对，因为这题核心就是同名不同路，必须重新分路。"
+        },
+        "nextHref": "/cases/warm-disease-protect-center-case",
+        "nextLabel": "回看温病病例"
+      }
+    ]
+  },
+  {
+    "id": "diagnostic-axis-basic",
+    "moduleId": "diagnostic-judgment",
+    "title": "脉舌主次判断练习",
+    "subtitle": "先抓脉轴，再让舌象辅助，最后让病名退后",
+    "objective": "训练用户在信息很多时先抓整体主轴，再决定舌象和病名应该放在什么位置。",
+    "warning": "这里只做判断顺序训练，不构成真实诊疗建议。",
+    "estimatedTime": "6-8 分钟",
+    "actions": [
+      {
+        "id": "pulse-axis",
+        "label": "先抓脉轴",
+        "shortLabel": "脉轴",
+        "summary": "先用脉象分出整体主轴，而不是先被病名和症状拉走。",
+        "linkedPrototypeHref": "/modules/diagnostic-judgment"
+      },
+      {
+        "id": "tongue-support",
+        "label": "舌象辅助",
+        "shortLabel": "舌象",
+        "summary": "让舌象补充寒热湿燥和津液信息，但不抢主位。",
+        "linkedPrototypeHref": "/diagrams"
+      },
+      {
+        "id": "label-backseat",
+        "label": "病名退后",
+        "shortLabel": "病名",
+        "summary": "不要让病名或最显眼标签重新抢回判断顺序。",
+        "linkedPrototypeHref": "/cases/pulse-axis-priority-case"
+      }
+    ],
+    "cases": [
+      {
+        "id": "many-labels-one-axis",
+        "title": "题 1: 病名一堆，先别被带走",
+        "brief": "高血压、失眠、胃胀、焦虑同时出现，先抓脉轴。",
+        "scenario": "一个案例里，病历单上写了高血压、失眠、焦虑、胃胀好几项，信息很多。但摸到脉以后，你反而觉得：真正应该先抓的不是标签本身，而是这股整体到底更浮、更虚，还是更滞。",
+        "clues": [
+          "病名多，不代表路线就应该从病名开始。",
+          "脉象更像在先说整体主轴。",
+          "这一步还不是让舌象和病名来主持判断。"
+        ],
+        "difficulty": "foundation",
+        "correctActionId": "pulse-axis",
+        "rationale": "这题最先要抓脉轴。因为当前最重要的是用脉分出整体主线，避免被病名和表面症状一开始就切碎判断。",
+        "mistakeTag": "标签太多，主轴反而被挤掉了",
+        "mistakeReason": "一旦先按病名拆开走，最容易把真正共用的一条整体主轴看散。",
+        "reviewPrompt": "回看诊断判断模块里‘先让脉说出整体主轴’这一段。",
+        "relatedConceptIds": ["pulse-first", "pulse-over-disease-name", "treat-pattern-not-disease-name"],
+        "relatedDiagramIds": ["pulse-dashboard", "case-stage-timeline"],
+        "comparisons": {
+          "pulse-axis": "对，因为当前首先要分整体主轴，不能让病名一开始就带走路线。",
+          "tongue-support": "不对，因为舌象的价值在主轴建立后才更稳。",
+          "label-backseat": "不对，因为病名退后是原则，但这题真正第一手动作是先抓脉轴。"
+        },
+        "nextHref": "/modules/diagnostic-judgment",
+        "nextLabel": "回看诊断判断模块"
+      },
+      {
+        "id": "tongue-needs-context",
+        "title": "题 2: 舌象有信息，但不能自己单飞",
+        "brief": "舌面偏红偏干，但还要放回脉轴里看，舌象是辅助。",
+        "scenario": "另一个场景里，舌面看起来偏红偏干，挺容易吸引注意。可你已经先从脉上感觉到整体不只是热，还有承接和津液层面的细微差别。现在最合理的顺序，不是让舌象直接接管判断。",
+        "clues": [
+          "舌象很有用，但更像补充窗口。",
+          "当前已经有脉轴在前面打底。",
+          "更适合让舌象进来校验，而不是单独判决。"
+        ],
+        "difficulty": "foundation",
+        "correctActionId": "tongue-support",
+        "rationale": "这题最适合让舌象辅助。它的价值在于补寒热、湿燥、津液信息，而不是越过脉象自己成为总开关。",
+        "mistakeTag": "把窗口当成总开关",
+        "mistakeReason": "舌象太直观，很容易让人一眼看过去就下定论，但如果离开整体主轴，判断会很容易走偏。",
+        "reviewPrompt": "回看舌象寒热湿燥地图，再对照脉诊总开关面板，体会两者先后关系。",
+        "relatedConceptIds": ["tongue-as-window", "pulse-first", "middle-qi-axis"],
+        "relatedDiagramIds": ["tongue-terrain-map", "pulse-dashboard"],
+        "comparisons": {
+          "pulse-axis": "不对，因为这一步脉轴已经先立住了，当前更适合让舌象进来补充。",
+          "tongue-support": "对，因为舌象在这里最适合作为辅助窗口，帮你补齐细节。",
+          "label-backseat": "不对，因为这里的核心不是病名排序，而是脉与舌的主次关系。"
+        },
+        "nextHref": "/diagrams",
+        "nextLabel": "回看脉舌图表"
+      },
+      {
+        "id": "same-disease-two-patterns",
+        "title": "题 3: 同病名，不同主轴",
+        "brief": "两个都叫失眠，一个更虚散，一个更郁滞，病名要退后。",
+        "scenario": "两个案例都带着‘失眠’这个病名。一个人脉更浮散、白天也虚；另一个人脉更弦更滞、胸胁不舒明显。虽然标签一样，但真正的路线显然不该一样。",
+        "clues": [
+          "病名相同，不代表主轴就相同。",
+          "如果继续让病名坐在前面，后面的结构差异会被压扁。",
+          "这一题最该练的是把病名放回后位。"
+        ],
+        "difficulty": "foundation",
+        "correctActionId": "label-backseat",
+        "rationale": "这题最关键的是让病名退后。只有把标签放回辅助位置，才会真正看到两个失眠场景背后的主轴差异。",
+        "mistakeTag": "看见同病名，就以为可以同一路走到底",
+        "mistakeReason": "病名会给人一种熟悉的稳定感，但也最容易让人忽略真正决定路线的那股整体主轴。",
+        "reviewPrompt": "回看脉象主轴优先病例，重点看为什么最后落路线时病名必须退后。",
+        "relatedConceptIds": ["pulse-over-disease-name", "treat-pattern-not-disease-name", "pulse-first"],
+        "relatedDiagramIds": ["pulse-dashboard", "case-stage-timeline"],
+        "comparisons": {
+          "pulse-axis": "不对，因为这题不在练第一手抓脉，而在练病名要不要继续占前位。",
+          "tongue-support": "不对，因为这题也不在舌象主次，而在标签排序。",
+          "label-backseat": "对，因为同病名不同主轴，核心就是让病名退回去。"
+        },
+        "nextHref": "/cases/pulse-axis-priority-case",
+        "nextLabel": "回看脉象病例"
+      },
+      {
+        "id": "red-tongue-weak-pulse",
+        "title": "题 4: 舌看着热，脉却先提示虚散",
+        "brief": "舌偏红不等于路线先交给舌，先抓脉轴更稳。",
+        "scenario": "一个人舌色看上去偏红，容易让人先想到热势偏重。但脉一上手，你反而先感觉到整体更虚、更散，没有那种实而有力的支撑。这个时候最怕被舌面的一眼印象直接带跑。",
+        "clues": [
+          "舌象很抢眼，但脉在提示更深的主轴。",
+          "当前最需要的是先确认整体到底往哪边偏。",
+          "如果先让舌象发号施令，主轴会被局部外观盖掉。"
+        ],
+        "difficulty": "intermediate",
+        "correctActionId": "pulse-axis",
+        "rationale": "这题仍然应该先抓脉轴。因为在脉舌信息有张力的时候，真正决定路线的还是整体主轴，而不是局部外观先入为主。",
+        "mistakeTag": "舌太抓眼，结果把脉给压没了",
+        "mistakeReason": "舌象直观、脉象抽象，所以很多人一冲动就让舌象抢了先手，但越是这种时候越要先守住脉轴。",
+        "reviewPrompt": "回看诊断模块第一段，重点看为什么脉法是总开关而不是补充件。",
+        "relatedConceptIds": ["pulse-first", "tongue-as-window", "pulse-over-disease-name"],
+        "relatedDiagramIds": ["pulse-dashboard", "tongue-terrain-map"],
+        "comparisons": {
+          "pulse-axis": "对，因为当前最关键的是先守住整体主轴，不让局部外观抢跑。",
+          "tongue-support": "不对，因为舌象当然要看，但它还不该越过脉象去决定第一判断。",
+          "label-backseat": "不对，因为这题不在病名排序，而在脉舌冲突时谁先谁后。"
+        },
+        "nextHref": "/modules/diagnostic-judgment",
+        "nextLabel": "回看诊断判断模块"
+      },
+      {
+        "id": "window-after-axis",
+        "title": "题 5: 主轴立住后，才轮到窗口补细节",
+        "brief": "脉先分出中虚，接下来更该让舌象补湿燥津液。",
+        "scenario": "这个案例里，你先从脉上比较清楚地感觉到整体偏中虚承接不足。下一步你并不需要再用病名去替你做决定，而更需要一个窗口，帮助你补看湿燥、津液和局部负担。",
+        "clues": [
+          "第一步主轴已经相对稳定。",
+          "当前缺的是补充信息，而不是再换总开关。",
+          "舌象最适合在这一步进来。"
+        ],
+        "difficulty": "intermediate",
+        "correctActionId": "tongue-support",
+        "rationale": "这题最适合让舌象辅助。因为脉已经先把主轴立住，接下来更需要舌象来补寒热湿燥和津液层面的细节。",
+        "mistakeTag": "主轴已经有了，还在找第二个主轴",
+        "mistakeReason": "很多人抓到脉后还会不放心，转头又让病名或别的标签抢回来，其实这一步更该补细节，不该换总开关。",
+        "reviewPrompt": "回看舌象地图和脉诊面板，重点看什么时候该让舌象进场。",
+        "relatedConceptIds": ["tongue-as-window", "pulse-first", "middle-qi-axis"],
+        "relatedDiagramIds": ["tongue-terrain-map", "pulse-dashboard"],
+        "comparisons": {
+          "pulse-axis": "不对，因为这一步脉轴已经立住，继续停在第一手就会浪费窗口信息。",
+          "tongue-support": "对，因为当前最合理的动作就是让舌象来补细节。",
+          "label-backseat": "不对，因为病名退后是背景原则，不是这一步最具体的动作。"
+        },
+        "nextHref": "/diagrams",
+        "nextLabel": "回看脉舌图表"
+      },
+      {
+        "id": "hospital-name-hooks-you",
+        "title": "题 6: 一看到病名就想回老路",
+        "brief": "病历写着高血压和焦虑，但路线仍该让病名退后。",
+        "scenario": "最后这个场景里，病历上的现代标签写得很重：高血压、焦虑、睡眠障碍。可你已经通过脉象和舌象大致摸到当前更偏虚散无守，而不是单纯‘哪一项病最重’。这时最容易发生的一步错，就是又把权力交回给病名。",
+        "clues": [
+          "病名会给人一种很想套流程的冲动。",
+          "前面已经摸到主轴了，不该再让标签抢回前排。",
+          "这题要练的是最后落路线时谁说了算。"
+        ],
+        "difficulty": "intermediate",
+        "correctActionId": "label-backseat",
+        "rationale": "这题最需要把病名放回后位。前面既然已经通过整体判断抓到了主轴，最后落路线时就不能又把权力交回给现代标签。",
+        "mistakeTag": "前面顺序都对了，最后却把权力还给病名",
+        "mistakeReason": "很多学习者在判断过程中前面做得都对，但一到真正决定路线的时候，又不自觉回到熟悉的病名逻辑里。",
+        "reviewPrompt": "回看脉象主轴优先病例第三阶段，重点看为什么最后一步仍然要让病名退后。",
+        "relatedConceptIds": ["pulse-over-disease-name", "treat-pattern-not-disease-name", "active-interpretation"],
+        "relatedDiagramIds": ["pulse-dashboard", "case-stage-timeline", "tongue-terrain-map"],
+        "comparisons": {
+          "pulse-axis": "不对，因为这题不在重新抓第一主轴，而在最终落路线时病名应不应该退后。",
+          "tongue-support": "不对，因为舌象该怎么辅助前面已经处理过，这一步关键是标签排序。",
+          "label-backseat": "对，因为真正的学习难点就是最后一步别再让病名把路线抢回去。"
+        },
+        "nextHref": "/cases/pulse-axis-priority-case",
+        "nextLabel": "回看脉象病例"
+      }
+    ]
+  },
+  {
+    "id": "formula-direction-basic",
+    "moduleId": "formula-logic",
+    "title": "方药方向判断练习",
+    "subtitle": "先看这张方更像在开、和、下还是守",
+    "objective": "训练用户把经方和药性先看成气机动作，而不是一串功效标签。",
+    "warning": "这里只做方义方向训练，不构成真实处方建议。",
+    "estimatedTime": "6-8 分钟",
+    "actions": [
+      {
+        "id": "release-open",
+        "label": "开散外达",
+        "shortLabel": "开散",
+        "summary": "更像先把表层开合和外达通路拨开的方向。",
+        "linkedPrototypeHref": "/modules/formula-logic"
+      },
+      {
+        "id": "harmonize-pivot",
+        "label": "和解转枢",
+        "shortLabel": "和解",
+        "summary": "更像先把卡住的枢机转开，而不是直接发散或下夺。",
+        "linkedPrototypeHref": "/modules/formula-logic"
+      },
+      {
+        "id": "descend-drain",
+        "label": "通降下行",
+        "shortLabel": "通降",
+        "summary": "更像把里实、壅滞、燥结从下降一路带开。",
+        "linkedPrototypeHref": "/modules/formula-logic"
+      },
+      {
+        "id": "warm-return",
+        "label": "温守回收",
+        "shortLabel": "回收",
+        "summary": "更像先护住将散的根气，把浮越之势收回来。",
+        "linkedPrototypeHref": "/modules/fu-yang-core"
+      }
+    ],
+    "cases": [
+      {
+        "id": "surface-locked-formula",
+        "title": "题 1: 外层闭住，先把门口拨开",
+        "brief": "恶风、身痛、汗欲出不畅，更像开散外达。",
+        "scenario": "一个入门场景里，人物恶风、身痛、肩背拘紧，汗像想出来又不畅，整个人像卡在表层开合这一步。这里最先需要的，不是向下通，也不是往里守，而是把门口拨开。",
+        "clues": [
+          "重点在表层开合被卡住。",
+          "局面不像里实燥结，也不像根气欲散。",
+          "更需要让外达之路先恢复。"
+        ],
+        "difficulty": "foundation",
+        "correctActionId": "release-open",
+        "rationale": "这题最像开散外达。因为当前主问题是表层开合不利，先把外达通路拨开，方向才对。",
+        "mistakeTag": "把表层闭住看成里实壅滞",
+        "mistakeReason": "一旦不先分层次，最容易把‘没开’误判成‘要下’，动作一错，方义就会跟着跑偏。",
+        "reviewPrompt": "回看方药与经方逻辑模块里‘先把方理解成方向模型’这一段。",
+        "relatedConceptIds": ["formulas-as-qi-models", "herbs-as-directions", "six-meridian-framework"],
+        "relatedDiagramIds": ["formula-direction-compass", "six-meridian-map"],
+        "comparisons": {
+          "release-open": "对，因为当前重点在外层不利，方向上先要把开合拨开。",
+          "harmonize-pivot": "不对，因为它不是典型枢机半开半闭的题。",
+          "descend-drain": "不对，因为也看不到里实壅滞要往下降的主轴。",
+          "warm-return": "不对，因为当前不是根气欲散，而是表层通路不利。"
+        },
+        "nextHref": "/modules/formula-logic",
+        "nextLabel": "回看方药逻辑模块"
+      },
+      {
+        "id": "pivot-half-open",
+        "title": "题 2: 不上不下，卡在枢机中间",
+        "brief": "往来寒热、胸胁苦满、口苦，更像和解转枢。",
+        "scenario": "这个场景里，人物时冷时热，胸胁发满，口里发苦，整个人像不完全在表，也不完全在里，而是卡在一个半开半闭的中间位置。你会直觉觉得，这不是简单发散或猛下能解决的。",
+        "clues": [
+          "不是纯表，也不是纯里。",
+          "更像枢机转不开，问题卡在中层。",
+          "如果硬开硬下，都容易偏。"
+        ],
+        "difficulty": "foundation",
+        "correctActionId": "harmonize-pivot",
+        "rationale": "这题最适合和解转枢。因为它的主轴不在纯开或纯下，而在半表半里、枢机不利这一层。",
+        "mistakeTag": "把枢机卡住误看成纯表或纯里",
+        "mistakeReason": "往来寒热、胸胁苦满这类信息，最容易提醒你：问题不在两端，而在中间的枢机。 ",
+        "reviewPrompt": "回看六经层次地图，重点看为什么少阳类问题更像‘转枢’而不是单向推。 ",
+        "relatedConceptIds": ["six-meridian-framework", "formulas-as-qi-models", "herbs-as-directions"],
+        "relatedDiagramIds": ["six-meridian-map", "formula-direction-compass"],
+        "comparisons": {
+          "release-open": "不对，因为它不是单纯外层闭住的题。",
+          "harmonize-pivot": "对，因为真正卡住的是中间枢机，而不是两端之一。",
+          "descend-drain": "不对，因为还没有形成明显该往下通的里实主轴。",
+          "warm-return": "不对，因为当前不是虚散欲脱，而是转枢不利。"
+        },
+        "nextHref": "/modules/formula-logic",
+        "nextLabel": "回看方药逻辑模块"
+      },
+      {
+        "id": "interior-clogged",
+        "title": "题 3: 里实燥结，重点在往下降",
+        "brief": "腹满、燥结、不下、烦热，更像通降下行。",
+        "scenario": "这个案例里，人物腹满、燥结、大便不通，里面像有东西堵着，越憋越烦。此时最不适合做的，就是还在表层打转，或者误以为只要温守就行。",
+        "clues": [
+          "主问题已经明显停在里层壅滞。",
+          "关键词是燥结、不下，而不是门没开或枢机半闭。",
+          "方向上更需要把下降一路带开。"
+        ],
+        "difficulty": "foundation",
+        "correctActionId": "descend-drain",
+        "rationale": "这题最像通降下行。因为当前真正卡住的是里层壅滞与不下，动作重点应该放在把下降这一路打开。",
+        "mistakeTag": "把里实题还按表层或枢机去看",
+        "mistakeReason": "一旦没有先分清层次，就会把该下的题继续拿去开表或和解，结果越治越绕。 ",
+        "reviewPrompt": "回看方剂方向罗盘，重点看‘开散’和‘通降’为什么不是一个方向。 ",
+        "relatedConceptIds": ["formulas-as-qi-models", "herbs-as-directions", "mis-treatment-creates-new-pattern"],
+        "relatedDiagramIds": ["formula-direction-compass", "six-meridian-map"],
+        "comparisons": {
+          "release-open": "不对，因为这题已经不是外层开合不利，而是里层壅滞不下。",
+          "harmonize-pivot": "不对，因为它也不是枢机半开半闭的中层问题。",
+          "descend-drain": "对，因为当前真正需要的是把里实壅滞往下降开。",
+          "warm-return": "不对，因为当前不是根气欲散，而是壅滞不通。"
+        },
+        "nextHref": "/modules/formula-logic",
+        "nextLabel": "回看方药逻辑模块"
+      },
+      {
+        "id": "false-heat-root-loose",
+        "title": "题 4: 上面发亮，下面却守不住",
+        "brief": "上烦下冷、四肢逆、脉微，更像温守回收。",
+        "scenario": "一个人物面上发热发烦，但手足却冷，脉象也更虚更微，整个人给人的感觉不是‘里面有实热’，而是上面浮着、下面守不住。这里如果继续往外开，风险反而更大。",
+        "clues": [
+          "表面亮，不等于里面有主。",
+          "更像根气欲散，而不是该往下降壅滞。",
+          "动作重点不是再放，而是先守。"
+        ],
+        "difficulty": "intermediate",
+        "correctActionId": "warm-return",
+        "rationale": "这题更像温守回收。因为当前问题是上浮无守、根部接不住，方向重点在先把将散之势收回来。",
+        "mistakeTag": "把虚浮发亮误看成实热该泄",
+        "mistakeReason": "上面发亮很容易迷惑人，但只要下面承接不住、脉又虚微，就要警惕这不是单纯该泄的题。",
+        "reviewPrompt": "回看扶阳模块里‘附子归根’和‘扶阳不等于猛热’这两层对照。 ",
+        "relatedConceptIds": ["herbs-as-directions", "support-yang-not-blind-heat", "fuzi-returns-root"],
+        "relatedDiagramIds": ["formula-direction-compass", "fuzi-root-return"],
+        "comparisons": {
+          "release-open": "不对，因为继续往外开会让本就欲散的势头更浮。",
+          "harmonize-pivot": "不对，因为问题不在枢机半闭，而在根部守不住。",
+          "descend-drain": "不对，因为这也不是里实燥结该下的题。",
+          "warm-return": "对，因为当前更需要先守住根气，把浮散之势收回来。"
+        },
+        "nextHref": "/modules/fu-yang-core",
+        "nextLabel": "回看扶阳模块"
+      }
+    ]
+  },
+  {
+    "id": "cases-stage-rhythm-basic",
+    "moduleId": "cases-and-application",
+    "title": "医案先后手判断练习",
+    "subtitle": "先定主轴，再稳局面，再按阶段转手",
+    "objective": "训练用户在医案场景里抓主轴、看节奏、判断什么时候该稳、什么时候该转、什么时候该活用而不离总纲。",
+    "warning": "这里只做医案阅读训练，不构成真实临床建议。",
+    "estimatedTime": "6-8 分钟",
+    "actions": [
+      {
+        "id": "set-axis-first",
+        "label": "先定主轴",
+        "shortLabel": "定轴",
+        "summary": "信息很杂时，先抓决定路线的那一条主轴。",
+        "linkedPrototypeHref": "/modules/cases-and-application"
+      },
+      {
+        "id": "steady-chaos-first",
+        "label": "先稳局面",
+        "shortLabel": "先稳",
+        "summary": "局面太乱、系统难承接时，先别急着上强动作。",
+        "linkedPrototypeHref": "/cases/fu-yang-three-step-case"
+      },
+      {
+        "id": "switch-stage",
+        "label": "按阶段转手",
+        "shortLabel": "转手",
+        "summary": "前一阶段已经完成任务时，要及时换下一手，而不是重复旧动作。",
+        "linkedPrototypeHref": "/cases/fu-yang-three-step-case"
+      },
+      {
+        "id": "keep-outline-flex",
+        "label": "活解不离总纲",
+        "shortLabel": "活解",
+        "summary": "表面变化了，但主轴没变时，活用外围而不丢总纲。",
+        "linkedPrototypeHref": "/modules/cases-and-application"
+      }
+    ],
+    "cases": [
+      {
+        "id": "too-many-symptoms-axis",
+        "title": "题 1: 热、寒、虚、实同时冒头",
+        "brief": "信息太多时，最先要做的是定主轴。",
+        "scenario": "一个医案里同时写着发热、胸闷、乏力、腹胀、睡不安。很多信息一起出来，最容易让人一头扎进症状清单里，结果越看越乱，不知道从哪条线起手。",
+        "clues": [
+          "症状多，并不代表应该一项项平铺着看。",
+          "真正决定路线的是哪条是根、哪条是枝。",
+          "当前还没走到出招，更早的一步是先立主轴。"
+        ],
+        "difficulty": "foundation",
+        "correctActionId": "set-axis-first",
+        "rationale": "这题最先需要的是定主轴。只有先抓出最决定路线的一条线，后面的先后手和阶段转手才有基础。",
+        "mistakeTag": "症状越多，越容易忘了先抓根线",
+        "mistakeReason": "一旦被症状清单牵着走，医案就会被看成很多局部问题，而不是一个整体节奏。",
+        "reviewPrompt": "回看医案与活解模块第一段，重点看为什么医案阅读要先抓主轴。 ",
+        "relatedConceptIds": ["staged-treatment-rhythm", "pulse-over-disease-name", "active-interpretation"],
+        "relatedDiagramIds": ["case-stage-timeline"],
+        "comparisons": {
+          "set-axis-first": "对，因为此时最急的不是出手，而是先把决定路线的主轴找出来。",
+          "steady-chaos-first": "不对，因为先稳局面的前提是你已经知道现在乱在哪里。",
+          "switch-stage": "不对，因为这还没进入阶段切换，而是在第一眼读案。",
+          "keep-outline-flex": "不对，因为活解要建立在主轴已经立住的基础上。"
+        },
+        "nextHref": "/modules/cases-and-application",
+        "nextLabel": "回看医案模块"
+      },
+      {
+        "id": "chaos-before-strength",
+        "title": "题 2: 一眼看上去就很乱，先别猛推",
+        "brief": "心烦、惊悸、上部躁动、下部承接弱，更像先稳局面。",
+        "scenario": "另一个病例里，人物心烦、惊悸、睡不安，上部躁热明显，下部承接又弱。你一看就觉得：现在如果立刻上最强动作，系统未必先接得住。",
+        "clues": [
+          "主轴虽然能看出一些方向，但局面承接能力很差。",
+          "强动作现在上去，风险比收益更大。",
+          "这一段更像给后续创造条件。"
+        ],
+        "difficulty": "foundation",
+        "correctActionId": "steady-chaos-first",
+        "rationale": "这题最适合先稳局面。因为当前真正缺的是承接条件，而不是直接进入后段强动作。",
+        "mistakeTag": "看到乱，就以为应该立刻做最大的动作",
+        "mistakeReason": "医案里的很多错误，不是看不出方向，而是看到了方向以后抢跑太快，没有先给系统留承接空间。",
+        "reviewPrompt": "回看扶阳三步病例第一阶段，重点看为什么‘先稳住’常常比强推进更早。 ",
+        "relatedConceptIds": ["staged-treatment-rhythm", "fushen-right-descends", "upper-hot-lower-cold"],
+        "relatedDiagramIds": ["case-stage-timeline", "fushen-right-descend"],
+        "comparisons": {
+          "set-axis-first": "不对，因为这题不只是定轴，而是已经到了该不该先稳局面的判断。",
+          "steady-chaos-first": "对，因为当前最需要的是把乱象降下来，让后续能接。",
+          "switch-stage": "不对，因为还没到前一阶段结束后的转手点。",
+          "keep-outline-flex": "不对，因为活用外围的前提是局面已经先稳住。"
+        },
+        "nextHref": "/cases/fu-yang-three-step-case",
+        "nextLabel": "回看扶阳病例"
+      },
+      {
+        "id": "finished-one-step-change-hand",
+        "title": "题 3: 前一手已经完成任务，别重复它",
+        "brief": "门口已开，但仍上亮下空，这时重点在转手。",
+        "scenario": "一个病例经过前一阶段后，表层开合已经明显改善，人不再像卡在门口；但接着你又看到上部仍亮、下部仍虚，说明旧动作已经完成了它的任务，再重复它意义不大。",
+        "clues": [
+          "当前不是没路，而是通了以后还没守住。",
+          "继续重复旧动作，容易错过真正的下一手。",
+          "这是典型的阶段切换场景。"
+        ],
+        "difficulty": "intermediate",
+        "correctActionId": "switch-stage",
+        "rationale": "这题最重要的是按阶段转手。因为前一手已经把‘有路’这件事完成了，下一步该处理的是‘守不守得住’，而不是继续重复旧动作。",
+        "mistakeTag": "上一手有效，就想一路重复到底",
+        "mistakeReason": "医案最常见的误区之一，就是把‘前一手有效’误读成‘后面继续加量就好’，结果错过主轴转变。 ",
+        "reviewPrompt": "回看扶阳三步病例第二、三阶段，重点看为什么门开了以后还要改手。 ",
+        "relatedConceptIds": ["staged-treatment-rhythm", "guizhi-opens-gate", "fuzi-returns-root"],
+        "relatedDiagramIds": ["case-stage-timeline", "guizhi-gate-animation", "fuzi-root-return"],
+        "comparisons": {
+          "set-axis-first": "不对，因为这题不是第一眼读案，而是已经进入阶段推进中。",
+          "steady-chaos-first": "不对，因为局面已经比前一段稳定，问题变成是否该转手。",
+          "switch-stage": "对，因为当前真正的难点是识别前一手任务已经完成，下一手要变。",
+          "keep-outline-flex": "不对，因为这里不只是小调整，而是明确的阶段切换。"
+        },
+        "nextHref": "/cases/fu-yang-three-step-case",
+        "nextLabel": "回看扶阳病例"
+      },
+      {
+        "id": "same-axis-new-surface",
+        "title": "题 4: 表面变了，但总纲没变",
+        "brief": "主轴仍在原路，只是外观有轻微变化，更像活解不离总纲。",
+        "scenario": "一个病例在推进中，表面症状有一些变化，比如原来偏胀，现在多了点疲；原来烦躁重，现在轻了一些。但你整体看下来，真正的主轴并没有换，只是外围表现有了轻重变化。",
+        "clues": [
+          "不是每次外观变化都意味着要彻底换路。",
+          "当前更像在总纲不变下微调外围。",
+          "真正考的是会不会被表面变化带跑。"
+        ],
+        "difficulty": "intermediate",
+        "correctActionId": "keep-outline-flex",
+        "rationale": "这题最适合活解不离总纲。因为当前主轴没变，变的是外围表现，所以更该在总纲不变的前提下灵活调整，而不是推翻整个路线。",
+        "mistakeTag": "表面一变，就以为总纲也全变了",
+        "mistakeReason": "活解最难的地方不是会不会变，而是知道什么时候该变外围、什么时候该变主轴。 ",
+        "reviewPrompt": "回看医案与活解模块第三段，重点看什么叫‘活解不是随便变’。 ",
+        "relatedConceptIds": ["active-interpretation", "formulas-as-qi-models", "staged-treatment-rhythm"],
+        "relatedDiagramIds": ["case-stage-timeline"],
+        "comparisons": {
+          "set-axis-first": "不对，因为这题不是重新从零定轴，而是在原轴未变时看要不要灵活微调。",
+          "steady-chaos-first": "不对，因为当前局面也不是乱到需要先稳。",
+          "switch-stage": "不对，因为这题没有明确进入新的阶段主轴，而是在原主轴上调外围。",
+          "keep-outline-flex": "对，因为当前更该做的是守住总纲，在外围上活用。"
+        },
+        "nextHref": "/modules/cases-and-application",
+        "nextLabel": "回看医案模块"
       }
     ]
   }

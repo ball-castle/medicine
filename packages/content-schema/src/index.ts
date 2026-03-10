@@ -46,6 +46,7 @@ export interface DiagramRecord {
   visualPriority: "high" | "medium";
   productionFormat: "svg-motion" | "rive" | "three-scene" | "case-board";
   sourceImageCandidates: string[];
+  prototypeHref?: string;
 }
 
 export interface ModuleRecord {
@@ -115,14 +116,22 @@ export interface PracticeActionRecord {
   linkedPrototypeHref: string;
 }
 
+export type PracticeDifficulty = "foundation" | "intermediate" | "advanced";
+
 export interface PracticeCaseRecord {
   id: string;
   title: string;
   brief: string;
   scenario: string;
   clues: string[];
+  difficulty: PracticeDifficulty;
   correctActionId: string;
   rationale: string;
+  mistakeTag: string;
+  mistakeReason: string;
+  reviewPrompt: string;
+  relatedConceptIds: string[];
+  relatedDiagramIds: string[];
   comparisons: Record<string, string>;
   nextHref: string;
   nextLabel: string;
@@ -138,4 +147,43 @@ export interface PracticeSetRecord {
   estimatedTime: string;
   actions: PracticeActionRecord[];
   cases: PracticeCaseRecord[];
+}
+
+export interface CaseStudyOptionRecord {
+  id: string;
+  label: string;
+  summary: string;
+  href?: string;
+}
+
+export interface CaseStudyStageRecord {
+  id: string;
+  title: string;
+  stateSummary: string;
+  question: string;
+  clues: string[];
+  options: CaseStudyOptionRecord[];
+  correctOptionId: string;
+  rationale: string;
+  takeaway: string;
+  reviewPrompt: string;
+  reviewHref: string;
+  reviewLabel: string;
+  relatedConceptIds: string[];
+  relatedDiagramIds: string[];
+  optionFeedbacks: Record<string, string>;
+}
+
+export interface CaseStudyRecord {
+  id: string;
+  moduleId: string;
+  bookIds: BookId[];
+  title: string;
+  subtitle: string;
+  summary: string;
+  targetSkill: string;
+  estimatedTime: string;
+  focusConceptIds: string[];
+  focusDiagramIds: string[];
+  stages: CaseStudyStageRecord[];
 }

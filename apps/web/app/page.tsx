@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ConceptRecord, DiagramRecord, ModuleRecord } from "@medicine/content-schema";
 
+import { getCaseStudyHref } from "@/lib/cases";
 import { getSiteContent } from "@/lib/content";
 
 function SectionTitle(props: { eyebrow: string; title: string; description: string }) {
@@ -52,14 +53,67 @@ function DiagramCard(props: { diagram: DiagramRecord }) {
   );
 }
 
+function CaseStudyCard(props: {
+  caseStudy: {
+    id: string;
+    title: string;
+    subtitle: string;
+    summary: string;
+    stages: number;
+    concepts: ConceptRecord[];
+  };
+  module: ModuleRecord;
+}) {
+  return (
+    <article className="atlas-card">
+      <div className="atlas-card__top">
+        <div>
+          <p className="eyebrow">Case Study</p>
+          <h2>{props.caseStudy.title}</h2>
+        </div>
+        <div className="atlas-card__meta">
+          <span>{props.caseStudy.stages} 个阶段</span>
+          <span>{props.module.title}</span>
+        </div>
+      </div>
+      <p>{props.caseStudy.subtitle}</p>
+      <p className="atlas-card__idea">{props.caseStudy.summary}</p>
+      <div className="token-row">
+        {props.caseStudy.concepts.slice(0, 3).map((concept) => (
+          <span className="token token--light" key={concept.id}>
+            {concept.title}
+          </span>
+        ))}
+      </div>
+      <div className="atlas-card__actions">
+        <Link className="button button--ghost" href={getCaseStudyHref(props.caseStudy.id)}>
+          打开病例
+        </Link>
+        <Link className="button button--ghost" href={`/modules/${props.module.id}`}>
+          回到模块
+        </Link>
+      </div>
+    </article>
+  );
+}
+
 export default async function HomePage() {
-  const { books, concepts, diagrams, modules, phases, storyboards } = await getSiteContent();
+  const { books, concepts, diagrams, modules, phases, storyboards, caseStudies } = await getSiteContent();
 
   const conceptMap = new Map(concepts.map((concept) => [concept.id, concept]));
   const diagramMap = new Map(diagrams.map((diagram) => [diagram.id, diagram]));
+  const moduleMap = new Map(modules.map((module) => [module.id, module]));
 
   const featuredConcepts = concepts.filter((concept) => concept.tier === "foundation").slice(0, 6);
   const featuredDiagrams = diagrams.filter((diagram) => diagram.visualPriority === "high").slice(0, 6);
+  const featuredCaseStudies = caseStudies.slice(0, 3).map((caseStudy) => ({
+    ...caseStudy,
+    stages: caseStudy.stages.length,
+    concepts: caseStudy.focusConceptIds
+      .map((conceptId) => conceptMap.get(conceptId))
+      .filter(Boolean) as ConceptRecord[],
+    module: moduleMap.get(caseStudy.moduleId) ?? null,
+  }));
 
   return (
     <main className="page-shell">
@@ -75,8 +129,11 @@ export default async function HomePage() {
             <a className="button button--primary" href="#modules">
               看模块结构
             </a>
-            <Link className="button button--ghost" href="/storyboards">
-              看分镜稿
+            <Link className="button button--ghost" href="/diagrams">
+              看图表目录
+            </Link>
+            <Link className="button button--ghost" href="/progress">
+              看学习进度
             </Link>
           </div>
         </div>
@@ -217,8 +274,31 @@ export default async function HomePage() {
           ))}
         </div>
         <div className="section-linkout">
+          <Link className="button button--ghost" href="/diagrams">
+            打开图表目录页
+          </Link>
           <Link className="button button--ghost" href="/storyboards">
             查看 3 张重点图分镜
+          </Link>
+        </div>
+      </section>
+
+      <section className="section" id="cases">
+        <SectionTitle
+          eyebrow="Cases"
+          title="病例推演已经开始成形"
+          description="不再只是看图和看摘要，而是开始让用户按阶段做判断，理解为什么同一个病例会在不同时间点切换动作。"
+        />
+        <div className="atlas-grid">
+          {featuredCaseStudies.map((caseStudy) =>
+            caseStudy.module ? (
+              <CaseStudyCard caseStudy={caseStudy} key={caseStudy.id} module={caseStudy.module} />
+            ) : null,
+          )}
+        </div>
+        <div className="section-linkout">
+          <Link className="button button--ghost" href="/cases">
+            打开病例推演目录
           </Link>
         </div>
       </section>

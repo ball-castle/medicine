@@ -4,6 +4,7 @@ import { cache } from "react";
 
 import type {
   BookRecord,
+  CaseStudyRecord,
   ConceptRecord,
   DiagramRecord,
   ModuleDetailRecord,
@@ -22,7 +23,7 @@ async function loadJson<T>(...segments: string[]): Promise<T> {
 }
 
 export const getSiteContent = cache(async () => {
-  const [books, concepts, diagrams, modules, moduleDetails, phases, storyboards, practiceSets] = await Promise.all([
+  const [books, concepts, diagrams, modules, moduleDetails, phases, storyboards, practiceSets, caseStudies] = await Promise.all([
     loadJson<BookRecord[]>("books", "books.json"),
     loadJson<ConceptRecord[]>("concepts", "concepts.json"),
     loadJson<DiagramRecord[]>("diagrams", "diagrams.json"),
@@ -31,7 +32,8 @@ export const getSiteContent = cache(async () => {
     loadJson<RoadmapPhaseRecord[]>("roadmap", "phases.json"),
     loadJson<StoryboardRecord[]>("storyboards", "storyboards.json"),
     loadJson<PracticeSetRecord[]>("practices", "practice-sets.json"),
+    loadJson<CaseStudyRecord[]>("cases", "case-studies.json"),
   ]);
 
-  return { books, concepts, diagrams, modules, moduleDetails, phases, storyboards, practiceSets };
+  return { books, concepts, diagrams, modules, moduleDetails, phases, storyboards, practiceSets, caseStudies };
 });

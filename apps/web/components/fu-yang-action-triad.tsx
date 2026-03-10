@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
+import { getPracticeHref } from "@/lib/practice";
+
 type LensId = "problem" | "direction" | "handoff";
 
 const LENSES: Record<
@@ -283,7 +285,7 @@ export function FuYangActionTriad() {
           <Link className="button button--ghost" href="/prototypes/fushen-right-descend">
             看茯神细版
           </Link>
-          <Link className="button button--ghost" href="/prototypes/fu-yang-triage-practice">
+          <Link className="button button--ghost" href={getPracticeHref("fu-yang-triage-basic")}>
             去做分流练习
           </Link>
         </div>

@@ -9,7 +9,8 @@
     "interactionIdea": "拖动时间轴切换四时，观察各方向流线如何变化，并高亮异常卡点。",
     "visualPriority": "high",
     "productionFormat": "three-scene",
-    "sourceImageCandidates": ["yy_page-040.png", "yy_page-041.png", "yy_page-042.png"]
+    "sourceImageCandidates": ["yy_page-040.png", "yy_page-041.png", "yy_page-042.png"],
+    "prototypeHref": "/prototypes/circle-flow-map"
   },
   {
     "id": "middle-axis-four-directions",
@@ -117,7 +118,8 @@
     "interactionIdea": "播放“交通顺利”和“上下隔绝”两种状态，观察不同病势表现。",
     "visualPriority": "high",
     "productionFormat": "three-scene",
-    "sourceImageCandidates": ["hs39-039.png", "hs40-040.png", "hs41-041.png"]
+    "sourceImageCandidates": ["hs39-039.png", "hs40-040.png", "hs41-041.png"],
+    "prototypeHref": "/prototypes/kan-li-circulation"
   },
   {
     "id": "guizhi-gate-animation",
@@ -129,7 +131,8 @@
     "interactionIdea": "用户拖动门轴，观察内外气机连通前后的状态变化。",
     "visualPriority": "high",
     "productionFormat": "rive",
-    "sourceImageCandidates": ["hs42-042.png", "hs50-050.png"]
+    "sourceImageCandidates": ["hs42-042.png", "hs50-050.png"],
+    "prototypeHref": "/prototypes/guizhi-gate-animation"
   },
   {
     "id": "fuzi-root-return",
@@ -141,7 +144,8 @@
     "interactionIdea": "切换虚浮与归根两种模式，看阳气轨迹如何变化。",
     "visualPriority": "high",
     "productionFormat": "rive",
-    "sourceImageCandidates": ["hs116-116.png"]
+    "sourceImageCandidates": ["hs116-116.png"],
+    "prototypeHref": "/prototypes/fuzi-root-return"
   },
   {
     "id": "fushen-right-descend",
@@ -153,7 +157,8 @@
     "interactionIdea": "用分层高亮展示心火、坤土、水道之间的衔接关系。",
     "visualPriority": "medium",
     "productionFormat": "svg-motion",
-    "sourceImageCandidates": ["hs58-058.png"]
+    "sourceImageCandidates": ["hs58-058.png"],
+    "prototypeHref": "/prototypes/fushen-right-descend"
   },
   {
     "id": "jueyin-reversal-arc",

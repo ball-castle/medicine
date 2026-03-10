@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type {
+  CaseStudyRecord,
   ConceptRecord,
   DiagramRecord,
   ModuleDetailRecord,
@@ -8,15 +9,18 @@ import type {
   StoryboardRecord,
 } from "@medicine/content-schema";
 
+import { CaseStudyPlayer } from "@/components/case-study-player";
 import { CircleFlowPrototype } from "@/components/circle-flow-prototype";
 import { FuYangActionTriad } from "@/components/fu-yang-action-triad";
-import { FuYangTriagePractice } from "@/components/fu-yang-triage-practice";
 import { FushenRightDescendPrototype } from "@/components/fushen-right-descend-prototype";
 import { FuziRootPrototype } from "@/components/fuzi-root-prototype";
 import { GuizhiFuziCompare } from "@/components/guizhi-fuzi-compare";
 import { GuizhiGatePrototype } from "@/components/guizhi-gate-prototype";
 import { KanLiPrototype } from "@/components/kan-li-prototype";
+import { PracticeSetPlayer } from "@/components/fu-yang-triage-practice";
+import { getCaseStudyHref } from "@/lib/cases";
 import { getSiteContent } from "@/lib/content";
+import { getPracticeHref } from "@/lib/practice";
 
 function pickModuleContent(
   module: ModuleRecord,
@@ -51,7 +55,7 @@ export default async function ModulePage(props: {
   params: Promise<{ moduleId: string }>;
 }) {
   const { moduleId } = await props.params;
-  const { modules, concepts, diagrams, moduleDetails, storyboards, practiceSets } = await getSiteContent();
+  const { modules, concepts, diagrams, moduleDetails, storyboards, practiceSets, caseStudies } = await getSiteContent();
 
   const module = modules.find((item) => item.id === moduleId);
   if (!module) {
@@ -73,6 +77,8 @@ export default async function ModulePage(props: {
     : [];
   const modulePracticeSet =
     practiceSets.find((item) => item.moduleId === module.id) ?? null;
+  const moduleCaseStudies = caseStudies.filter((item) => item.moduleId === module.id);
+  const featuredCaseStudy = moduleCaseStudies[0] ?? null;
 
   return (
     <main className="page-shell page-shell--module">
@@ -260,25 +266,77 @@ export default async function ModulePage(props: {
             </div>
           </section>
 
-          {modulePracticeSet && (
-            <section className="section">
-              <div className="section-heading">
-                <p className="eyebrow">Practice Prototype</p>
-                <h2>扶阳模块已经开始进入“能做判断”的练习形态</h2>
-                <p>
-                  这一页不再只是看图，而是用 {modulePracticeSet.cases.length} 个简化病例训练用户先做动作分流。
-                  这意味着项目正式从展示型原型，开始向学习型产品推进。
-                </p>
-              </div>
-              <FuYangTriagePractice practiceSet={modulePracticeSet} />
-              <div className="section-linkout">
-                <Link className="button button--ghost" href="/prototypes/fu-yang-triage-practice">
-                  打开病例分流练习页
-                </Link>
-              </div>
-            </section>
-          )}
         </>
+      )}
+
+      {modulePracticeSet && (
+        <section className="section">
+          <div className="section-heading">
+            <p className="eyebrow">Practice Prototype</p>
+            <h2>{module.title}已经开始进入“能做判断”的练习形态</h2>
+            <p>
+              这一页不再只是看图，而是用 {modulePracticeSet.cases.length} 个短案例训练用户先做结构判断。
+              这意味着当前模块已经不只是展示型内容，而开始具有真正的学习闭环。
+            </p>
+          </div>
+          <PracticeSetPlayer practiceSet={modulePracticeSet} />
+          <div className="section-linkout">
+            <Link className="button button--ghost" href={getPracticeHref(modulePracticeSet.id)}>
+              打开这组练习
+            </Link>
+          </div>
+        </section>
+      )}
+
+      {featuredCaseStudy && (
+        <section className="section">
+          <div className="section-heading">
+            <p className="eyebrow">Case Study</p>
+            <h2>{module.title}已经开始进入“分阶段病例推演”</h2>
+            <p>
+              当前模块已经有 {moduleCaseStudies.length} 组病例推演。重点不是给出标准答案，而是让用户看到：
+              同一个病例里，为什么每一段的主轴都可能变化，下一手也会跟着变化。
+            </p>
+          </div>
+          <CaseStudyPlayer caseStudy={featuredCaseStudy} />
+          <div className="atlas-grid module-case-grid">
+            {moduleCaseStudies.map((caseStudy: CaseStudyRecord) => (
+              <article className="atlas-card" key={caseStudy.id}>
+                <div className="atlas-card__top">
+                  <div>
+                    <p className="eyebrow">Case Study</p>
+                    <h2>{caseStudy.title}</h2>
+                  </div>
+                  <div className="atlas-card__meta">
+                    <span>{caseStudy.stages.length} 个阶段</span>
+                    <span>{caseStudy.estimatedTime}</span>
+                  </div>
+                </div>
+                <p>{caseStudy.subtitle}</p>
+                <p className="atlas-card__idea">{caseStudy.summary}</p>
+                <div className="token-row">
+                  {caseStudy.focusConceptIds
+                    .map((conceptId) => concepts.find((concept) => concept.id === conceptId))
+                    .filter(Boolean)
+                    .slice(0, 3)
+                    .map((concept) => (
+                      <span className="token token--light" key={concept?.id}>
+                        {concept?.title}
+                      </span>
+                    ))}
+                </div>
+                <div className="atlas-card__actions">
+                  <Link className="button button--ghost" href={getCaseStudyHref(caseStudy.id)}>
+                    打开完整病例
+                  </Link>
+                  <Link className="button button--ghost" href="/cases">
+                    查看病例目录
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
       )}
 
       <section className="section">

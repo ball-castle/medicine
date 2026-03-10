@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { FuYangActionTriad } from "@/components/fu-yang-action-triad";
+import { getPracticeHref } from "@/lib/practice";
 
 export default function FuYangActionTriadPage() {
   return (
@@ -24,7 +25,7 @@ export default function FuYangActionTriadPage() {
             <Link className="button button--ghost" href="/prototypes/fushen-right-descend">
               回看茯神缓转
             </Link>
-            <Link className="button button--ghost" href="/prototypes/fu-yang-triage-practice">
+            <Link className="button button--ghost" href={getPracticeHref("fu-yang-triage-basic")}>
               去做分流练习
             </Link>
           </div>
