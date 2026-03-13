@@ -11,12 +11,16 @@
    把两本书拆成模块、知识点、图表清单和开发路线图。
 
 3. Web 产品骨架
-   一个基于 Next.js 的首页学习地图、模块页和分镜页，用来承载后续动态图表、课程和 3D 场景。
+   一个基于 React / Next.js、Tailwind CSS 和 shadcn/ui 的前端应用，用来承载后续动态图表、课程和 3D 场景。
 
 ## 目录
 
 ```text
-apps/web/                  Next.js 前端骨架
+apps/web/app/              App Router 页面入口
+apps/web/components/ui/    shadcn/ui 基础组件
+apps/web/features/         按业务域拆分的 React 组件与页面壳层
+content/assets/source-pdfs/ 原始 PDF 归档
+content/assets/source-page-images/ 原始样张图片归档
 content/books/             书目元数据
 content/cases/             病例推演数据
 content/concepts/          核心知识点
@@ -28,6 +32,7 @@ content/storyboards/       第一轮图表分镜数据
 content/roadmap/           开发路线图
 docs/core_curriculum.md    人读版知识点与图表清单
 docs/content_coverage_map.md 两本书内容覆盖地图
+docs/research/tcm_reading_summary.md 读书摘要
 docs/project_direction.md  产品方向规划
 docs/terminology_glossary.md 统一术语表
 docs/master_delivery_roadmap.md 项目总路线
@@ -43,7 +48,7 @@ tools/ocr_pdf.py           OCR 脚本
   - `.ocr/yy_full/combined.txt`
   - `.ocr/hs_full/combined.txt`
 - 摘要：
-  - `tcm_reading_summary.md`
+  - `docs/research/tcm_reading_summary.md`
 - 结构化产品底盘：
   - `content/`
   - `docs/core_curriculum.md`

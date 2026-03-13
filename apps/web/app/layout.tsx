@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./legacy-components.css";
 
 export const metadata: Metadata = {
   title: "中医动态学习地图",

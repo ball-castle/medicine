@@ -2,6 +2,28 @@
 
 import { useId, useMemo, useState } from "react";
 
+import { cn } from "@/lib/utils";
+
+import {
+  PrototypeControlGroup,
+  PrototypeIntro,
+  PrototypeNoteCard,
+  PrototypeReadoutCard,
+  PrototypeSelectableButton,
+  PrototypeShell,
+  PrototypeSidebar,
+  PrototypeStage,
+  PrototypeVisualCard,
+  prototypeCardGridClassName,
+  prototypeRangeClassName,
+  prototypeReadoutGridClassName,
+  prototypeSliderLegendClassName,
+  prototypeSliderTopClassName,
+  prototypeSliderValueClassName,
+  prototypeSvgClassName,
+  prototypeSvgStyles,
+} from "./prototype-primitives";
+
 type ScenarioId = "connected" | "blocked" | "restoring";
 type FocusId = "core" | "surface" | "guizhi" | "fuzi";
 
@@ -111,45 +133,42 @@ export function KanLiPrototype() {
         : "两种后续动作都围绕同一个核心结构：先看交通，再看怎么处理。";
 
   return (
-    <section className="kanli-prototype">
-      <div className="kanli-prototype__sidebar">
-        <div className="kanli-prototype__intro">
-          <p className="eyebrow">Prototype</p>
-          <h2>坎离水火交通图交互原型</h2>
-          <p>
-            这张原型的目标，是让用户不再把扶阳理解成“上热药”。它先把上下交通画清楚，再让用户看到：
-            表面热象、开门、归根，其实都围绕同一条结构主线。
-          </p>
-        </div>
+    <PrototypeShell>
+      <PrototypeSidebar>
+        <PrototypeIntro
+          description={
+            <>
+              这张原型的目标，是让用户不再把扶阳理解成“上热药”。它先把上下交通画清楚，再让用户看到：
+              表面热象、开门、归根，其实都围绕同一条结构主线。
+            </>
+          }
+          title="坎离水火交通图交互原型"
+        />
 
-        <div className="kanli-prototype__controls">
-          <div className="kanli-prototype__control-group">
-            <p className="kanli-prototype__control-title">当前状态</p>
-            <div className="kanli-prototype__chip-grid">
+        <div className="space-y-4">
+          <PrototypeControlGroup title="当前状态">
+            <div className="grid gap-2">
               {(Object.entries(SCENARIOS) as Array<[ScenarioId, (typeof SCENARIOS)[ScenarioId]]>).map(
                 ([key, item]) => (
-                  <button
-                    className={`kanli-prototype__chip ${scenario === key ? "is-active" : ""}`}
-                    key={key}
-                    onClick={() => setScenario(key)}
-                    type="button"
-                  >
-                    <span>{item.label}</span>
-                    <small>{item.summary}</small>
-                  </button>
+                  <PrototypeSelectableButton active={scenario === key} key={key} onClick={() => setScenario(key)}>
+                    <strong className="block font-display text-base text-foreground">{item.label}</strong>
+                    <span className="mt-2 block text-sm leading-7 text-muted-foreground">{item.summary}</span>
+                  </PrototypeSelectableButton>
                 ),
               )}
             </div>
-          </div>
+          </PrototypeControlGroup>
 
-          <div className="kanli-prototype__control-group">
-            <div className="kanli-prototype__slider-top">
-              <p className="kanli-prototype__control-title">交通恢复进度</p>
-              <strong>{scenario === "restoring" ? restoration : state.connection}</strong>
+          <PrototypeControlGroup>
+            <div className={prototypeSliderTopClassName}>
+              <p className="font-display text-xs uppercase tracking-[0.24em] text-primary">交通恢复进度</p>
+              <strong className={prototypeSliderValueClassName}>
+                {scenario === "restoring" ? restoration : state.connection}
+              </strong>
             </div>
             <input
               aria-label="交通恢复进度"
-              className="kanli-prototype__slider"
+              className={cn(prototypeRangeClassName, "disabled:cursor-not-allowed disabled:opacity-40")}
               disabled={scenario !== "restoring"}
               max={100}
               min={0}
@@ -157,52 +176,38 @@ export function KanLiPrototype() {
               type="range"
               value={scenario === "restoring" ? restoration : state.connection}
             />
-            <div className="kanli-prototype__slider-legend">
+            <div className={prototypeSliderLegendClassName}>
               <span>未接通</span>
               <span>重新既济</span>
             </div>
-          </div>
+          </PrototypeControlGroup>
 
-          <div className="kanli-prototype__control-group">
-            <p className="kanli-prototype__control-title">讲解焦点</p>
-            <div className="kanli-prototype__focus-list">
+          <PrototypeControlGroup title="讲解焦点">
+            <div className="grid gap-2">
               {(Object.entries(FOCI) as Array<[FocusId, (typeof FOCI)[FocusId]]>).map(([key, item]) => (
-                <button
-                  className={`kanli-prototype__focus ${focus === key ? "is-active" : ""}`}
-                  key={key}
-                  onClick={() => setFocus(key)}
-                  type="button"
-                >
-                  <strong>{item.label}</strong>
-                  <span>{item.summary}</span>
-                </button>
+                <PrototypeSelectableButton active={focus === key} key={key} onClick={() => setFocus(key)}>
+                  <strong className="block font-display text-base text-foreground">{item.label}</strong>
+                  <span className="mt-2 block text-sm leading-7 text-muted-foreground">{item.summary}</span>
+                </PrototypeSelectableButton>
               ))}
             </div>
-          </div>
+          </PrototypeControlGroup>
         </div>
 
-        <div className="kanli-prototype__notes">
-          <article className="kanli-prototype__note-card">
-            <p className="kanli-prototype__note-title">学习提示</p>
-            <strong>{SCENARIOS[scenario].label}</strong>
-            <p>{SCENARIOS[scenario].prompt}</p>
-          </article>
-          <article className="kanli-prototype__note-card">
-            <p className="kanli-prototype__note-title">当前焦点</p>
-            <strong>{FOCI[focus].label}</strong>
-            <p>{insight}</p>
-          </article>
-          <article className="kanli-prototype__note-card">
-            <p className="kanli-prototype__note-title">后续动作</p>
-            <strong>{focus === "guizhi" ? "偏开门" : focus === "fuzi" ? "偏归根" : "仍在看主轴"}</strong>
-            <p>{branchHint}</p>
-          </article>
+        <div className={prototypeCardGridClassName}>
+          <PrototypeNoteCard description={SCENARIOS[scenario].prompt} label="学习提示" title={SCENARIOS[scenario].label} />
+          <PrototypeNoteCard description={insight} label="当前焦点" title={FOCI[focus].label} />
+          <PrototypeNoteCard
+            description={branchHint}
+            label="后续动作"
+            title={focus === "guizhi" ? "偏开门" : focus === "fuzi" ? "偏归根" : "仍在看主轴"}
+          />
         </div>
-      </div>
+      </PrototypeSidebar>
 
-      <div className="kanli-prototype__stage">
-        <div className="kanli-prototype__visual-card">
-          <svg aria-label="坎离水火交通图原型" className="kanli-prototype__svg" viewBox="0 0 620 560">
+      <PrototypeStage>
+        <PrototypeVisualCard className="p-5 md:p-6">
+          <svg aria-label="坎离水火交通图原型" className={prototypeSvgClassName} viewBox="0 0 620 560">
             <defs>
               <linearGradient id={`${idPrefix}-channel`} x1="50%" x2="50%" y1="0%" y2="100%">
                 <stop offset="0%" stopColor="rgba(224,120,68,0.95)" />
@@ -290,10 +295,22 @@ export function KanLiPrototype() {
 
             {state.turbulence > 0.28 && (
               <>
-                <circle cx="356" cy="132" fill="rgba(201,107,67,0.84)" opacity={0.34 + state.turbulence * 0.34} r={8 + state.turbulence * 10}>
+                <circle
+                  cx="356"
+                  cy="132"
+                  fill="rgba(201,107,67,0.84)"
+                  opacity={0.34 + state.turbulence * 0.34}
+                  r={8 + state.turbulence * 10}
+                >
                   <animate attributeName="r" dur="1.8s" repeatCount="indefinite" values="10;16;10" />
                 </circle>
-                <circle cx="264" cy="120" fill="rgba(201,107,67,0.68)" opacity={0.28 + state.turbulence * 0.3} r={7 + state.turbulence * 9}>
+                <circle
+                  cx="264"
+                  cy="120"
+                  fill="rgba(201,107,67,0.68)"
+                  opacity={0.28 + state.turbulence * 0.3}
+                  r={7 + state.turbulence * 9}
+                >
                   <animate attributeName="r" dur="2.2s" repeatCount="indefinite" values="8;14;8" />
                 </circle>
               </>
@@ -319,24 +336,24 @@ export function KanLiPrototype() {
             <circle cx="310" cy="124" fill="#fff9f1" opacity="0.82" r="13" />
             <circle cx="310" cy="436" fill="#f2f8ff" opacity="0.84" r="13" />
 
-            <text className="kanli-prototype__node-label" textAnchor="middle" x="310" y="128">
+            <text style={prototypeSvgStyles.label} textAnchor="middle" x="310" y="128">
               离
             </text>
-            <text className="kanli-prototype__node-label" textAnchor="middle" x="310" y="440">
+            <text style={prototypeSvgStyles.label} textAnchor="middle" x="310" y="440">
               坎
             </text>
 
-            <text className="kanli-prototype__title-label" textAnchor="middle" x="310" y="56">
+            <text style={prototypeSvgStyles.callout} textAnchor="middle" x="310" y="56">
               上部宣通 / 表层热象
             </text>
-            <text className="kanli-prototype__title-label" textAnchor="middle" x="310" y="520">
+            <text style={prototypeSvgStyles.callout} textAnchor="middle" x="310" y="520">
               下部封藏 / 真阳归根
             </text>
 
-            <text className="kanli-prototype__channel-label" textAnchor="middle" x="310" y="278">
+            <text style={prototypeSvgStyles.display} textAnchor="middle" x="310" y="278">
               交通 {state.connection}
             </text>
-            <text className="kanli-prototype__channel-subtext" textAnchor="middle" x="310" y="302">
+            <text style={prototypeSvgStyles.subtext} textAnchor="middle" x="310" y="302">
               {scenario === "blocked"
                 ? "上下不接"
                 : scenario === "connected"
@@ -346,7 +363,7 @@ export function KanLiPrototype() {
 
             {focus === "surface" && (
               <>
-                <text className="kanli-prototype__callout" textAnchor="start" x="404" y="110">
+                <text style={prototypeSvgStyles.callout} textAnchor="start" x="404" y="110">
                   表热更显
                 </text>
                 <line
@@ -363,7 +380,7 @@ export function KanLiPrototype() {
 
             {focus === "guizhi" && (
               <>
-                <text className="kanli-prototype__callout" textAnchor="end" x="170" y="208">
+                <text style={prototypeSvgStyles.callout} textAnchor="end" x="170" y="208">
                   开门
                 </text>
                 <line
@@ -380,7 +397,7 @@ export function KanLiPrototype() {
 
             {focus === "fuzi" && (
               <>
-                <text className="kanli-prototype__callout" textAnchor="start" x="396" y="396">
+                <text style={prototypeSvgStyles.callout} textAnchor="start" x="396" y="396">
                   归根
                 </text>
                 <line
@@ -395,26 +412,26 @@ export function KanLiPrototype() {
               </>
             )}
           </svg>
-        </div>
+        </PrototypeVisualCard>
 
-        <div className="kanli-prototype__readout">
-          <article className="kanli-prototype__readout-card">
-            <p className="kanli-prototype__readout-label">上部状态</p>
-            <strong>{state.upperHeat > 0.66 ? "表热显著" : state.upperHeat > 0.4 ? "宣通可见" : "表象平稳"}</strong>
-            <span>帮助用户把“热象”放回结构里，而不是把热直接当作根本判断。</span>
-          </article>
-          <article className="kanli-prototype__readout-card">
-            <p className="kanli-prototype__readout-label">中间通道</p>
-            <strong>{state.connection > 74 ? "交通顺利" : state.connection > 40 ? "正在回接" : "明显阻断"}</strong>
-            <span>这是一整张图真正的主轴，也是扶阳模块最应该先看懂的地方。</span>
-          </article>
-          <article className="kanli-prototype__readout-card">
-            <p className="kanli-prototype__readout-label">根部状态</p>
-            <strong>{state.rootStrength > 0.72 ? "归根较稳" : state.rootStrength > 0.44 ? "根气待固" : "根部发虚"}</strong>
-            <span>这里对应后续“归根”思路，提醒用户不要只盯上面的光和热。</span>
-          </article>
+        <div className={prototypeReadoutGridClassName}>
+          <PrototypeReadoutCard
+            description="帮助用户把“热象”放回结构里，而不是把热直接当作根本判断。"
+            label="上部状态"
+            title={state.upperHeat > 0.66 ? "表热显著" : state.upperHeat > 0.4 ? "宣通可见" : "表象平稳"}
+          />
+          <PrototypeReadoutCard
+            description="这是一整张图真正的主轴，也是扶阳模块最应该先看懂的地方。"
+            label="中间通道"
+            title={state.connection > 74 ? "交通顺利" : state.connection > 40 ? "正在回接" : "明显阻断"}
+          />
+          <PrototypeReadoutCard
+            description="这里对应后续“归根”思路，提醒用户不要只盯上面的光和热。"
+            label="根部状态"
+            title={state.rootStrength > 0.72 ? "归根较稳" : state.rootStrength > 0.44 ? "根气待固" : "根部发虚"}
+          />
         </div>
-      </div>
-    </section>
+      </PrototypeStage>
+    </PrototypeShell>
   );
 }

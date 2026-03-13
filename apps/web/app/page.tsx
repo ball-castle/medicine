@@ -545,7 +545,9 @@ export default async function HomePage() {
                     </div>
                     <div className="space-y-1">
                       <dt className="text-sm font-medium text-foreground">来源文件</dt>
-                      <dd className="text-sm leading-7 text-muted-foreground">{book.sourcePdf}</dd>
+                      <dd className="text-sm leading-7 text-muted-foreground">
+                        {book.sourcePdf.split("/").at(-1) ?? book.sourcePdf}
+                      </dd>
                     </div>
                   </dl>
                 </CardContent>

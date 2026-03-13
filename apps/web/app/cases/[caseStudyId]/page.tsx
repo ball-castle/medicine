@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { BookRecord, ConceptRecord, DiagramRecord } from "@medicine/content-schema";
 
-import { CaseStudyPlayer } from "@/components/case-study-player";
+import { CaseStudyPlayer } from "@/features/cases";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";

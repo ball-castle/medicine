@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { ProgressDashboard } from "@/components/progress-dashboard";
+import { ProgressDashboard } from "@/features/progress";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";

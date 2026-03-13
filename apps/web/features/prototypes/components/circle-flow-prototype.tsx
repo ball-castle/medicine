@@ -1,6 +1,28 @@
 "use client";
 
-import { useId, useMemo, useState } from "react";
+import { type CSSProperties, useId, useMemo, useState } from "react";
+
+import { cn } from "@/lib/utils";
+
+import {
+  PrototypeControlGroup,
+  PrototypeIntro,
+  PrototypeNoteCard,
+  PrototypeReadoutCard,
+  PrototypeSelectableButton,
+  PrototypeShell,
+  PrototypeSidebar,
+  PrototypeStage,
+  PrototypeVisualCard,
+  prototypeCardGridClassName,
+  prototypeRangeClassName,
+  prototypeReadoutGridClassName,
+  prototypeSliderLegendClassName,
+  prototypeSliderTopClassName,
+  prototypeSliderValueClassName,
+  prototypeSvgClassName,
+  prototypeSvgStyles,
+} from "./prototype-primitives";
 
 type SeasonId = "spring" | "summer" | "late-summer" | "autumn" | "winter";
 type PatternId = "balanced" | "ascent-blocked" | "descent-blocked" | "middle-weak";
@@ -220,100 +242,83 @@ export function CircleFlowPrototype(props: { compact?: boolean }) {
         : "先别急着记病名，先看是哪一边的方向出现了明显的卡顿和失序。";
 
   return (
-    <section className={`circle-prototype ${props.compact ? "circle-prototype--compact" : ""}`}>
-      <div className="circle-prototype__sidebar">
-        <div className="circle-prototype__intro">
-          <p className="eyebrow">Prototype</p>
-          <h2>圆运动总图交互原型</h2>
-          <p>
-            这不是最终视觉稿，而是第一版可玩的教学原型。先验证用户能不能通过切换季节、
-            观察中气强弱和对比失衡方向，真正理解“先看整体，再看局部”。
-          </p>
-        </div>
+    <PrototypeShell className={props.compact ? "gap-4" : undefined}>
+      <PrototypeSidebar className={props.compact ? "p-5 md:p-6" : undefined}>
+        <PrototypeIntro
+          description={
+            <>
+              这不是最终视觉稿，而是第一版可玩的教学原型。先验证用户能不能通过切换季节、
+              观察中气强弱和对比失衡方向，真正理解“先看整体，再看局部”。
+            </>
+          }
+          title="圆运动总图交互原型"
+        />
 
-        <div className="circle-prototype__controls">
-          <div className="circle-prototype__control-group">
-            <p className="circle-prototype__control-title">时令焦点</p>
-            <div className="circle-prototype__chip-grid">
+        <div className="space-y-4">
+          <PrototypeControlGroup title="时令焦点">
+            <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-1 2xl:grid-cols-2">
               {(Object.entries(SEASONS) as Array<[SeasonId, (typeof SEASONS)[SeasonId]]>).map(([key, item]) => (
-                <button
-                  className={`circle-prototype__chip ${season === key ? "is-active" : ""}`}
+                <PrototypeSelectableButton
+                  active={season === key}
+                  className={cn("p-3", season === key && "shadow-soft")}
                   key={key}
                   onClick={() => setSeason(key)}
-                  style={{ ["--chip-accent" as string]: item.accent }}
-                  type="button"
+                  style={
+                    season === key
+                      ? ({ borderColor: item.accent, backgroundColor: `${item.accent}18` } as CSSProperties)
+                      : undefined
+                  }
+                  tone="neutral"
                 >
-                  <span>{item.label}</span>
-                  <small>{item.focus}</small>
-                </button>
+                  <span className="block font-display text-base text-foreground">{item.label}</span>
+                  <small className="mt-1 block text-sm leading-6 text-muted-foreground">{item.focus}</small>
+                </PrototypeSelectableButton>
               ))}
             </div>
-          </div>
+          </PrototypeControlGroup>
 
-          <div className="circle-prototype__control-group">
-            <p className="circle-prototype__control-title">观察模式</p>
-            <div className="circle-prototype__pattern-list">
+          <PrototypeControlGroup title="观察模式">
+            <div className="grid gap-2">
               {(Object.entries(PATTERNS) as Array<[PatternId, (typeof PATTERNS)[PatternId]]>).map(([key, item]) => (
-                <button
-                  className={`circle-prototype__pattern ${pattern === key ? "is-active" : ""}`}
-                  key={key}
-                  onClick={() => setPattern(key)}
-                  type="button"
-                >
-                  <strong>{item.label}</strong>
-                  <span>{item.summary}</span>
-                </button>
+                <PrototypeSelectableButton active={pattern === key} key={key} onClick={() => setPattern(key)}>
+                  <strong className="block font-display text-base text-foreground">{item.label}</strong>
+                  <span className="mt-2 block text-sm leading-7 text-muted-foreground">{item.summary}</span>
+                </PrototypeSelectableButton>
               ))}
             </div>
-          </div>
+          </PrototypeControlGroup>
 
-          <div className="circle-prototype__control-group">
-            <div className="circle-prototype__slider-top">
-              <p className="circle-prototype__control-title">中气强弱</p>
-              <strong>{middleQi}</strong>
+          <PrototypeControlGroup>
+            <div className={prototypeSliderTopClassName}>
+              <p className="font-display text-xs uppercase tracking-[0.24em] text-primary">中气强弱</p>
+              <strong className={prototypeSliderValueClassName}>{middleQi}</strong>
             </div>
             <input
               aria-label="中气强弱"
-              className="circle-prototype__slider"
+              className={prototypeRangeClassName}
               max={100}
               min={24}
               onChange={(event) => setMiddleQi(Number(event.target.value))}
               type="range"
               value={middleQi}
             />
-            <div className="circle-prototype__slider-legend">
+            <div className={prototypeSliderLegendClassName}>
               <span>轴心发虚</span>
               <span>轴心稳定</span>
             </div>
-          </div>
+          </PrototypeControlGroup>
         </div>
 
-        <div className="circle-prototype__notes">
-          <article className="circle-prototype__note-card">
-            <p className="circle-prototype__note-title">当前时令</p>
-            <strong>{seasonConfig.focus}</strong>
-            <p>{seasonConfig.explanation}</p>
-          </article>
-          <article className="circle-prototype__note-card">
-            <p className="circle-prototype__note-title">当前中轴</p>
-            <strong>{getMiddleQiLabel(middleQi)}</strong>
-            <p>{imbalanceNote}</p>
-          </article>
-          <article className="circle-prototype__note-card">
-            <p className="circle-prototype__note-title">学习提示</p>
-            <strong>{SEGMENT_LABELS[dominantDirection as SegmentKey]}</strong>
-            <p>{patternConfig.userPrompt}</p>
-          </article>
+        <div className={prototypeCardGridClassName}>
+          <PrototypeNoteCard description={seasonConfig.explanation} label="当前时令" title={seasonConfig.focus} />
+          <PrototypeNoteCard description={imbalanceNote} label="当前中轴" title={getMiddleQiLabel(middleQi)} />
+          <PrototypeNoteCard description={patternConfig.userPrompt} label="学习提示" title={SEGMENT_LABELS[dominantDirection as SegmentKey]} />
         </div>
-      </div>
+      </PrototypeSidebar>
 
-      <div className="circle-prototype__stage">
-        <div className="circle-prototype__visual-card">
-          <svg
-            aria-label="圆运动总图可视化"
-            className="circle-prototype__svg"
-            viewBox="0 0 560 520"
-          >
+      <PrototypeStage className={props.compact ? "space-y-3" : undefined}>
+        <PrototypeVisualCard className="p-5 md:p-6">
+          <svg aria-label="圆运动总图可视化" className={prototypeSvgClassName} viewBox="0 0 560 520">
             <defs>
               <radialGradient id={`${idPrefix}-core`} cx="50%" cy="45%" r="65%">
                 <stop offset="0%" stopColor="rgba(255,247,232,0.98)" />
@@ -336,7 +341,6 @@ export function CircleFlowPrototype(props: { compact?: boolean }) {
               stroke={seasonConfig.accent}
               strokeWidth="18"
             />
-
             <ellipse
               cx="280"
               cy="274"
@@ -434,8 +438,8 @@ export function CircleFlowPrototype(props: { compact?: boolean }) {
             {markers.map((marker) => (
               <g key={`${marker.x}-${marker.y}`}>
                 <circle cx={marker.x} cy={marker.y} fill="#bf6c3f" opacity="0.22" r="14">
-                  <animate attributeName="r" dur="2s" repeatCount="indefinite" values="8;14;8" />
                   <animate attributeName="opacity" dur="2s" repeatCount="indefinite" values="0.18;0.32;0.18" />
+                  <animate attributeName="r" dur="2s" repeatCount="indefinite" values="8;14;8" />
                 </circle>
                 <circle cx={marker.x} cy={marker.y} fill="#bf6c3f" r="5.5" />
               </g>
@@ -455,15 +459,9 @@ export function CircleFlowPrototype(props: { compact?: boolean }) {
                       opacity={0.28 + intensity * 0.44}
                       r={isEarth ? 18 : 15}
                     />
-                    <circle
-                      cx={node.x}
-                      cy={node.y}
-                      fill="#fffaf2"
-                      opacity={0.84}
-                      r={isEarth ? 6.4 : 5.2}
-                    />
+                    <circle cx={node.x} cy={node.y} fill="#fffaf2" opacity={0.84} r={isEarth ? 6.4 : 5.2} />
                     <text
-                      className="circle-prototype__node-label"
+                      style={prototypeSvgStyles.label}
                       textAnchor="middle"
                       x={node.x}
                       y={isEarth ? node.y + 34 : node.y + (segment === "water" ? 28 : segment === "fire" ? -24 : 28)}
@@ -475,33 +473,29 @@ export function CircleFlowPrototype(props: { compact?: boolean }) {
               },
             )}
 
-            <text className="circle-prototype__center-text" textAnchor="middle" x="280" y="268">
+            <text style={prototypeSvgStyles.display} textAnchor="middle" x="280" y="268">
               {getMiddleQiLabel(middleQi)}
             </text>
-            <text className="circle-prototype__center-subtext" textAnchor="middle" x="280" y="292">
+            <text style={prototypeSvgStyles.subtext} textAnchor="middle" x="280" y="292">
               中气 {middleQi}
             </text>
           </svg>
-        </div>
+        </PrototypeVisualCard>
 
-        <div className="circle-prototype__readout">
-          <article className="circle-prototype__readout-card">
-            <p className="circle-prototype__readout-label">当前最亮的方向</p>
-            <strong>{SEGMENT_LABELS[dominantDirection as SegmentKey]}</strong>
-            <span>提示用户本轮画面最值得先观察哪股力。</span>
-          </article>
-          <article className="circle-prototype__readout-card">
-            <p className="circle-prototype__readout-label">当前模式</p>
-            <strong>{patternConfig.label}</strong>
-            <span>{patternConfig.summary}</span>
-          </article>
-          <article className="circle-prototype__readout-card">
-            <p className="circle-prototype__readout-label">教学目标</p>
-            <strong>先辨方向，再看症状</strong>
-            <span>这张图最重要的不是把病名讲全，而是先把观察顺序讲对。</span>
-          </article>
+        <div className={prototypeReadoutGridClassName}>
+          <PrototypeReadoutCard
+            description="提示用户本轮画面最值得先观察哪股力。"
+            label="当前最亮的方向"
+            title={SEGMENT_LABELS[dominantDirection as SegmentKey]}
+          />
+          <PrototypeReadoutCard description={patternConfig.summary} label="当前模式" title={patternConfig.label} />
+          <PrototypeReadoutCard
+            description="这张图最重要的不是把病名讲全，而是先把观察顺序讲对。"
+            label="教学目标"
+            title="先辨方向，再看症状"
+          />
         </div>
-      </div>
-    </section>
+      </PrototypeStage>
+    </PrototypeShell>
   );
 }

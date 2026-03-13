@@ -1,7 +1,28 @@
 "use client";
 
-import Link from "next/link";
 import { useMemo, useState } from "react";
+
+import {
+  PrototypeControlGroup,
+  PrototypeIntro,
+  PrototypeLinkButton,
+  PrototypeLinkRow,
+  PrototypeNoteCard,
+  PrototypeReadoutCard,
+  PrototypeSelectableButton,
+  PrototypeShell,
+  PrototypeSidebar,
+  PrototypeStage,
+  PrototypeVisualCard,
+  prototypeCardGridClassName,
+  prototypeRangeClassName,
+  prototypeReadoutGridClassName,
+  prototypeSliderLegendClassName,
+  prototypeSliderTopClassName,
+  prototypeSliderValueClassName,
+  prototypeSvgClassName,
+  prototypeSvgStyles,
+} from "./prototype-primitives";
 
 type StateId = "floating" | "returning" | "rooted";
 type FocusId = "root" | "descent" | "compare";
@@ -97,78 +118,61 @@ export function FuziRootPrototype() {
         : "现在的重点是‘守住’。真阳已归根，系统开始可藏可守。";
 
   return (
-    <section className="fuzi-prototype">
-      <div className="fuzi-prototype__sidebar">
-        <div className="fuzi-prototype__intro">
-          <p className="eyebrow">Prototype</p>
-          <h2>附子法归根动画原型</h2>
-          <p>
-            这张原型专门解决另一个常见误解：附子法不是把火再往上顶，而是把浮散无根的阳重新收回去、
-            归到根部。这里的重点是“往下回”“收得住”，不是“更热了”。
-          </p>
-        </div>
+    <PrototypeShell>
+      <PrototypeSidebar>
+        <PrototypeIntro
+          description={
+            <>
+              这张原型专门解决另一个常见误解：附子法不是把火再往上顶，而是把浮散无根的阳重新收回去、
+              归到根部。这里的重点是“往下回”“收得住”，不是“更热了”。
+            </>
+          }
+          title="附子法归根动画原型"
+        />
 
-        <div className="fuzi-prototype__controls">
-          <div className="fuzi-prototype__control-group">
-            <div className="fuzi-prototype__slider-top">
-              <p className="fuzi-prototype__control-title">归根力度</p>
-              <strong>{rootPull}</strong>
+        <div className="space-y-4">
+          <PrototypeControlGroup>
+            <div className={prototypeSliderTopClassName}>
+              <p className="font-display text-xs uppercase tracking-[0.24em] text-primary">归根力度</p>
+              <strong className={prototypeSliderValueClassName}>{rootPull}</strong>
             </div>
             <input
               aria-label="归根力度"
-              className="fuzi-prototype__slider"
+              className={prototypeRangeClassName}
               max={100}
               min={0}
               onChange={(event) => setRootPull(Number(event.target.value))}
               type="range"
               value={rootPull}
             />
-            <div className="fuzi-prototype__slider-legend">
+            <div className={prototypeSliderLegendClassName}>
               <span>浮散</span>
               <span>归根</span>
             </div>
-          </div>
+          </PrototypeControlGroup>
 
-          <div className="fuzi-prototype__control-group">
-            <p className="fuzi-prototype__control-title">讲解焦点</p>
-            <div className="fuzi-prototype__focus-list">
+          <PrototypeControlGroup title="讲解焦点">
+            <div className="grid gap-2">
               {(Object.entries(FOCI) as Array<[FocusId, (typeof FOCI)[FocusId]]>).map(([key, item]) => (
-                <button
-                  className={`fuzi-prototype__focus ${focus === key ? "is-active" : ""}`}
-                  key={key}
-                  onClick={() => setFocus(key)}
-                  type="button"
-                >
-                  <strong>{item.label}</strong>
-                  <span>{item.summary}</span>
-                </button>
+                <PrototypeSelectableButton active={focus === key} key={key} onClick={() => setFocus(key)}>
+                  <strong className="block font-display text-base text-foreground">{item.label}</strong>
+                  <span className="mt-2 block text-sm leading-7 text-muted-foreground">{item.summary}</span>
+                </PrototypeSelectableButton>
               ))}
             </div>
-          </div>
+          </PrototypeControlGroup>
         </div>
 
-        <div className="fuzi-prototype__notes">
-          <article className="fuzi-prototype__note-card">
-            <p className="fuzi-prototype__note-title">当前状态</p>
-            <strong>{state.label}</strong>
-            <p>{state.summary}</p>
-          </article>
-          <article className="fuzi-prototype__note-card">
-            <p className="fuzi-prototype__note-title">学习提示</p>
-            <strong>{FOCI[focus].label}</strong>
-            <p>{insight}</p>
-          </article>
-          <article className="fuzi-prototype__note-card">
-            <p className="fuzi-prototype__note-title">动作线</p>
-            <strong>{state.prompt}</strong>
-            <p>{actionLine}</p>
-          </article>
+        <div className={prototypeCardGridClassName}>
+          <PrototypeNoteCard description={state.summary} label="当前状态" title={state.label} />
+          <PrototypeNoteCard description={insight} label="学习提示" title={FOCI[focus].label} />
+          <PrototypeNoteCard description={actionLine} label="动作线" title={state.prompt} />
         </div>
-      </div>
+      </PrototypeSidebar>
 
-      <div className="fuzi-prototype__stage">
-        <div className="fuzi-prototype__visual-card">
-          <svg aria-label="附子法归根动画原型" className="fuzi-prototype__svg" viewBox="0 0 640 540">
+      <PrototypeStage>
+        <PrototypeVisualCard className="p-5 md:p-6">
+          <svg aria-label="附子法归根动画原型" className={prototypeSvgClassName} viewBox="0 0 640 540">
             <ellipse
               cx="320"
               cy="122"
@@ -226,10 +230,22 @@ export function FuziRootPrototype() {
 
             {metrics.upperScatter > 0.18 && (
               <>
-                <circle cx="266" cy="114" fill="rgba(198,105,67,0.74)" opacity={0.2 + metrics.upperScatter * 0.3} r={8 + metrics.upperScatter * 10}>
+                <circle
+                  cx="266"
+                  cy="114"
+                  fill="rgba(198,105,67,0.74)"
+                  opacity={0.2 + metrics.upperScatter * 0.3}
+                  r={8 + metrics.upperScatter * 10}
+                >
                   <animate attributeName="r" dur="2s" repeatCount="indefinite" values="9;16;9" />
                 </circle>
-                <circle cx="372" cy="126" fill="rgba(198,105,67,0.7)" opacity={0.18 + metrics.upperScatter * 0.28} r={8 + metrics.upperScatter * 10}>
+                <circle
+                  cx="372"
+                  cy="126"
+                  fill="rgba(198,105,67,0.7)"
+                  opacity={0.18 + metrics.upperScatter * 0.28}
+                  r={8 + metrics.upperScatter * 10}
+                >
                   <animate attributeName="r" dur="2.3s" repeatCount="indefinite" values="8;15;8" />
                 </circle>
               </>
@@ -255,16 +271,16 @@ export function FuziRootPrototype() {
             <circle cx="320" cy="122" fill="#fff7f0" opacity="0.82" r="11" />
             <circle cx="320" cy="430" fill="#f3f8ff" opacity="0.84" r="12" />
 
-            <text className="fuzi-prototype__label" textAnchor="middle" x="320" y="72">
+            <text style={prototypeSvgStyles.display} textAnchor="middle" x="320" y="72">
               真阳归根
             </text>
-            <text className="fuzi-prototype__subtext" textAnchor="middle" x="320" y="482">
+            <text style={prototypeSvgStyles.subtext} textAnchor="middle" x="320" y="482">
               {stateId === "floating" ? "上浮下虚" : stateId === "returning" ? "正在回潜" : "根部已守"}
             </text>
 
             {focus === "root" && (
               <>
-                <text className="fuzi-prototype__callout" textAnchor="start" x="412" y="402">
+                <text style={prototypeSvgStyles.callout} textAnchor="start" x="412" y="402">
                   根部接住
                 </text>
                 <line
@@ -281,7 +297,7 @@ export function FuziRootPrototype() {
 
             {focus === "descent" && (
               <>
-                <text className="fuzi-prototype__callout" textAnchor="end" x="220" y="250">
+                <text style={prototypeSvgStyles.callout} textAnchor="end" x="220" y="250">
                   向下回潜
                 </text>
                 <line
@@ -298,58 +314,45 @@ export function FuziRootPrototype() {
 
             {focus === "compare" && (
               <>
-                <rect
-                  fill="rgba(255,255,255,0.72)"
-                  height="116"
-                  rx="18"
-                  width="188"
-                  x="400"
-                  y="110"
-                />
-                <text className="fuzi-prototype__compare-title" textAnchor="middle" x="494" y="140">
+                <rect fill="rgba(255,255,255,0.72)" height="116" rx="18" width="188" x="400" y="110" />
+                <text style={prototypeSvgStyles.panelTitle} textAnchor="middle" x="494" y="140">
                   对照：桂枝法
                 </text>
-                <text className="fuzi-prototype__compare-text" textAnchor="middle" x="494" y="170">
+                <text style={prototypeSvgStyles.panelCopy} textAnchor="middle" x="494" y="170">
                   桂枝法：开门
                 </text>
-                <text className="fuzi-prototype__compare-text" textAnchor="middle" x="494" y="194">
+                <text style={prototypeSvgStyles.panelCopy} textAnchor="middle" x="494" y="194">
                   附子法：归根
                 </text>
               </>
             )}
           </svg>
+        </PrototypeVisualCard>
+
+        <div className={prototypeReadoutGridClassName}>
+          <PrototypeReadoutCard
+            description="帮助用户看到：上面发亮，不代表根里更稳，反而可能是浮散无守。"
+            label="上部状态"
+            title={metrics.upperScatter > 0.68 ? "明显虚浮" : metrics.upperScatter > 0.34 ? "仍有外越" : "表层较收"}
+          />
+          <PrototypeReadoutCard
+            description="附子法最值得看懂的，就是这条“往下回”“往里归”的动作轨迹。"
+            label="下潜轨迹"
+            title={metrics.descent > 0.68 ? "回潜明显" : metrics.descent > 0.34 ? "开始下收" : "仍未回归"}
+          />
+          <PrototypeReadoutCard
+            description="这一栏专门提醒用户：附子法讲的是“守根”，不是把上面推得更亮。"
+            label="根部状态"
+            title={metrics.rootGlow > 0.68 ? "根部稳住" : metrics.rootGlow > 0.34 ? "根在恢复" : "根部发空"}
+          />
         </div>
 
-        <div className="fuzi-prototype__readout">
-          <article className="fuzi-prototype__readout-card">
-            <p className="fuzi-prototype__readout-label">上部状态</p>
-            <strong>{metrics.upperScatter > 0.68 ? "明显虚浮" : metrics.upperScatter > 0.34 ? "仍有外越" : "表层较收"}</strong>
-            <span>帮助用户看到：上面发亮，不代表根里更稳，反而可能是浮散无守。</span>
-          </article>
-          <article className="fuzi-prototype__readout-card">
-            <p className="fuzi-prototype__readout-label">下潜轨迹</p>
-            <strong>{metrics.descent > 0.68 ? "回潜明显" : metrics.descent > 0.34 ? "开始下收" : "仍未回归"}</strong>
-            <span>附子法最值得看懂的，就是这条“往下回”“往里归”的动作轨迹。</span>
-          </article>
-          <article className="fuzi-prototype__readout-card">
-            <p className="fuzi-prototype__readout-label">根部状态</p>
-            <strong>{metrics.rootGlow > 0.68 ? "根部稳住" : metrics.rootGlow > 0.34 ? "根在恢复" : "根部发空"}</strong>
-            <span>这一栏专门提醒用户：附子法讲的是“守根”，不是把上面推得更亮。</span>
-          </article>
-        </div>
-
-        <div className="fuzi-prototype__link-row">
-          <Link className="button button--ghost" href="/prototypes/guizhi-gate-animation">
-            回看桂枝开门
-          </Link>
-          <Link className="button button--ghost" href="/prototypes/kan-li-circulation">
-            回看坎离交通
-          </Link>
-          <Link className="button button--ghost" href="/storyboards">
-            查看分镜说明
-          </Link>
-        </div>
-      </div>
-    </section>
+        <PrototypeLinkRow>
+          <PrototypeLinkButton href="/prototypes/guizhi-gate-animation">回看桂枝开门</PrototypeLinkButton>
+          <PrototypeLinkButton href="/prototypes/kan-li-circulation">回看坎离交通</PrototypeLinkButton>
+          <PrototypeLinkButton href="/storyboards">查看分镜说明</PrototypeLinkButton>
+        </PrototypeLinkRow>
+      </PrototypeStage>
+    </PrototypeShell>
   );
 }

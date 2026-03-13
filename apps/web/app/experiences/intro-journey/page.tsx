@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { ImmersiveIntroJourney } from "@/components/immersive-intro-journey";
+import { ImmersiveIntroJourney } from "@/features/experience";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";

@@ -6,7 +6,7 @@
     "author": "彭子益",
     "focus": "建立中医整体运行框架，把病机理解为气机升降出入失常。",
     "audience": "需要先搭骨架、再学方药和辨证的入门与进阶学习者。",
-    "sourcePdf": "彭子益-圆运动的古中医学-伤寒论坛精校.pdf",
+    "sourcePdf": "content/assets/source-pdfs/彭子益-圆运动的古中医学-伤寒论坛精校.pdf",
     "sourceOcr": ".ocr/yy_full/combined.txt"
   },
   {
@@ -16,7 +16,7 @@
     "author": "彭重善体系整理本",
     "focus": "把扶阳学派、易学象数、脉法和桂附法门连成一个可操作体系。",
     "audience": "已经有中医基础，想理解扶阳主线和临证节奏的学习者。",
-    "sourcePdf": "04-火神门系列医易互通.pdf",
+    "sourcePdf": "content/assets/source-pdfs/04-火神门系列医易互通.pdf",
     "sourceOcr": ".ocr/hs_full/combined.txt"
   }
 ]
